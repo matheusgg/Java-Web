@@ -1,0 +1,81 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.atividades']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.atividades']} > #{msgs['label.cadastro']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<h:outputStylesheet library="css" name="atividades.css" />
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{atividadeMB.alteraTipoAtividade(false)}" if="#{empty flash['br.com.ok.atividadeId']}" />
+			<f:viewAction action="#{disciplinaMB.pesquisaDisciplinasPorProfessor(okSecurityContext.loggedUser.id)}" />
+		</f:metadata>
+
+		<h:form prependId="false" id="mainForm" enctype="multipart/form-data" acceptcharset="ISO-8859-1">
+			<div class="smart-form client-form">
+				<header class="ok-smart-form-header" jsf:rendered="#{empty atividadeMB.atividade.id}">
+					<h3>#{msgs['label.tipo.atividade']}</h3>
+					<p:selectOneButton value="#{atividadeMB.atividade.tipoAtividade}">
+						<f:ajax execute="@this" render="@form" listener="#{atividadeMB.alteraTipoAtividade(true)}" onevent="initOkEditors" />
+						<f:selectItem itemLabel="#{msgs['label.simples']}" itemValue="SIMPLES" />
+						<f:selectItem itemLabel="#{msgs['label.questionario']}" itemValue="QUESTIONARIO" />
+					</p:selectOneButton>
+				</header>
+			</div>
+
+			<div class="widget-body">
+				<div class="panel-group smart-accordion-default" id="atividadesAcordion">
+
+					<!-- Informacoes basicas -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#atividadesAcordion" href="#collapseOne-1"> <i
+									class="fa fa-fw fa-plus-circle txt-color-green" /> <i class="fa fa-fw fa-minus-circle txt-color-red" />
+									#{msgs['label.descricao']}
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne-1" class="panel-collapse collapse in">
+							<ui:include src="cadastroDescricaoAtividadeComposition.xhtml" />
+						</div>
+					</div>
+
+					<!-- Questionario -->
+					<div class="panel panel-default" jsf:rendered="#{atividadeMB.atividade.tipoAtividade ne 'SIMPLES'}">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#atividadesAcordion" href="#collapseOne-2" class="collapsed"> <i
+									class="fa fa-fw fa-plus-circle txt-color-green" /> <i class="fa fa-fw fa-minus-circle txt-color-red" /> #{msgs['label.questoes']}
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne-2" class="panel-collapse collapse">
+							<ui:include src="cadastroQuestionarioAtividadeComposition.xhtml" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="smart-form client-form">
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{atividadeMB.salvaAtividade()}"
+						rendered="#{empty atividadeMB.atividade.id or (okSecurityContext.loggedUser.id eq atividadeMB.atividade.professor.id)}">
+						<f:ajax execute="@form" render="@form" onevent="initOkEditors" />
+					</h:commandButton>
+				</footer>
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="specificJS">
+		<script src="#{request.contextPath}-resources/js/plugin/ckeditor/ckeditor.js"></script>
+		<h:outputScript library="js" name="atividades.js" />
+	</ui:define>
+</ui:composition>

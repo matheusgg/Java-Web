@@ -1,0 +1,87 @@
+.inbox-side-bar-mail {
+	position: relative !important;
+	margin-top: -10px;
+}
+
+.inbox-side-bar-mail h6 {
+	font-weight: 400;
+	font-size: 11px;
+	display: block;
+	padding: 5px 15px;
+	text-transform: uppercase;
+	color: #838383;
+}
+
+.user-folders {
+	max-height: 130px !important;
+	overflow: auto !important;
+}
+
+.btn-group-right {
+	float: right !important;
+}
+
+.dropdown-menu-mail {
+	left: -140px !important;
+}
+
+.espacamento-inferior-simples {
+	margin-bottom: 3px !important;
+}
+
+.espacamento-inferior-elementos-novo-email {
+	margin-bottom: 20px !important;
+}
+
+.espacamento-inferior-duplo-elementos-novo-email {
+	margin-bottom: 40px !important;
+}
+
+.bootstrap-tagsinput .tag {
+	color: #FFF !important;
+	position: relative;
+	margin: 3px 0 3px 2px;
+	display: inline-block !important;
+}
+
+.anexos-email {
+	height: 30px !important;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.bootstrap-tagsinput input {
+	display: inline !important;
+	border: none !important;
+}
+
+.tag.label.label-info span {
+	padding: 5px 0 0 5px !important;
+}
+
+.input-file .button {
+	margin-top: 2px !important;
+}
+
+.tag-link {
+	color: #fff !important;
+}
+
+.tag-link:hover {
+	color: #fff !important;
+}
+
+.lista-emails a {
+	text-decoration: none !important;
+	color: #4c4f53 !important;
+}
+
+#btnEnviaMensagem {
+	margin-bottom: -10px !important
+}
+
+@media screen and (max-width: 800px) {
+	.ok-mobile-novo-email {
+		margin-top: 35px !important;
+	}
+}

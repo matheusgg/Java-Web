@@ -1,0 +1,179 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+	<ui:define name="title">#{msgs['label.visualizar.perfil']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<h:outputStylesheet name="visualizacao-perfil.css" library="css" />
+	</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.perfil']} > #{msgs['label.visualizacao']}</ui:define>
+
+	<ui:define name="content">
+		<h:form prependId="false" enctype="multipart/form-data" id="mainForm">
+			<div class="well well-sm">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="well well-light well-sm no-margin no-padding">
+							<div class="row">
+
+								<div class="col-sm-12">
+									<div id="backgroundImageCarousel" class="carousel fade profile-carousel">
+										<div class="air air-bottom-right padding-10"
+											jsf:rendered="#{okSecurityContext.isUserInRole('ADMIN') and usuarioMB.usuario.id ne okSecurityContext.loggedUser.id}">
+											<h:commandLink action="#{usuarioMB.alteraStatusUsuario()}" styleClass="btn btn-default txt-color-dark btn-sm">
+												<f:ajax render="@form" />
+												<i class="fa fa-power-off" />#{usuarioMB.usuario.ativo ? msgs['label.desativar'] : msgs['label.ativar']}
+											</h:commandLink>
+
+											<p:spacer width="5px" />
+
+											<h:commandLink action="#{usuarioMB.redefineSenhaUsuario()}" styleClass="btn btn-default txt-color-dark btn-sm">
+												<f:ajax render="@form" />
+												<i class="fa fa-lock" />#{msgs['label.redefinir.senha']}
+											</h:commandLink>
+
+											<div class="smart-form"
+												jsf:rendered="#{usuarioMB.usuario.perfil.descricao eq 'PROFESSOR' or usuarioMB.usuario.perfil.descricao eq 'COORDENADOR'}">
+												<o:importConstants type="br.com.ok.model.enums.PerfilUsuario" />
+												<label class="select"> <h:selectOneMenu value="#{usuarioMB.usuario.perfil.descricao}"
+														converter="omnifaces.SelectItemsConverter" id="comboPerfilProfessor" valueChangeListener="#{usuarioMB.alteraPerfilProfessor}"
+														immediate="true">
+														<f:ajax render="@form" />
+														<f:selectItem itemLabel="#{PerfilUsuario.PROFESSOR}" itemValue="#{PerfilUsuario.PROFESSOR}" />
+														<f:selectItem itemLabel="#{PerfilUsuario.COORDENADOR}" itemValue="#{PerfilUsuario.COORDENADOR}" />
+													</h:selectOneMenu><i />
+												</label>
+											</div>
+										</div>
+
+										<div class="air air-top-left padding-10">
+											<h4 class="txt-color-white font-md">#{of:formatDate(now, okSessionMB.currentLocale eq 'pt_BR' ? "dd MMM, yyyy" : "MMM dd,
+												yyyy")}</h4>
+										</div>
+
+										<ol class="carousel-indicators">
+											<li data-target="#backgroundImageCarousel" data-slide-to="0" class="active"></li>
+											<li data-target="#backgroundImageCarousel" data-slide-to="1" class=""></li>
+											<li data-target="#backgroundImageCarousel" data-slide-to="2" class=""></li>
+										</ol>
+
+										<div class="carousel-inner">
+											<!-- Slide 1 -->
+											<div class="item active">
+												<img src="#{request.contextPath}-resources/img/demo/s1.jpg" alt="demo user" width="100%" />
+											</div>
+											<!-- Slide 2 -->
+											<div class="item">
+												<img src="#{request.contextPath}-resources/img/demo/s3.jpg" alt="demo user" width="100%" />
+											</div>
+											<!-- Slide 3 -->
+											<div class="item">
+												<img src="#{request.contextPath}-resources/img/demo/m3.jpg" alt="demo user" width="100%" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-2 profile-pic">
+											<o:importConstants type="br.com.ok.model.enums.Sexo" />
+											<img alt="#{usuarioMB.usuario.nome}" height="90px"
+												src="#{!empty usuarioMB.usuario.profilePicture ? usuarioMB.usuario.profilePicture.encodedData :
+														(usuarioMB.usuario.sexo eq Sexo.MASCULINO ? request.contextPath.concat('-resources/img/avatars/male-profile.jpg') : 
+														request.contextPath.concat('-resources/img/avatars/female-profile.jpg'))}" />
+										</div>
+
+										<div class="col-sm-3">
+											<h1>
+												#{usuarioMB.usuario.nome} <span class="semi-bold">#{usuarioMB.usuario.sobrenome}</span> <br /> <small>
+													#{usuarioMB.usuario.apelido}</small>
+											</h1>
+
+											<ul class="list-unstyled">
+												<li>
+													<p class="text-muted">
+														<i class="fa fa-user" /><span class="txt-color-darken"><p:spacer width="5px" />#{usuarioMB.usuario.login}</span>
+													</p>
+												</li>
+												<li>
+													<p class="text-muted">
+														<i class="fa fa-envelope" /><a href="mailto:#{usuarioMB.usuario.email}"><p:spacer width="5px" />#{usuarioMB.usuario.email}</a>
+													</p>
+												</li>
+												<li jsf:rendered="#{!empty usuarioMB.usuario.dataNascimento}">
+													<p class="text-muted">
+														<i class="icon-append fa fa-calendar"></i><span class="txt-color-darken"><p:spacer width="5px" /> <h:outputText
+																value="#{usuarioMB.usuario.dataNascimento}">
+																<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+															</h:outputText> </span>
+													</p>
+												</li>
+											</ul>
+										</div>
+
+										<div class="col-sm-3 aluno-extra-info-top" jsf:rendered="#{usuarioMB.usuario.class.simpleName eq 'Aluno'}">
+											<ul class="list-unstyled">
+												<li>
+													<p class="text-muted">
+														<i class="icon-append fa fa-group" /><span class="txt-color-darken"><p:spacer width="5px" />#{usuarioMB.usuario.turma.codigo}</span>
+													</p>
+												</li>
+												<li>
+													<p class="text-muted">
+														<i class="icon-append fa fa-graduation-cap" /><span class="txt-color-darken"><p:spacer width="5px" />#{usuarioMB.usuario.turma.curso.nome}</span>
+													</p>
+												</li>
+											</ul>
+										</div>
+
+										<div class="col-sm-3 aluno-extra-info-disciplinas-top" jsf:rendered="#{usuarioMB.usuario.class.simpleName ne 'Usuario'}">
+											<h1>
+												<small> <h:outputText
+														value="#{usuarioMB.usuario.class.simpleName eq 'Aluno' ? msgs['label.disciplinas.extra'] : msgs['label.disciplinas.ministradas']}" />
+												</small>
+											</h1>
+											<ul class="list-unstyled">
+												<ui:repeat var="disciplina" value="#{usuarioMB.usuario.disciplinas}">
+													<li><p class="text-muted">
+															<i class="icon-append fa fa-asterisk" /><span class="txt-color-darken">#{disciplina.nome} (#{disciplina.codigo})</span>
+														</p></li>
+												</ui:repeat>
+											</ul>
+											<span class="txt-color-darken"> <h:outputText
+													value="#{usuarioMB.usuario.class.simpleName eq 'Aluno' ? msgs['msg.aluno.sem.disciplina'] : msgs['msg.professor.sem.disciplina']}"
+													rendered="#{empty usuarioMB.usuario.disciplinas}" />
+											</span>
+										</div>
+
+										<div class="col-sm-3 aluno-extra-info-disciplinas-top"
+											jsf:rendered="#{usuarioMB.usuario.class.simpleName eq 'Professor' and usuarioMB.usuario.perfil.descricao eq 'COORDENADOR'}">
+											<h1>
+												<small> <h:outputText value="#{msgs['label.cursos.coordenados']}" />
+												</small>
+											</h1>
+											<ul class="list-unstyled">
+												<ui:repeat var="curso" value="#{usuarioMB.usuario.cursosCoordenados}">
+													<li><p class="text-muted">
+															<i class="icon-append fa fa-asterisk" /><span class="txt-color-darken">#{curso.nome}</span>
+														</p></li>
+												</ui:repeat>
+											</ul>
+											<span class="txt-color-darken"> <h:outputText value="#{msgs['msg.professor.sem.curso.coordenado']}"
+													rendered="#{empty usuarioMB.usuario.cursosCoordenados}" />
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

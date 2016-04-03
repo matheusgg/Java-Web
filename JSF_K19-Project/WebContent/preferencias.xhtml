@@ -1,0 +1,17 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<h1>Configuracoes</h1>
+		<h:form>
+			<p:selectOneRadio value="#{produtoBean.configuracao}">
+				<f:selectItem itemLabel="Simples" itemValue="Simples" />
+				<f:selectItem itemLabel="Avancado" itemValue="Avancado" />
+			</p:selectOneRadio>
+			<h:commandButton action="#{produtoBean.definePreferencia}" value="OK" />
+		</h:form>
+	</ui:define>
+</ui:composition>

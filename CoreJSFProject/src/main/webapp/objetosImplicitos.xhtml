@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<h:head>
+	<title>App</title>
+</h:head>
+<h:body>
+	<h1 id="topo">Expression Language</h1>
+
+	<p>
+		Bean:
+		<h:outputText value="#{userBean}" />
+	</p>
+
+	<p>
+		Instancia Injetada de clientBean - Estas 3 expressoes tem o mesmo significado: <br />
+		<h:outputText value="#{userBean.clientBean}" />
+		<br />
+		<h:outputText value="#{userBean['clientBean']}" />
+		<br />
+		<h:outputText value='#{userBean["clientBean"]}' />
+	</p>
+
+	<h:button outcome="navegacao" value="Go to Navegacao" />
+	<hr />
+
+	<!-- Mesmo resultado -->
+	<h:outputText value="#{userBean.lista[3]}" />
+	<br />
+	<h:outputText value="#{userBean.lista['3']}" />
+
+	<hr />
+	<!-- utilizando funcoes -->
+	<h:outputText value="#{fn:replace(userBean.lista[0], 'Item', 'Produto')}" />
+	<hr />
+
+	<h3>Objetos Implicitos</h3>
+
+	<h5>Header</h5>
+	#{header}
+	
+	<h5>Header Values</h5>
+	#{headerValues}
+	
+	<h5>Param</h5>
+	#{param}
+	
+	<h5>Param Values</h5>
+	#{paramValues}
+	
+	<h5>Cookie</h5>
+	#{cookie}
+	
+	<h5>initParam</h5>
+	#{initParam}
+	
+	<h5>Request Scope</h5>
+	#{requestScope}
+	
+	<h5>View Scope</h5>
+	#{viewScope}
+	
+	<h5>Session Scope</h5>
+	#{sessionScope}
+	
+	<h5>Application Scope</h5>
+	#{applicationScope}
+	
+	<h5>Flash</h5>
+	#{flash}
+	
+	<h5>Resource</h5>
+	#{resource}
+	
+	<h5>Faces Context</h5>
+	#{facesContext}
+	
+	<h5>View</h5>
+	#{view}
+	
+	<hr />
+	
+	<h:outputLink value="#topo">Topo</h:outputLink>
+</h:body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login</title>
+</h:head>
+<h:body>
+	<div style="width: 25%; margin: 0 auto;">
+		<h:form>
+			<p:growl />
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Usuario" for="user" />
+				<p:inputText id="user" value="#{loginBean.usuario.login}" required="true" />
+
+				<p:outputLabel value="Senha" for="pass" />
+				<p:password id="pass" value="#{loginBean.usuario.senha}" required="true" />
+			</h:panelGrid>
+			<h:panelGrid columns="2" style="margin: 0 auto;">
+				<p:commandButton value="Limpar" type="reset" />
+				<p:commandButton value="Entrar" ajax="false" action="#{loginBean.login}" />
+			</h:panelGrid>
+			<h:outputText value="#{SPRING_SECURITY_LAST_EXCEPTION.message}" style="color:red;" />
+		</h:form>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>JPA - CDI</title>
+</h:head>
+<h:body>
+	<h1>JPA</h1>
+	<h:messages />
+	<h:form>
+		<h:panelGrid>
+			<h:button outcome="cdi" value="Go to CDI" />
+			<h:commandButton value="Search" action="#{appBean.search}" />
+			<h:commandButton value="Pesquisa com Funcao" action="#{appBean.pesquisaComFuncao}" />
+			<h:commandButton value="Update com Criteria" action="#{appBean.updateComCriteria}" />
+			<h:commandButton value="Delete com Criteria" action="#{appBean.deleteComCriteria}" />
+			<h:commandButton value="Call Stored Procedute 1" action="#{appBean.callStoredProcedureComNamedStoredProcedureQuery}" />
+			<h:commandButton value="Call Stored Procedute 2" action="#{appBean.storedProceduresCriadasDinamicamente}" />
+			<h:commandButton value="Mapeamento de Construtor de Resultados" action="#{appBean.mapeamentoDeConstrutorDeResultados}" />
+			<h:commandButton value="Mapeamento de Construtor de Resultados Embutidos" action="#{appBean.mapeamentoDeConstrutorDeResultadosEmbutido}" />
+			<h:commandButton value="Listener de Entidade" action="#{appBean.insere}" />
+		</h:panelGrid>
+	</h:form>
+	<h:outputText value="Resultados: #{appBean.resultados}" />
+</h:body>
+</html>

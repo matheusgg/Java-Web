@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w4.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<style type="text/css">
+.ui-panel-title {
+	text-align: left;
+	display: block;
+}
+</style>
+		<h:form>
+			<p:growl />
+
+			<div class="rsDivPrincipal">
+				<h1>#{msgs.lbl_efetue_login}</h1>
+				<p:separator style="background: #FFF;" styleClass="rsSeparator" />
+
+				<div align="center" style="margin-top: 3%;">
+					<h:panelGrid columns="2">
+						<p:panel header="Ja sou cadastrado" styleClass="painelIdentificacao">
+							<div align="center" style="margin-bottom: 5%;">
+								<h:outputText value="Preencha os campos abaixo para acessar sua conta:" />
+							</div>
+
+							<h:panelGrid style="margin: 0 auto;">
+								<h:outputText value="Usuario" styleClass="txtUsuarioSenha" />
+								<p:inputText size="40" required="true" requiredMessage="#{msgs.msg_preencha_usuario}" value="#{loginBean.viewHelper.email}" />
+
+								<h:outputText value="Senha" styleClass="txtUsuarioSenha" />
+								<p:password size="40" required="true" requiredMessage="#{msgs.msg_preencha_senha}" value="#{loginBean.viewHelper.senha}" />
+
+								<h:panelGroup>
+									<h:link outcome="pretty:recuperarSenha" value="#{msgs.label_esqueceu_sua_senha}" />
+									<p:spacer width="55" />
+									<p:commandButton value="Acessar" update="@form" action="#{loginBean.login('efetuar_login')}" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</p:panel>
+
+						<p:panel header="Novo cliente" styleClass="painelIdentificacao">
+							<div align="center">
+								<p:commandButton value="Cadastre-se" styleClass="btnCadastreSe" action="#{usuarioBean.iniciarPaginaCadastroUsuario}" immediate="true" />
+							</div>
+						</p:panel>
+					</h:panelGrid>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

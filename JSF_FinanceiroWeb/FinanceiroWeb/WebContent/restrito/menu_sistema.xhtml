@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<ui:composition>
+	<h:form id="menu">
+		<p:commandButton action="#{usuarioBean.novo}" value="Registre-se"
+			rendered="#{view.viewId eq '/publico/login.xhtml'}" ajax="false"
+			icon="ui-icon-circle-plus" />
+		<sec:ifAnyGranted roles="ROLE_USUARIO">
+			<h:panelGrid columns="2" style="margin-top:-1%;">
+				<h:panelGrid columns="6">
+					<p:commandButton value="Contas" action="/restrito/conta?faces-redirect=true" ajax="false"/>
+					<p:commandButton action="/restrito/categoria?faces-redirect=true" value="Categorias" ajax="false"/>
+					<p:selectOneMenu value="#{contextoBean.contaAtiva.conta}"
+						valueChangeListener="#{contextoBean.setContaAtiva}"
+						rendered="#{!empty contextoBean}">
+						<f:selectItems value="#{contaBean.lista}" var="conta"
+							itemLabel="#{conta.descricao}" itemValue="#{conta.conta}" />
+					</p:selectOneMenu>
+					<p:commandButton action="/restrito/lancamento?faces-redirect=true" value="Lançamentos" ajax="false"/>
+					<p:commandButton action="/restrito/cheque?faces-redirect=true" value="Cheques" ajax="false"/>
+					<p:commandButton action="/restrito/acao?faces-redirect=true" value="Ações" ajax="false"/>
+				</h:panelGrid>
+
+				<h:panelGrid columns="3">
+					<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+						<p:commandLink action="/admin/principal?faces-redirect=true" title="Administrativo">
+							<h:graphicImage library="imagens" name="administrativo16.png" />
+						</p:commandLink>
+					</sec:ifAnyGranted>
+					<p:commandLink action="/restrito/principal?faces-redirect=true" title="Principal">
+						<h:graphicImage library="imagens" name="principal16.png" />
+					</p:commandLink>
+
+					<h:outputLink value="javascript:void(0)"
+						onclick="document.location='#{request.contextPath}/j_spring_security_logout'"
+						title="Sair">
+						<h:graphicImage library="imagens" name="logout16.png" />
+					</h:outputLink>
+				</h:panelGrid>
+			</h:panelGrid>
+		</sec:ifAnyGranted>
+	</h:form>
+</ui:composition>
+</html>

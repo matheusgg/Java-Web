@@ -1,0 +1,116 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.disciplinas']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.disciplinas']} > #{msgs['label.pesquisa']}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{disciplinaMB.preparaPesquisaDisciplinas()}" />
+			<f:viewAction action="#{disciplinaMB.preparaDisciplinasAssociadasAluno()}" />
+		</f:metadata>
+
+		<o:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+				<fieldset>
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">#{msgs['label.codigo']}</label> <label class="input"><i class="icon-append fa fa-barcode"></i> <h:inputText
+									id="codigo" value="#{disciplinaMB.disciplina.codigo}" pt:placeholder="#{msgs['msg.informe.codigo.disciplina']}" maxlength="10"
+									onblur="alphaNumeric(this, false)" /> </label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.nome']}</label> <label class="input"><i class="icon-append fa fa-user"></i> <h:inputText
+									id="nome" value="#{disciplinaMB.disciplina.nome}" pt:placeholder="#{msgs['msg.informe.nome.disciplina']}" maxlength="200"
+									onblur="alphaNumeric(this, true)" /> </label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.inicio']}</label> <label
+								class="input #{!component.findComponent('dataInicio').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataInicio" value="#{disciplinaMB.disciplina.dataInicio}" pt:placeholder="#{msgs['msg.informe.data.inicio']}"
+									pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" styleClass="datepicker">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataInicio" /></em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.termino']}</label> <label
+								class="input #{!component.findComponent('dataTermino').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataTermino" value="#{disciplinaMB.disciplina.dataEncerramento}"
+									pt:placeholder="#{msgs['msg.informe.data.termino']}" pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy"
+									pt:data-mask-placeholder="-" styleClass="datepicker">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataTermino" /></em>
+						</section>
+					</div>
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.selecionar']}" styleClass="btn btn-primary" action="#{disciplinaMB.selecionaDisciplinas()}"
+						rendered="#{!empty disciplinaMB.callerPage}">
+						<o:ignoreValidationFailed />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.nova.disciplina']}" styleClass="btn btn-primary" action="pretty:disciplineRegister"
+						immediate="true" rendered="#{okSecurityContext.isUserInRole('ADMIN') and empty disciplinaMB.callerPage}" />
+					<h:commandButton value="#{msgs['label.limpar']}" styleClass="btn btn-primary" action="#{disciplinaMB.init()}" immediate="true">
+						<f:setPropertyActionListener value="#{null}" target="#{disciplinaMB.disciplinasDataModel.wrappedData}" />
+						<f:setPropertyActionListener value="0" target="#{disciplinaMB.disciplinasDataModel.rowCount}" />
+						<f:ajax render="@form" onevent="initPage" execute="@this" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.pesquisar']}" styleClass="btn btn-primary">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+
+				<fieldset>
+					<section>
+						<p:dataTable value="#{disciplinaMB.disciplinasDataModel}" var="disciplina" paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" lazy="true" rows="10" emptyMessage="#{msgs['msg.nenhum.registro.encontrado']}" rowKey="#{disciplina}"
+							selection="#{disciplinaMB.disciplinasSelecionadas}" currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:column selectionMode="#{!empty disciplinaMB.selectionMode ? disciplinaMB.selectionMode : 'multiple'}"
+								rendered="#{!empty disciplinaMB.callerPage}" width="20" />
+							<p:column headerText="#{msgs['label.codigo']}">
+								#{disciplina.codigo}
+							</p:column>
+							<p:column headerText="#{msgs['label.nome']}">
+								#{disciplina.nome}
+							</p:column>
+							<p:column headerText="#{msgs['label.data.inicio']}">
+								<h:outputText value="#{disciplina.dataInicio}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" timeZone="#{okSessionMB.currentTimeZone}" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="#{msgs['label.data.termino']}">
+								<h:outputText value="#{disciplina.dataEncerramento}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" timeZone="#{okSessionMB.currentTimeZone}" />
+								</h:outputText>
+							</p:column>
+							<p:column styleClass="ok-align-center" width="30" rendered="#{empty disciplinaMB.callerPage}">
+								<h:commandLink action="#{disciplinaMB.preparaEdicaoDisciplina(disciplina.id)}" title="#{msgs['label.editar']}"
+									rendered="#{!okSecurityContext.isUserInRole('ALUNO')}">
+									<i class="fa fa-edit" />
+								</h:commandLink>
+
+								<h:commandLink title="#{msgs['label.participar']}" action="#{disciplinaMB.associaDisciplinaAluno(disciplina)}"
+									rendered="#{okSecurityContext.isUserInRole('ALUNO') and !disciplinaMB.disciplinasAssociadasAluno.contains(disciplina.codigo)}">
+									<i class="fa fa-check-circle-o" />
+								</h:commandLink>
+
+								<h:commandLink title="#{msgs['label.cancelar.participacao']}" action="#{disciplinaMB.desassociaDisciplinaAluno(disciplina)}"
+									rendered="#{okSecurityContext.isUserInRole('ALUNO') and disciplinaMB.disciplinasAssociadasAluno.contains(disciplina.codigo)}">
+									<i class="fa fa-ban" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</section>
+				</fieldset>
+			</div>
+		</o:form>
+	</ui:define>
+</ui:composition>

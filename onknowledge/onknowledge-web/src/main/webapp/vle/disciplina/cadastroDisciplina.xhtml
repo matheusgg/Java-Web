@@ -1,0 +1,109 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.disciplinas']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.disciplinas']} > #{msgs['label.cadastro']}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{disciplinaMB.preparaCadastroDisciplina()}" />
+		</f:metadata>
+
+		<h:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+				<fieldset>
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">#{msgs['label.codigo']}</label> <label class="input"><i class="icon-append fa fa-barcode"></i> <h:inputText
+									id="codigo" value="#{disciplinaMB.disciplina.codigo}" disabled="true" pt:placeholder="#{msgs['msg.informe.codigo.disciplina']}" />
+							</label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.nome']}</label> <label
+								class="input #{!component.findComponent('nome').valid ? 'state-error' : ''}"><i class="icon-append fa fa-header"></i> <h:inputText
+									id="nome" value="#{disciplinaMB.disciplina.nome}" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}"
+									pt:placeholder="#{msgs['msg.informe.nome.disciplina']}" maxlength="200" onblur="alphaNumeric(this, true)" /> </label><em class="invalid">
+								<h:message for="nome" />
+							</em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.inicio']}</label> <label
+								class="input #{!component.findComponent('dataInicio').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataInicio" value="#{disciplinaMB.disciplina.dataInicio}" pt:placeholder="#{msgs['msg.informe.data.inicio']}"
+									pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" styleClass="datepicker" required="true"
+									requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataInicio" /></em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.termino']}</label> <label
+								class="input #{!component.findComponent('dataTermino').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataTermino" value="#{disciplinaMB.disciplina.dataEncerramento}"
+									pt:placeholder="#{msgs['msg.informe.data.termino']}" pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy"
+									pt:data-mask-placeholder="-" styleClass="datepicker" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataTermino" /></em>
+						</section>
+					</div>
+
+					<div class="row">
+						<section class="col col-3" jsf:id="discipinasSection">
+							<h1 jsf:rendered="#{!empty disciplinaMB.disciplina.professores}">
+								<small> <h:outputText value="#{msgs['label.professores']}" /></small>
+							</h1>
+							<ul class="list-unstyled">
+								<ui:repeat var="professor" value="#{disciplinaMB.disciplina.professores}" varStatus="i">
+									<li><h:commandLink action="#{disciplinaMB.removeProfessorDisciplina(i.index)}" title="#{msgs['label.remover']}"
+											rendered="#{okSecurityContext.isUserInRole('ADMIN')}">
+											<i class="fa fa-lg fa-times-circle" />
+											<f:ajax execute="@this" render="discipinasSection" />
+										</h:commandLink> <i class="fa fa-asterisk" jsf:rendered="#{!okSecurityContext.isUserInRole('ADMIN')}" /> <span
+										class="txt-color-darken #{!okSecurityContext.isUserInRole('ADMIN') ? 'ok-default-margin-left-3' : 'ok-default-margin-left'}">#{professor.nome}
+											#{professor.sobrenome}</span></li>
+								</ui:repeat>
+							</ul>
+						</section>
+
+						<section class="col col-3" jsf:id="modulosSection">
+							<h1 jsf:rendered="#{!empty disciplinaMB.disciplina.modulos}">
+								<small> <h:outputText value="#{msgs['label.modulos']}" /></small>
+							</h1>
+							<ul class="list-unstyled">
+								<ui:repeat var="modulo" value="#{disciplinaMB.disciplina.modulos}" varStatus="i">
+									<li><h:commandLink action="#{disciplinaMB.removeModuloDisciplina(i.index)}" title="#{msgs['label.remover']}"
+											rendered="#{modulo.novoModulo}">
+											<i class="fa fa-lg fa-times-circle" />
+											<f:ajax execute="@this" render="modulosSection" />
+										</h:commandLink> <i class="fa fa-asterisk" jsf:rendered="#{!modulo.novoModulo}" /> <span
+										class="txt-color-darken #{!modulo.novoModulo ? 'ok-default-margin-left-3' : 'ok-default-margin-left'}">#{modulo.nome}</span></li>
+								</ui:repeat>
+							</ul>
+						</section>
+					</div>
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.incluir.modulos']}" styleClass="btn btn-primary"
+						action="#{disciplinaMB.preparaModuloDisciplina(true)}"
+						rendered="#{disciplinaMB.disciplina.professores.contains(okSecurityContext.loggedUser) or okSecurityContext.isUserInRole('ADMIN')}">
+						<f:ajax render=":modalModulos" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.incluir.professores']}" styleClass="btn btn-primary"
+						action="#{disciplinaMB.preparaInclusaoProfessores()}" rendered="#{okSecurityContext.isUserInRole('ADMIN')}" />
+					<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{disciplinaMB.salvaDisciplina()}"
+						rendered="#{disciplinaMB.disciplina.professores.contains(okSecurityContext.loggedUser) or okSecurityContext.isUserInRole('ADMIN')}">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+			</div>
+
+			<ui:include src="modalModuloDisciplinaComposition.xhtml" />
+		</h:form>
+	</ui:define>
+</ui:composition>

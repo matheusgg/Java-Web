@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appenders>
+		<RollingFile name="fileOut" fileName="/webapps/ROOT/maestro.log"
+			append="true" filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.maestro.log.gz">
+			<PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} - %5p %F:%L[%M] - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="query" fileName="/webapps/ROOT/query.log"
+			append="true" filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.query.log.gz">
+			<PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %-5p %c{2} - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+		</RollingFile>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%5p [%t] (%F:%L) - %m%n" />
+		</Console>
+	</appenders>
+
+	<loggers>
+		<logger name="loggerFile" level="info">
+			<appender-ref ref="fileOut" />
+		</logger>
+		<logger name="org.hibernate.SQL" level="debug">
+			<appender-ref ref="query" />
+		</logger>
+		<root level="info">
+			<appender-ref ref="STDOUT" />
+		</root>
+	</loggers>
+</configuration>

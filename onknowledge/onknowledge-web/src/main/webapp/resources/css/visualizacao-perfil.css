@@ -1,0 +1,18 @@
+.aluno-extra-info-top {
+	margin-top: 5.5%;
+}
+
+.aluno-extra-info-disciplinas-top {
+	margin-top: 2%;
+}
+
+@media ( max-width : 979px) {
+	.profile-pic+div+div+div, .profile-pic+div+div+div {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+}
+
+#comboPerfilProfessor {
+	margin-top: 2%;	
+}

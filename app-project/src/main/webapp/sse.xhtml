@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Server-Sent Events</title>
+</h:head>
+<h:body>
+	<h1>Server-Sent Events</h1>
+	<div id="msgs" />
+
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		//<![CDATA[
+		$(document).ready(function(){
+			/*
+			 * 	Para iniciar uma requisição SSE deve-se utilizar o objeto javascript EventSource
+			 *	especificando o endereço do servidor que será feita a requisição.
+			 */
+			var source = new EventSource("ServletEventSender");
+			source.onmessage = function(event) {
+	            $("<p>").text(event.data).appendTo("#msgs");
+          	};
+		});
+		//]]>
+	</script>
+</h:body>
+</html>

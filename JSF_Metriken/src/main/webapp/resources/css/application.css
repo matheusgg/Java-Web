@@ -1,0 +1,174 @@
+/************* CSS que sera utilizado por toda a aplicacao **************/
+body {
+	opacity: 0.2;
+	background-color: #000;
+	-moz-opacity: 2;
+	filter: alpha(opacity =        
+		                                             
+		          2);
+}
+
+::-webkit-scrollbar-thumb:vertical {
+	background-color: #3a87ad;
+	height: 50px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+	background-color: #6bbef6;
+	height: 50px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+	background-color: #3a87ad;
+	height: 10px;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+	background-color: #6bbef6;
+	height: 10px;
+}
+
+::-webkit-scrollbar {
+	height: 5px;
+	width: 5px;
+	background-color: #fff;
+}
+
+.modalDefaul {
+	margin-top: 30%;
+	margin-left: 30%;
+}
+
+#loadingDiv {
+	background-color: #000;
+	position: absolute;
+	width: 100%;
+	height: 130%;
+	opacity: 0.85;
+	-moz-opacity: 0.85;
+	filter: alpha(opacity =             
+		                                             
+		               85);
+	z-index: 3000;
+	margin-top: -47px;
+}
+
+#bottomDiv {
+	min-width: 1006px;
+	width: 100%;
+	position: absolute;
+	background: #61B0E9;
+	bottom: 0;
+}
+
+#bottombar {
+	background: #1a1a1a;
+	width: 100%;
+	margin-top: 10px;
+	height: 120px;
+}
+
+#errorFieldSet {
+	height: 150px;
+	overflow: auto;
+}
+
+.panelGridPadrao {
+	width: 100%;
+	text-align: left;
+}
+
+.divFloatRight {
+	position: relative;
+	margin-right: 8%;
+	margin-bottom: 30px;
+}
+
+.styleWidth10 {
+	width: 10%;
+}
+
+.styleWidth16 {
+	width: 16%;
+}
+
+.styleWidth30 {
+	width: 30%;
+}
+
+.styleWidth60 {
+	width: 60%;
+}
+
+.colorH1ErrorModalClass {
+	color: #b94a48;
+}
+
+.colorWhite {
+	color: #FFF;
+}
+
+.colorWhite:hover {
+	color: #FFF;
+}
+
+.divBottom1 {
+	color: #FFF;
+	margin-left: 40px;
+	margin-top: -20px;
+}
+
+.loading {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	height: 70px;
+	width: 70px;
+	z-index: 6000
+}
+
+.flagsStyle {
+	width: 20px;
+	height: 15px;
+}
+
+#tabView {
+	border: none;
+}
+
+#toNext {
+	width: 37px;
+	height: 37px;
+	background: url(#{resource['img:next.png']}) no-repeat;
+	position: fixed;
+	bottom: 5px;
+	right: 10px;
+	cursor: pointer;
+	display: none;
+	z-index: 9999;
+}
+
+#toBack {
+	width: 37px;
+	height: 37px;
+	background: url(#{resource['img:back.png']}) no-repeat;
+	position: fixed;
+	bottom: 5px;
+	right: 50px;
+	cursor: pointer;
+	display: none;
+	z-index: 9999;
+}
+
+#divIni{
+	border: 2px solid #fff;
+	position: absolute; 
+	float: left; 
+	margin-left: -2%;
+}
+
+#divFim{
+	border: 2px solid #fff;
+	position: absolute; 
+	float: left; 
+}

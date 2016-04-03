@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w4.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<h:form>
+			<p:growl />
+
+			<div class="rsDivPrincipal">
+				<h1>#{msgs.lbl_esqueci_senha}</h1>
+				<p:separator styleClass="rsSeparator" style="background: #FFF;" />
+
+				<div class="rsDivMsgPreenchaCampos">
+					<h:outputText value="#{msgs.msg_preencha_campos}" />
+				</div>
+
+				<h:panelGrid styleClass="rsPanelGridPadrao" cellpadding="5">
+					<h:outputText value="*Email:" />
+					<p:inputText size="40" required="true" requiredMessage="#{msgs.msg_prencha_campo_email}"
+						value="#{usuarioBean.viewHelper.email}">
+						<f:param value="Email" />
+						<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</p:inputText>
+
+					<h:outputText value="*Confirme seu Email:" />
+					<p:inputText size="40" required="true" requiredMessage="#{msgs.msg_prencha_campo_confirmacao_email }"
+						value="#{usuarioBean.viewHelper.confirmacaoEmail}" />
+				</h:panelGrid>
+
+				<div style="margin-top: 4%; text-align: center;" class="rsPanelGridPadrao">
+					<p:commandButton value="Enviar" update="@form" action="#{usuarioBean.recuperaSenha}" />
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

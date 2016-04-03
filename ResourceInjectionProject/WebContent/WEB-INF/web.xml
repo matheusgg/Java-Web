@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	<display-name>ResourceInjectionProject</display-name>
+
+	<!-- Mapeamento de um recurso de DataSource. Desde que esta datasource esteja disponivel no container, é possivel recupera-la atraves do seu nome JNDI. Todos os 
+		nomes JNDI na especificacao Java EE comecam com "java:comp/env". O nome completo desse recurso mapeado ficara "java:comp/env/jdbc/app_db". Para datasource jdbc, 
+		por padrao, seu nome comecara com jdbc/..., para recursos ejb, seu nome ficara ejb/... Para web componentes que realizam o lookup manual desse recurso, é preciso 
+		mapea-lo no web.xml, porem se a configuracao por anotacoes estiver sendo utilizada, nao é necessario configurar esse recurso no web.xml. -->
+	<!-- <resource-ref> -->
+	<!-- <description>JDBC DataSource</description> -->
+
+	<!-- Nome da datasource configurada no container e que sera utilizado como referencia para lookup -->
+	<!-- <res-ref-name>jdbc/app_db</res-ref-name> -->
+
+	<!-- Tipo do recurso -->
+	<!-- <res-type>javax.sql.DataSource</res-type> -->
+
+	<!-- Modo de autenticacao do recurso. O padrao é Container -->
+	<!-- <res-auth>Container</res-auth> -->
+	<!-- </resource-ref> -->
+
+	<!-- <message-destination-ref> e <env-entry> são utilizados para configurar recursos de Java Messaging Service (JMS) -->
+	<!-- <message-destination-ref></message-destination-ref> -->
+	<!-- <env-entry></env-entry> -->
+
+	<!-- Assim como os recursos configurados com resource-ref, ejb-ref serve para configurar referencias de recursos de EJB gerenciados pelo container EJB. Ou seja, 
+		mapeia um EJB que ja esta configurado e gerenciado pelo servidor. -->
+	<ejb-ref>
+		<!-- Nome logico que podera ser utilizado para recuperar (lookup) o EJB referenciado por esta configuracao. -->
+		<ejb-ref-name>ejb/appBean2</ejb-ref-name>
+
+		<!-- Tipo do EJB -->
+		<ejb-ref-type>Session</ejb-ref-type>
+
+		<!-- Classe ou interface do EJB -->
+		<home>ejb.AppBean2</home>
+
+		<!-- Nome do EJB que podera ser referenciado e utilizado em "beanName" na anotacao EJB. Representa o atributo "name" configurado em Stateless ou Stateful -->
+		<ejb-link>AppBean2</ejb-link>
+
+		<!-- Com invocation-target é possivel injetar a referencia desse proprio EJB dentro dele mesmo -->
+		<injection-target>
+			<injection-target-class>ejb.AppBean2</injection-target-class>
+			<injection-target-name>appBean</injection-target-name>
+		</injection-target>
+	</ejb-ref>
+</web-app>

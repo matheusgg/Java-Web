@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/template.xhtml" xmlns="http://www.w4.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="conteudo">
+		<style type="text/css">
+.ui-tabs .ui-tabs-panel {
+	border-width: 0;
+	padding: 1em 1.4em;
+	background: #FFF;
+}
+
+.ui-tabs-nav {
+	padding: .2em .2em 0;
+	border: none;
+}
+</style>
+		<div class="conteudo">
+			<h:form id="orcamentoClienteForm">
+				<h:panelGrid styleClass="container">
+					<h:outputText value="#{msgs.label_orcamento}" styleClass="titulo" />
+					<p:separator />
+					<h:panelGroup layout="block" style="width:100%">
+						<h:panelGrid>
+							<p:tabView styleClass="tabOrcamentosCliente" id="cliente" activeIndex="0" style="border: none; margin-top: 0px;">
+								<p:tab title="#{msgs.label_orcamentos}" id="orcamento">
+									<p:dataTable value="#{orcamentoBean.viewHelper.orcamentosCliente}" var="orcamento" rows="5" paginator="true"
+										paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										paginatorPosition="bottom" paginatorAlwaysVisible="false">
+										<f:facet name="header">
+											<h:outputText value="Orçamentos" />
+										</f:facet>
+										<p:column headerText="#{msgs.label_codigo_orcamento}">
+											<h:outputText value="#{orcamento.codigoOrcamento}" />
+										</p:column>
+										<p:column headerText="#{msgs.label_data_orcamento}">
+											<h:outputText value="#{orcamento.dataEntradaOrcamento}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</h:outputText>
+										</p:column>
+										<p:column headerText="#{msgs.label_status}">
+											<h:outputText value="#{orcamento.status}" />
+										</p:column>
+										<p:column>
+											<p:commandButton icon="ui-icon-search" update=":orcamentoClienteForm:detalheOrcamento"
+												oncomplete="detalheOrcamento.show()">
+												<f:setPropertyActionListener value="#{orcamento}" target="#{orcamentoBean.viewHelper.orcamentoDetalhado}" />
+											</p:commandButton>
+										</p:column>
+									</p:dataTable>
+									<p:commandButton value="#{msgs.label_solicite_orcamento}" style="margin-top:30px;"
+										action="#{orcamentoBean.acessarNovoOrcamento}" />
+								</p:tab>
+							</p:tabView>
+						</h:panelGrid>
+					</h:panelGroup>
+					<p:separator />
+					<h:panelGrid styleClass="gridBotao">
+						<h:panelGrid styleClass="gridBotaoEsquerda">
+							<h:panelGroup>
+								<p:commandButton value="#{msgs.label_voltar}" action="pretty:home" styleClass="botao"
+									title="#{msgs.label_voltar}" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:panelGrid>
+
+
+
+
+				<p:dialog widgetVar="detalheOrcamento" id="detalheOrcamento" modal="true" resizable="false"
+					header="#{msgs.label_detalhe}s #{orcamentoBean.viewHelper.orcamentoDetalhado.codigoOrcamento}">
+					<p:dataTable value="#{orcamentoBean.viewHelper.orcamentoDetalhado.itensDoOrcamento}" var="item" rows="11"
+						paginator="true" rendered="#{not empty orcamentoBean.viewHelper.orcamentoDetalhado.itensDoOrcamento}"
+						paginatorPosition="bottom" paginatorAlwaysVisible="false">
+						<p:column headerText="#{msgs.label_nome}">
+							<h:outputText value="#{item.itemOrcamento.nomeItem}" />
+						</p:column>
+						<p:column headerText="#{msgs.label_descricao}">
+							<h:outputText value="#{item.itemOrcamento.descricao}" />
+						</p:column>
+					</p:dataTable>
+					<br />
+					<h:panelGroup style="float: right;">
+						<h:commandLink value="#{msgs.label_vizualizar_orcamento}" action="#{orcamentoBean.vizualizaOrcamento}"
+							target="_blank" style="width:150px; height: 20px; padding-top:5px;"
+							styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+					</h:panelGroup>
+				</p:dialog>
+
+
+
+
+
+
+
+				<p:dialog modal="true" widgetVar="itemOrcamento" id="itemOrcamento"
+					header="#{orcamentoBean.viewHelper.itemDetalhado.nomeItem}" resizable="false" hideEffect="explode"
+					showEffect="explode">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="#{msgs.label_tipo}:" style="font-weight: bold;" />
+						<h:outputLabel value="#{orcamentoBean.viewHelper.itemDetalhado.tipoItem.nomeTipoItem}" />
+						<h:outputLabel value="#{msgs.label_valor}:" style="font-weight: bold;" />
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

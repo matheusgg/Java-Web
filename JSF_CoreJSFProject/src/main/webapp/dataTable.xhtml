@@ -1,0 +1,74 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:custom="http://customFaceletsTags.com/tags">
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<h:dataTable value="#{tableBean.clientes}" var="cliente" columnClasses="par, impar, par, impar">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Select" />
+					</f:facet>
+					<h:selectBooleanCheckbox value="#{cliente.selected}">
+						<f:ajax render="@form" execute="@form" />
+					</h:selectBooleanCheckbox>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{cliente.id}" rendered="#{not cliente.selected}" />
+					<h:inputText value="#{cliente.id}" rendered="#{cliente.selected}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="#{cliente.nome}" rendered="#{not cliente.selected}" />
+					<h:inputText value="#{cliente.nome}" rendered="#{cliente.selected}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Endereco" />
+					</f:facet>
+					<h:outputText value="#{cliente.endereco}" rendered="#{not cliente.selected}" />
+					<h:inputText value="#{cliente.endereco}" rendered="#{cliente.selected}" />
+				</h:column>
+			</h:dataTable>
+
+			<h:commandButton value="Save Changes" action="#{tableBean.save}">
+				<f:ajax render="@form" execute="@form" />
+			</h:commandButton>
+		</h:form>
+
+		<h3>Tabela carregada com dados do banco</h3>
+		<h:dataTable value="#{tableBean.cachedRowSet}" var="cliente" columnClasses="par, impar, par, impar">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{cliente.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{cliente.nome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Endereco" />
+				</f:facet>
+				<h:outputText value="#{cliente.endereco}" />
+			</h:column>
+		</h:dataTable>
+
+	</ui:define>
+
+</ui:composition>

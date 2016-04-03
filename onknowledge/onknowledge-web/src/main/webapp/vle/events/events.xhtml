@@ -1,0 +1,267 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:ok="http://java.sun.com/jsf/composite/components/okConfirmDialog">
+
+	<ui:define name="title">#{msgs['menu.calendario']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['menu.calendario']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<link type="text/css" rel="stylesheet" href="#{request.contextPath}-resources/css/fullcalendar.min.css" />
+		<h:outputStylesheet name="events.css" library="css" />
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{eventoMB.preparaCadastroEvento()}" />
+		</f:metadata>
+
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-3">
+				<h:panelGroup id="panelEvento" rendered="#{okSecurityContext.loggedUser.perfil.descricao ne 'ALUNO'}">
+
+					<div class="jarviswidget jarviswidget-color-blueDark">
+						<header>
+							<h2>#{msgs['menu.eventos']}</h2>
+						</header>
+						<div>
+							<h:form id="mainForm" prependId="false">
+								<div class="smart-form">
+									<fieldset>
+										<div class="row">
+											<section>
+												<label class="label">#{msgs['label.evento.nome']}</label> <label
+													class="input #{!component.findComponent('eventoNome').valid ? 'state-error' : ''}"><i class="icon-append fa fa-tasks"></i>
+													<h:inputText value="#{eventoMB.evento.nome}" pt:placeholder="#{msgs['label.evento.informe.nome']}" id="eventoNome"
+														required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="100" /> </label> <em class="invalid"> <h:message
+														for="eventoNome" />
+												</em>
+											</section>
+
+											<section>
+												<label class="label">#{msgs['label.evento.detalhe']}</label> <label
+													class="textarea textarea-expandable #{!component.findComponent('eventoDetalhe').valid ? 'state-error' : ''}"> <h:inputTextarea
+														class="form-control textarea-disabled" value="#{eventoMB.evento.descricao}" required="true" styleClass="custom-scroll"
+														requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" pt:placeholder="#{msgs['msg.informe.detalhe.evento']}" rows="4"
+														maxlength="300" id="eventoDetalhe">
+													</h:inputTextarea>
+												</label> <em class="invalid"> <h:message for="eventoDetalhe" /></em>
+											</section>
+
+											<section>
+												<label class="label">#{msgs['label.evento.data.inicial']}</label> <label
+													class="input #{!component.findComponent('eventoDataInicial').valid ? 'state-error' : ''}"> <i
+													class="icon-append fa fa-calendar"></i> <h:inputText value="#{eventoMB.evento.dataInicial}" styleClass="datetimepicker"
+														pt:data-mask="99/99/9999 99:99" pt:data-dateformat="dd/mm/yy HH:MM"
+														pt:placeholder="#{msgs['label.evento.informe.data.inicial']}" id="eventoDataInicial" required="true"
+														requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" pt:data-mask-placeholder="-">
+														<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+													</h:inputText>
+												</label><em class="invalid"> <h:message for="eventoDataInicial" />
+												</em>
+											</section>
+
+											<section>
+												<label class="label">#{msgs['label.evento.data.final']}</label> <label
+													class="input #{!component.findComponent('eventoDataFinal').valid ? 'state-error' : ''}"> <i
+													class="icon-append fa fa-calendar"></i> <h:inputText value="#{eventoMB.evento.dataFinal}" styleClass="datetimepicker"
+														pt:data-mask="99/99/9999 99:99" pt:data-dateformat="dd/mm/yy HH:MM" id="eventoDataFinal" required="true"
+														requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" pt:placeholder="#{msgs['label.evento.informe.data.final']}"
+														pt:data-mask-placeholder="-">
+														<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+													</h:inputText>
+												</label><em class="invalid"> <h:message for="eventoDataFinal" />
+												</em>
+											</section>
+										</div>
+									</fieldset>
+								</div>
+
+								<div class="form-group">
+									<label>#{msgs['label.evento.cor']}</label>
+									<div jsf:id="coresEvento">
+										<o:importConstants type="br.com.ok.model.enums.CorEvento" />
+
+										<h:commandLink styleClass="link-cores">
+											<label class="btn bg-color-darken"> <i class="fa fa-check" jsf:rendered="#{eventoMB.evento.corEvento eq 'DARKEN'}" />
+											</label>
+											<f:setPropertyActionListener value="#{CorEvento.DARKEN}" target="#{eventoMB.evento.corEvento}" />
+											<f:ajax execute="@this" render=":coresEvento" />
+										</h:commandLink>
+
+										<h:commandLink styleClass="link-cores">
+											<label class="btn bg-color-blue #{eventoMB.evento.corEvento eq 'BLUE'}"> <i class="fa fa-check"
+												jsf:rendered="#{eventoMB.evento.corEvento eq 'BLUE'}" />
+											</label>
+											<f:setPropertyActionListener value="#{CorEvento.BLUE}" target="#{eventoMB.evento.corEvento}" />
+											<f:ajax execute="@this" render=":coresEvento" />
+										</h:commandLink>
+
+										<h:commandLink styleClass="link-cores">
+											<label class="btn bg-color-orange #{eventoMB.evento.corEvento eq 'ORANGE'}"> <i class="fa fa-check"
+												jsf:rendered="#{eventoMB.evento.corEvento eq 'ORANGE'}" />
+											</label>
+											<f:setPropertyActionListener value="#{CorEvento.ORANGE}" target="#{eventoMB.evento.corEvento}" />
+											<f:ajax execute="@this" render=":coresEvento" />
+										</h:commandLink>
+
+										<h:commandLink styleClass="link-cores">
+											<label class="btn bg-color-greenLight #{eventoMB.evento.corEvento eq 'GREEN_LIGHT'}"><i class="fa fa-check "
+												jsf:rendered="#{eventoMB.evento.corEvento eq 'GREEN_LIGHT'}" /> </label>
+											<f:setPropertyActionListener value="#{CorEvento.GREEN_LIGHT}" target="#{eventoMB.evento.corEvento}" />
+											<f:ajax execute="@this" render=":coresEvento" />
+										</h:commandLink>
+
+										<h:commandLink styleClass="link-cores">
+											<label class="btn bg-color-blueLight #{eventoMB.evento.corEvento eq 'BLUE_LIGHT'}"> <i class="fa fa-check "
+												jsf:rendered="#{eventoMB.evento.corEvento eq 'BLUE_LIGHT'}" />
+											</label>
+											<f:setPropertyActionListener value="#{CorEvento.BLUE_LIGHT}" target="#{eventoMB.evento.corEvento}" />
+											<f:ajax execute="@this" render=":coresEvento" />
+										</h:commandLink>
+
+										<h:commandLink styleClass="link-cores">
+											<label class="btn bg-color-red #{eventoMB.evento.corEvento eq 'RED'}"> <i class="fa fa-check "
+												jsf:rendered="#{eventoMB.evento.corEvento eq 'RED'}" />
+											</label>
+											<f:setPropertyActionListener value="#{CorEvento.RED}" target="#{eventoMB.evento.corEvento}" />
+											<f:ajax execute="@this" render=":coresEvento" />
+										</h:commandLink>
+									</div>
+								</div>
+
+								<label>#{msgs['label.evento.cad.evento.para']}</label>
+								<div id="btgroupevento" class='btn-toolbar'>
+									<div class='txt-color-black text-center btn-group'>
+										<h:commandLink styleClass="btn btn-default" title="#{msgs['label.cursos']}"
+											rendered="#{!okSecurityContext.isUserInRole('PROFESSOR')}"
+											action="#{eventoMB.callPage('pretty:courseSearch', eventoMB.evento, 'CursoMB', 'multiple')}">
+											<i class="fa fa-graduation-cap" />
+										</h:commandLink>
+										<h:commandLink styleClass="btn btn-default" title="#{msgs['label.disciplinas']}"
+											action="#{eventoMB.callPage('pretty:disciplineSearch', eventoMB.evento, 'DisciplinaMB', 'multiple')}">
+											<i class="fa fa-header" />
+										</h:commandLink>
+										<h:commandLink styleClass="btn btn-default" title="#{msgs['label.turmas']}"
+											rendered="#{!okSecurityContext.isUserInRole('PROFESSOR')}"
+											action="#{eventoMB.callPage('pretty:classesSearch', eventoMB.evento, 'TurmaMB', 'multiple')}">
+											<i class="fa fa-group" />
+										</h:commandLink>
+									</div>
+								</div>
+
+								<div class="form-group" jsf:id="cursosSection">
+									<section jsf:rendered="#{!empty eventoMB.evento.cursos}">
+										<label>#{msgs['label.cursos.selecionados']}</label>
+										<div class="input">
+											<div id="select-div1" class="bootstrap-tagsinput">
+												<ui:repeat var="curso" value="#{eventoMB.evento.cursos}" varStatus="i">
+													<span class="tag label label-defautl"> #{curso.nome} <h:commandLink class="btn btn-default btn-xs" styleClass="tag-link"
+															action="#{eventoMB.removeItemSelecionado(eventoMB.evento.cursos, i.index)}">
+															<f:ajax execute="@this" render="cursosSection" />
+															<span data-role="remove" />
+														</h:commandLink>
+													</span>
+												</ui:repeat>
+											</div>
+										</div>
+									</section>
+								</div>
+
+								<div class="form-group" jsf:id="disciplinasSection">
+									<section jsf:rendered="#{!empty eventoMB.evento.disciplinas}">
+										<label>#{msgs['label.disciplinas.selecionadas']}</label>
+										<div class="input">
+											<div id="select-div1" class="bootstrap-tagsinput">
+												<ui:repeat var="disciplina" value="#{eventoMB.evento.disciplinas}" varStatus="i">
+													<span class="tag label label-defautl"> #{disciplina.nome} <h:commandLink class="btn btn-default btn-xs"
+															styleClass="tag-link" action="#{eventoMB.removeItemSelecionado(eventoMB.evento.disciplinas, i.index)}">
+															<f:ajax execute="@this" render="disciplinasSection" />
+															<span data-role="remove" />
+														</h:commandLink>
+													</span>
+												</ui:repeat>
+											</div>
+										</div>
+									</section>
+								</div>
+
+								<div class="form-group" jsf:id="turmasSection">
+									<section jsf:rendered="#{!empty eventoMB.evento.turmas}">
+										<label>#{msgs['label.turmas.selecionadas']}</label>
+										<div class="input">
+											<div id="select-div1" class="bootstrap-tagsinput">
+												<ui:repeat var="turma" value="#{eventoMB.evento.turmas}" varStatus="i">
+													<span class="tag label label-defautl"> #{turma.codigo} <h:commandLink class="btn btn-default btn-xs"
+															styleClass="tag-link" action="#{eventoMB.removeItemSelecionado(eventoMB.evento.turmas, i.index)}">
+															<f:ajax execute="@this" render="turmasSection" />
+															<span data-role="remove" />
+														</h:commandLink>
+													</span>
+												</ui:repeat>
+											</div>
+										</div>
+									</section>
+								</div>
+
+								<div class="pull-right events-buttons">
+									<div class='btn-group'>
+										<h:commandButton value="#{msgs['label.cancelar']}" styleClass="btn btn-primary espacamento-botoes-evento"
+											action="#{eventoMB.preparaNovoEvento()}" rendered="#{!empty eventoMB.evento.id}">
+											<f:ajax execute="@this" render="@form" onevent="initPage" />
+										</h:commandButton>
+
+										<button jsf:rendered="#{!empty eventoMB.evento.id}" type="button" class="btn btn-primary espacamento-botoes-evento"
+											onclick="$('#modalExclusao').modal('show')">#{msgs['label.email.excluir']}</button>
+
+										<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{eventoMB.saveEvent()}">
+											<f:ajax execute="@form" render="@form" onevent="initPage" />
+										</h:commandButton>
+									</div>
+								</div>
+
+								<!-- Selecao de eventos -->
+								<o:commandScript name="selecionaEvento" action="#{eventoMB.selecionaEvento()}" immediate="true" render="@form" oncomplete="initPage" />
+
+								<!-- Modal de confirmacao -->
+								<ok:okConfirmDialog action="#{eventoMB.removeEvent()}" update="@form" id="modalExclusao" actionButtonText="#{msgs['label.sim']}"
+									execute="@this" closeText="#{msgs['label.nao']}" contentText="#{msgs['msg.confirmacao.remocao.evento']}" />
+							</h:form>
+						</div>
+					</div>
+				</h:panelGroup>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-9">
+				<!-- new widget -->
+				<div class="jarviswidget jarviswidget-color-blueDark">
+					<header>
+						<span class="widget-icon"> <i class="fa fa-calendar"></i>
+						</span>
+						<h2>#{msgs['label.eventos.meuseventos']}</h2>
+					</header>
+
+					<!-- widget div-->
+					<div>
+						<div class="widget-body no-padding">
+							<!-- content goes here -->
+							<div class="widget-body-toolbar">
+								<div id="calendar" data-source="#{request.contextPath}/ws/events/listaEventosCadastradosPeloUsuario"
+									data-lang="#{okSessionMB.currentLocale.language}-#{okSessionMB.currentLocale.country}" />
+							</div>
+						</div>
+					</div>
+					<!-- end widget -->
+				</div>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="specificJS">
+		<script type="text/javascript" src="#{request.contextPath}-resources/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
+		<script type="text/javascript"
+			src="#{request.contextPath}-resources/js/plugin/fullcalendar/jquery.fullcalendar.#{okSessionMB.currentLocale}.js"></script>
+		<h:outputScript name="events.js" library="js" />
+	</ui:define>
+</ui:composition>

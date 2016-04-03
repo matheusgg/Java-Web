@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<h:form prependId="false">
+		<section id="widget-grid">
+			<div class="row">
+				<article class="col-sm-12 col-md-12 col-lg-4">
+					<div class="jarviswidget jarviswidget-color-blueDark" data-widget-togglebutton="false" data-widget-editbutton="false"
+						data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+						<header>
+							<h2>#{msgs['label.disciplinas']}</h2>
+						</header>
+						<div class="widget-body smart-form">
+							<ui:include src="disciplinasNestableListComposition.html" />
+						</div>
+					</div>
+				</article>
+
+				<article class="col-sm-12 col-md-12 col-lg-8">
+					<div class="jarviswidget jarviswidget-color-blueDark" data-widget-togglebutton="false" data-widget-editbutton="false"
+						data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+						<header>
+							<h2>#{msgs['label.atividades']}</h2>
+						</header>
+						<div class="widget-body smart-form">
+							<div jsf:id="painelAtividadesProfessor">
+								<ui:include src="atividadesProfessorComposition.xhtml" />
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!-- Modal de visualizacao de resposta do aluno -->
+		<ui:include src="modalRespostaAlunoComposition.xhtml" />
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w4.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:panelGrid styleClass="gridBotoes">
+		<p:commandLink action="pretty:ambiente">
+			<p:graphicImage id="climaAmbiente" value="/resources/images/dock/climaAmbiente.png"
+				title="#{msgs.label_clima_e_ambiente}" height="80" width="70" />
+		</p:commandLink>
+
+		<p:commandLink action="pretty:luzCenas">
+			<p:graphicImage id="luzCenas" value="/resources/images/dock/luzCenas.png" title="#{msgs.label_luz_e_cenas}"
+				height="80" width="70" style="margin-top: -18px;" />
+		</p:commandLink>
+
+		<p:commandLink action="pretty:videoCinema">
+			<p:graphicImage id="videoCinema" value="/resources/images/dock/videoCinema.png" title="#{msgs.label_video_e_cinema}"
+				height="80" width="70" style="margin-top: -18px;" />
+		</p:commandLink>
+
+		<p:commandLink action="pretty:audio">
+			<p:graphicImage id="audio" value="/resources/images/dock/audio.png" title="#{msgs.label_audio}" height="80"
+				width="70" style="margin-top: -18px;" />
+		</p:commandLink>
+	</h:panelGrid>
+</ui:composition>

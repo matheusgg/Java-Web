@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<persistence-unit name="onknowledge">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/onknowledge</jta-data-source>
+
+		<!-- Entities -->
+		<class>br.com.ok.model.Alternativa</class>
+		<class>br.com.ok.model.Aluno</class>
+		<class>br.com.ok.model.Anexo</class>
+		<class>br.com.ok.model.Atividade</class>
+		<class>br.com.ok.model.AtividadeQuestionario</class>
+		<class>br.com.ok.model.AtividadeSimples</class>
+		<class>br.com.ok.model.CodigoSeguranca</class>
+		<class>br.com.ok.model.Comentario</class>
+		<class>br.com.ok.model.Curso</class>
+		<class>br.com.ok.model.DiretorioEmail</class>
+		<class>br.com.ok.model.Disciplina</class>
+		<class>br.com.ok.model.Email</class>
+		<class>br.com.ok.model.EmailEnviado</class>
+		<class>br.com.ok.model.EmailRecebido</class>
+		<class>br.com.ok.model.Evento</class>
+		<class>br.com.ok.model.Modulo</class>
+		<class>br.com.ok.model.Perfil</class>
+		<class>br.com.ok.model.PerguntaSeguranca</class>
+		<class>br.com.ok.model.Professor</class>
+		<class>br.com.ok.model.Questao</class>
+		<class>br.com.ok.model.Resposta</class>
+		<class>br.com.ok.model.Tarefa</class>
+		<class>br.com.ok.model.Turma</class>
+		<class>br.com.ok.model.Usuario</class>
+
+		<properties>
+			<!-- Hibernate Configuration -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="current_session_context_class" value="thread" />
+
+			<!-- C3P0 Configuration -->
+			<property name="c3p0.min_size" value="5" />
+			<property name="c3p0.max_size" value="20" />
+			<property name="c3p0.timeout" value="300" />
+			<property name="c3p0.max_statements" value="50" />
+			<property name="c3p0.idle_test_period" value="3000" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

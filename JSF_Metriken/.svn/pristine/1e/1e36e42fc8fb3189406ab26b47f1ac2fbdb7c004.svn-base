@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<div class="divFloatRight" align="right">
+		<p:commandButton value="#{msgs.lbl_plus_linhas}" action="#{premissasBean.adicionaLinhas}"
+			process=":tabView:documentosForm, :tabView:premissasForm" update=":tabView:premissasForm"
+			title="#{msgs.msg_adicao_linhas}" />
+	</div>
+
+	<div class="input-prepend input-append" style="margin-bottom: 20px;">
+		<span class="add-on" />
+		<h:inputText value="#{msgs.lbl_data}" readonly="true" styleClass="styleWidth10"
+			style="font-weight: bold; cursor: default;" />
+		<h:inputText value="#{msgs.lbl_analista}" readonly="true" styleClass="styleWidth16"
+			style="font-weight: bold; cursor: default;" />
+		<h:inputText value="#{msgs.lbl_descricao}" readonly="true" styleClass="styleWidth60"
+			style="font-weight: bold; cursor: default;" />
+	</div>
+
+	<h:panelGroup layout="block" id="groupPremissas">
+		<ui:repeat var="premissa" value="#{premissasBean.viewHelper.premissas}" varStatus="i">
+			<div class="input-prepend input-append" style="margin-bottom: -1px;" onmouseover="return showOptionsButtons(this);"
+				onmouseout="return hideOptionsButtons(this);">
+				<span class="add-on">#{i.index + 1}</span>
+				<h:inputText styleClass="styleWidth10" value="#{premissa.data}" onkeypress="return mascaraData(this, event);"
+					onfocus="$(this).datepicker('show');" onselect="datePicker">
+					<f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy" />
+				</h:inputText>
+				<h:inputText styleClass="styleWidth16" value="#{premissa.analista}" />
+				<h:inputText styleClass="styleWidth60" value="#{premissa.descricao}" />
+
+				<f:ajax render=":tabView:premissasForm:groupPremissas" execute=":tabView:premissasForm">
+					<h:commandButton value="#{msgs.lbl_mais}" styleClass="btn" style="display:none;"
+						action="#{premissasBean.adicionaLinhaAbaixo(i.index)}" title="#{msgs.msg_btn_plus}" />
+
+					<h:commandButton value="#{msgs.lbl_menos}" styleClass="btn" style="display:none;"
+						onclick="if(confirm('#{msgs.msg_exclusao_linha}')){return true;} else{return false;}"
+						action="#{premissasBean.removeLinhaSelecionada(i.index)}" title="#{msgs.msg_btn_menos}" />
+				</f:ajax>
+				<br />
+			</div>
+		</ui:repeat>
+	</h:panelGroup>
+</ui:composition>

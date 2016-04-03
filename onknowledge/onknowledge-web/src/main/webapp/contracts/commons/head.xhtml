@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<!-- Title -->
+	<title>#{msgs['label.onknowledge']} - <ui:insert name="title">#{msgs['label.onknowledge']}</ui:insert></title>
+
+	<!-- Metas -->
+	<meta charset="utf-8" />
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />-->
+
+	<meta name="description" content="#{msgs['descricao.onknowledge']}" />
+	<meta name="author" content="#{msgs['autores.onknowledge']}" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- Basic Styles -->
+	<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/bootstrap.min.css" />
+
+	<!-- Template Styles -->
+	<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/animation-engine.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/smartadmin-skins.min.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/smartadmin-production.min.css" />
+
+	<!-- FAVICONS -->
+	<link rel="shortcut icon" type="image/png" media="screen" href="#{request.contextPath}-resources/img/favicon/favicon-blue.png" />
+	<link rel="icon" type="image/png" media="screen" href="#{request.contextPath}-resources/img/favicon/favicon-blue.png" />
+
+	<!-- FONTS -->
+	<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/font-awesome.min.css" />
+
+	<!-- APP SCREEN / ICONS -->
+	<link rel="apple-touch-icon" href="#{request.contextPath}-resources/img/splash/sptouch-icon-iphone.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="#{request.contextPath}-resources/img/splash/touch-icon-ipad.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="#{request.contextPath}-resources/img/splash/touch-icon-iphone-retina.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="#{request.contextPath}-resources/img/splash/touch-icon-ipad-retina.png" />
+
+	<!-- Startup image for web apps -->
+	<link rel="apple-touch-startup-image" href="#{request.contextPath}-resources/img/splash/ipad-landscape.png"
+		media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
+	<link rel="apple-touch-startup-image" href="#{request.contextPath}-resources/img/splash/ipad-portrait.png"
+		media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
+	<link rel="apple-touch-startup-image" href="#{request.contextPath}-resources/img/splash/iphone.png"
+		media="screen and (max-device-width: 320px)" />
+
+	<!-- OnKnowledge Styles -->
+	<link media="screen" jsf:name="onknowledge.css" jsf:library="css" />
+	<link media="screen" jsf:name="onknowledge-fonts.css" jsf:library="css" />
+
+	<!-- Qtip2 -->
+	<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/jquery.qtip.min.css" />
+
+	<!-- Specific Style Sheet -->
+	<ui:insert name="specificCSS" />
+
+</ui:composition>

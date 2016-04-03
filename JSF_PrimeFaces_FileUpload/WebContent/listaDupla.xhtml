@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title></title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panelGrid columns="3">
+
+			<p:column>
+				<div style="width: 250px;">
+					<p:dataTable value="#{candidatoBean.modelCompetenciasQueNaoPossui}"
+						var="tabela1" rowKey="#{tabela1.nome}"
+						selection="#{candidatoBean.competenciaSelecionada}"
+						id="tabelaCompetencias1" selectionMode="single">
+						<p:ajax event="rowSelect"
+							listener="#{candidatoBean.selecionaRegistroTabela1}"/>
+						<p:column headerText="Competências do Sistema">
+							<h:outputText value="#{tabela1.nome}" />					
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:column>
+
+			<p:column>
+				<p:commandButton value="ADD"
+					action="#{candidatoBean.inserirCompetencia}"
+					update="tabelaCompetencias1 tabelaCompetencias2" ajax="true" />
+				<br />
+				<p:commandButton value="DEL"
+					action="#{candidatoBean.removerCompetencia}"
+					update="tabelaCompetencias1 tabelaCompetencias2" ajax="true" />
+			</p:column>
+
+			<p:column>
+				<div style="width: 250px;">
+					<p:dataTable value="#{candidatoBean.modelCompetenciasQuePossui}"
+						var="tabela2" selectionMode="single" rowKey="#{tabela2.nome}"
+						selection="#{candidatoBean.competenciaSelecionada}"
+						id="tabelaCompetencias2">
+						<p:ajax event="rowSelect"
+							listener="#{candidatoBean.selecionaRegistroTabela2}" />
+						<p:column headerText="Competências">
+							<h:outputText value="#{tabela2.nome}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:column>
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

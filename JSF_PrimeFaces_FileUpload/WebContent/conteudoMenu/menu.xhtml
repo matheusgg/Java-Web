@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title></title>
+	<link type="text/css" rel="stylesheet"
+		href="resources/css/menuTheme.css" />
+</h:head>
+<h:body>
+	<p:menubar id="teste"
+		style="background: url(modulos/IMG/background-menu.png);font-size: 12px;">
+		<p:submenu label="Operação" icon="ui-icon-document"
+			binding="#{menuBean.submenu}">
+		</p:submenu>
+
+		<p:submenu label="Gestão" icon="ui-icon-person">
+			<p:menuitem value="Project" url="#" style="color: black;" />
+			<p:menuitem value="Other" url="#" style="color: black;" />
+		</p:submenu>
+
+		<p:submenu label="Manutenção" icon="ui-icon-wrench">
+			<p:menuitem value="Project" url="#" style="color: black;" />
+			<p:menuitem value="Other" url="#" style="color: black;" />
+			<p:menuitem value="Other" url="#" style="color: black;" />
+			<p:separator />
+			<p:menuitem value="Sair" url="#" style="color: black;"
+				icon="ui-icon-circle-close" />
+		</p:submenu>
+	</p:menubar>
+</h:body>
+</html>

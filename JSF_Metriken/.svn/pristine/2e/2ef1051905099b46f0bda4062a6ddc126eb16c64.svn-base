@@ -1,0 +1,35 @@
+package br.com.metriken.view.apf.tabcontroller;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Named;
+
+import org.primefaces.event.TabChangeEvent;
+
+import br.com.metriken.util.FacesUtils;
+import br.com.metriken.view.apf.dadosgerais.DadosGeraisBean;
+import br.com.metriken.view.apf.metrica.MetricaBean;
+
+@Named("apfTabControlBean")
+public class APFTabControlBean {
+
+	private DadosGeraisBean dadosGeraisBean;
+
+	private MetricaBean metricaBean;
+
+	@PostConstruct
+	public void begin() {
+		this.dadosGeraisBean = (DadosGeraisBean) FacesUtils.getBeanFromSession("DadosGeraisBean");
+		this.metricaBean = (MetricaBean) FacesUtils.getBeanFromSession("MetricaBean");
+	}
+
+	/**
+	 * Controle de mudanca de tab
+	 */
+	public void tabControl(TabChangeEvent event) {
+		String tab = event.getTab().getId();
+		if (tab.equals("tabMetrica")) {
+			this.metricaBean.begin(this.dadosGeraisBean.getViewHelper());
+		}
+	}
+
+}

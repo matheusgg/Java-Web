@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="menuTheme.css" />
+</h:head>
+<h:body>
+	<div style="width: 800px;">
+		<p:dataTable value="#{classeBean.dataModel}" var="tabelaPrincipal"
+			style="border-color: #ffffff;text-align:center;">
+			<p:column headerText="Categoria">
+				<h:outputLabel value="#{tabelaPrincipal.nome}" />
+			</p:column>
+			<p:column headerText="Classes de consumo m³/mês">
+				<h:dataTable value="#{tabelaPrincipal.dataModelConsumo}"
+					var="tabela" style="border-color: #ffffff;text-align:center; ">
+					<h:column>
+						<h:outputText value="#{tabela}" style="" />
+					</h:column>
+				</h:dataTable>
+			</p:column>
+			<p:column headerText="Tarifas de água - (em R$)">
+
+			</p:column>
+			<p:column headerText="Tarifas de esgoto - (em R$)">
+
+			</p:column>
+		</p:dataTable>
+	</div>
+
+	<div style="width: 800px;">
+		<h:inputText value="#{formacoesBean.nome}" />
+		<h:commandButton action="#{formacoesBean.inserir}" value="Inserir" />
+		<p:dataTable value="#{formacoesBean.dataModel}" var="formacoes">
+			<p:column headerText="Nome">
+				<h:outputLabel value="#{formacoes.nome}" />
+			</p:column>
+		</p:dataTable>
+	</div>
+</h:body>
+</html>

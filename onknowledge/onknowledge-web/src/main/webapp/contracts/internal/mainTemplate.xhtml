@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui" class="mainTemplate">
+<h:head>
+	<ui:include src="/head.xhtml" />
+</h:head>
+<h:body class="fixed-header smart-style-2 animated fadeIn menu-on-top fixed-navigation">
+	<f:view locale="#{okSessionMB.currentLocale}">
+
+		<!-- HEADER -->
+		<ui:include src="header.xhtml" />
+		<!-- END HEADER -->
+
+		<!-- MENU NAVIGATION -->
+		<ui:include src="menu.xhtml" />
+		<!-- END NAVIGATION -->
+
+		<!-- MAIN PANEL -->
+		<div id="main">
+			<!-- breadcrumb -->
+			<div id="ribbon">
+				<span class="ribbon-button-alignment"> <i class="fa fa-home fa-fw"></i></span>
+				<div class="breadcrumb" jsf:id="breadcrumb">
+					<ui:insert name="breadcrumb" />
+				</div>
+			</div>
+			<!-- end breadcrumb -->
+
+			<!-- Global Faces Messages -->
+			<p:messages closable="true" showIcon="false" autoUpdate="true" escape="false" globalOnly="true" showDetail="false"
+				styleClass="globalFacesMessages" />
+			<!-- End global Faces Messages -->
+
+			<!-- MAIN CONTENT -->
+			<div id="content">
+				<ui:insert name="content">
+					<script type="text/javascript">
+						redirect("#{request.contextPath}");
+					</script>
+				</ui:insert>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN PANEL -->
+
+		<!-- PAGE FOOTER -->
+		<ui:include src="footer.xhtml" />
+		<!-- END PAGE FOOTER -->
+
+		<!-- SHORTCUT AREA -->
+		<ui:include src="shortcut.xhtml" />
+		<!-- END SHORTCUT AREA -->
+
+		<!-- ============================================ AJAX LOADING ============================================= -->
+		<p:ajaxStatus onstart="$('#loadingDiv').show()" onsuccess="$('#loadingDiv').hide()">
+			<div id="loadingDiv" class="loading-div" align="center">
+				<img src="#{request.contextPath}-resources/img/ajaxLoading.gif" class="loading-img load-img-desktop-position" />
+			</div>
+		</p:ajaxStatus>
+
+		<!-- =============================================== SCRIPTS =============================================== -->
+		<ui:include src="/scripts.xhtml" />
+		<h:outputScript name="email.js" library="js" />
+	</f:view>
+</h:body>
+</html>

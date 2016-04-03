@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<div class="panel" id="panel-101">
+		<header>
+			<i class="icon-asterisk"></i> <span>Shortcuts</span>
+		</header>
+
+		<div class="content tiles-container">
+
+			<!-- APF -->
+			<h:link styleClass="tile-btn" outcome="pretty:apf"
+				style="background: #{view.viewId.contains('apf') ? '#FFF !important' : '#61b0e9'}; border: #{view.viewId.contains('apf') ? '4px solid #61b0e9' : 'none'}">
+				<i class="icon-list-alt" style="#{view.viewId.contains('apf') ? 'color: #000' : '#FFF'}"></i>
+				<span style="color: #{view.viewId.contains('apf') ? '#000' : '#FFF'}">#{msgs.lbl_apf}</span>
+			</h:link>
+
+			<h:link styleClass="tile-btn" outcome="pretty:apf"
+				style="background: #{view.viewId.contains('nesma') ? '#FFF !important' : '#61b0e9'}; border: #{view.viewId.contains('nesma') ? '4px solid #61b0e9' : 'none'}">
+				<i class="icon-bar-chart" style="#{view.viewId.contains('nesma') ? 'color: #000' : '#FFF'}"></i>
+				<span style="color: #{view.viewId.contains('nesma') ? '#000' : '#FFF'}">#{msgs.lbl_nesma}</span>
+			</h:link>
+
+			<h:link styleClass="tile-btn" outcome="pretty:apf"
+				style="background: #{view.viewId.contains('cosmic') ? '#FFF !important' : '#61b0e9'}; border: #{view.viewId.contains('cosmic') ? '4px solid #61b0e9' : 'none'}">
+				<i class="icon-folder-close" style="#{view.viewId.contains('cosmic') ? 'color: #000' : '#FFF'}"></i>
+				<span style="color: #{view.viewId.contains('cosmic') ? '#000' : '#FFF'}">#{msgs.lbl_cosmic}</span>
+			</h:link>
+
+			<h:link styleClass="tile-btn" outcome="pretty:apf"
+				style="background: #{view.viewId.contains('uksma') ? '#FFF !important' : '#61b0e9'}; border: #{view.viewId.contains('uksma') ? '4px solid #61b0e9' : 'none'}">
+				<i class="icon-tasks" style="#{view.viewId.contains('uksma') ? 'color: #000' : '#FFF'}"></i>
+				<span style="color: #{view.viewId.contains('uksma') ? '#000' : '#FFF'}">#{msgs.lbl_uksma}</span>
+			</h:link>
+
+			<h:link styleClass="tile-btn" outcome="pretty:apf"
+				style="background: #{view.viewId.contains('fisma') ? '#FFF !important' : '#61b0e9'}; border: #{view.viewId.contains('fisma') ? '4px solid #61b0e9' : 'none'}">
+				<i class="icon-edit" style="#{view.viewId.contains('fisma') ? 'color: #000' : '#FFF'}"></i>
+				<span style="color: #{view.viewId.contains('fisma') ? '#000' : '#FFF'}">#{msgs.lbl_fisma}</span>
+			</h:link>
+
+			<h:link styleClass="tile-btn" outcome="pretty:apf"
+				style="background: #{view.viewId.contains('ucp') ? '#FFF !important' : '#61b0e9'}; border: #{view.viewId.contains('ucp') ? '4px solid #61b0e9' : 'none'}">
+				<i class="icon-th-list" style="#{view.viewId.contains('ucp') ? 'color: #000' : '#FFF'}"></i>
+				<span style="color: #{view.viewId.contains('ucp') ? '#000' : '#FFF'}">#{msgs.lbl_ucp}</span>
+			</h:link>
+		</div>
+	</div>
+</ui:composition>

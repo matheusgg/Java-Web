@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.arquillian</groupId>
+	<artifactId>arquillian-tutorial</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>arquillian-tutorial</name>
+
+	<!-- Arquillian é um framework para a construção de testes integrados baseados em testes JUnit. A diferenca do Arquilian é que o mesmo executa os testes dentro 
+		de um container, desta forma é possível testar todos os recursos reais da aplicação. O Arquillian pode trabalhar com vários containers, basta ter uma adaptador de 
+		container no classpath no momento da realização do testes. O adaptador é uma ponte entre o Arquillian e o container. É possível integrar o Arquillian ao maven para 
+		baixar o container que será utilizado. É possível também executar os testes em uma instância separada de um servidor de aplicação, desde que a dependência do adaptador 
+		necessário seja informada. -->
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+
+		<!-- Profile que contém a dependência do adaptador do CDI (Weld) -->
+		<profile>
+			<id>cdi</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-all-7.0</artifactId>
+					<version>1.0.1.Final</version>
+					<type>pom</type>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+					<version>1.0.0.CR8</version>
+					<scope>test</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.jboss.weld</groupId>
+					<artifactId>weld-core</artifactId>
+					<version>2.2.6.Final</version>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<!-- Profile que contém a dependência do adaptador do container Wildfly -->
+		<profile>
+			<id>wildfly</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-all-7.0</artifactId>
+					<version>1.0.1.Final</version>
+					<type>pom</type>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.wildfly</groupId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<version>8.1.0.Final</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+	<!-- Lista de materiais do Arquillian -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.5.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

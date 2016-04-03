@@ -1,0 +1,91 @@
+<pretty-config xmlns="http://ocpsoft.org/prettyfaces/3.3.3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.org/prettyfaces/3.3.3
+	http://ocpsoft.org/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+
+	<url-mapping id="home">
+		<pattern value="/" />
+		<view-id value="/content/portal/home.jsf" />
+	</url-mapping>
+
+	<url-mapping id="quemSomos">
+		<pattern value="/quemSomos" />
+		<view-id value="/content/portal/quemSomos.jsf" />
+	</url-mapping>
+
+	<url-mapping id="automacoes">
+		<pattern value="/automacoes" />
+		<view-id value="/content/portal/automacoes.jsf" />
+	</url-mapping>
+
+	<url-mapping id="ambiente">
+		<pattern value="/automacoes/ambiente" />
+		<view-id value="/content/portal/climaAmbiente.jsf" />
+	</url-mapping>
+
+	<url-mapping id="luzCenas">
+		<pattern value="/automacoes/luz" />
+		<view-id value="/content/portal/luzCenas.jsf" />
+	</url-mapping>
+
+	<url-mapping id="videoCinema">
+		<pattern value="/automacoes/cinema" />
+		<view-id value="/content/portal/videoCinema.jsf" />
+	</url-mapping>
+
+	<url-mapping id="audio">
+		<pattern value="/automacoes/audio" />
+		<view-id value="/content/portal/audio.jsf" />
+	</url-mapping>
+
+	<url-mapping id="planos">
+		<pattern value="/planos" />
+		<view-id value="/content/portal/planos.jsf" />
+	</url-mapping>
+
+	<url-mapping id="faleConosco">
+		<pattern value="/faleConosco" />
+		<view-id value="/content/portal/faleConosco.jsf" />
+	</url-mapping>
+
+	<url-mapping id="orcamento">
+		<pattern value="/orcamento" />
+		<view-id value="/content/portal/orcamentoPersonalizado.jsf" />
+	</url-mapping>
+
+
+	<url-mapping id="orcamentoDragDrop">
+		<pattern value="/novoOrcamento/" />
+		<view-id value="/content/portal/orcamentoTabela.jsf" />
+	</url-mapping>
+
+	<url-mapping id="perguntasFrequentes">
+		<pattern value="/perguntasFrequentes" />
+		<view-id value="/content/portal/perguntasFrequentes.jsf" />
+	</url-mapping>
+
+	<url-mapping id="recuperarSenha">
+		<pattern value="/recuperarSenha" />
+		<view-id value="/content/portal/recuperarSenha.jsf" />
+	</url-mapping>
+
+	<url-mapping id="login">
+		<pattern value="/login" />
+		<view-id value="/content/portal/login.jsf" />
+	</url-mapping>
+
+	<url-mapping id="cadastroUsuario">
+		<pattern value="/cadastro" />
+		<view-id value="/content/portal/cadastroUsuario.jsf" />
+	</url-mapping>
+
+	<url-mapping id="detalheUsuario">
+		<pattern value="/detalhes" />
+		<view-id value="/content/portal/detalheUsuario.jsf" />
+	</url-mapping>
+
+	<url-mapping id="error">
+		<pattern value="/erro" />
+		<view-id value="/content/portal/errorPage.jsf" />
+	</url-mapping>
+</pretty-config>

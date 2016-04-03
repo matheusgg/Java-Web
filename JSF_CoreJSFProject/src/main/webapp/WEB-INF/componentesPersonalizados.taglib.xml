@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+	version="2.2">
+
+	<namespace>http://master.com/ui</namespace>
+
+	<tag>
+		<tag-name>uiSpinner</tag-name>
+
+		<component>
+			<component-type>ui.spinner</component-type>
+			<renderer-type>ui.spinner</renderer-type>
+			<handler-class>componentespersonalizados.spinner.SpinnerHandler</handler-class>
+		</component>
+
+		<attribute>
+			<name>max</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+
+		<attribute>
+			<name>min</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+
+		<attribute>
+			<name>size</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+
+		<attribute>
+			<name>valueChangeListener</name>
+		</attribute>
+
+		<attribute>
+			<name>actionMethod</name>
+		</attribute>
+	</tag>
+
+	<tag>
+		<tag-name>uiFontSpinner</tag-name>
+
+		<component>
+			<component-type>ui.fontSpinner</component-type>
+			<renderer-type>ui.fontSpinner</renderer-type>
+		</component>
+
+		<attribute>
+			<name>update</name>
+			<type>java.lang.Boolean</type>
+		</attribute>
+
+		<attribute>
+			<name>fontSize</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+
+	<function>
+		<function-name>length</function-name>
+		<function-class>customfunctions.CustomFunctions</function-class>
+		<function-signature>java.lang.Integer length(java.lang.String)</function-signature>
+	</function>
+</facelet-taglib>
+	

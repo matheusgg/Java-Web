@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Extrato</title>
+	<style type="text/css">
+.ui-widget {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl />
+		<f:event listener="#{extratoBean.validaDatas}" type="postValidate" />
+
+		<h:panelGrid columns="4">
+			<h:outputLabel value="Data Inicial" />
+			<p:calendar value="#{extratoBean.dataInicial}" pattern="dd/MM/yyyy"
+				id="dataInicial" readonlyInput="true" />
+
+			<h:outputLabel value="Data Final" />
+			<p:calendar value="#{extratoBean.dataFinal}" pattern="dd/MM/yyyy"
+				id="dataFinal" readonlyInput="true" />
+
+			<p:commandButton value="OK" action="#{extratoBean.geraExtrato}"
+				ajax="false" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,16 @@
+<arquillian xmlns="http://jboss.org/schema/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+	<!-- Arquivo de configuracao que informa para o Arquillian o servidor container que sera utilizado para o testes -->
+	<container qualifier="jbossas-managed" default="true">
+		<configuration>
+			<property name="jbossHome">C:\\JavaDesenv\\Servers\\wildfly-8.1.0.Final\\wildfly-8.1.0.Final</property>
+
+			<!-- Informacoes de debug -->
+			<property name="javaVmArguments">-Xmx512m -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</property>
+		</configuration>
+	</container>
+
+</arquillian>

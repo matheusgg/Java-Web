@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<display-name>RESTEasyProject</display-name>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+
+	<!-- É possivel utilizar a API Javascript do RESTEasy, com ela e possivel chamar os metodos das classes mapeadas como resources diretamente do javascript. Para 
+		isso, basta apenas configurar este listener e a servlet do RESTEasy JSAPI no web.xml -->
+	<listener>
+		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>RESTEasy JSAPI</servlet-name>
+		<servlet-class>org.jboss.resteasy.jsapi.JSAPIServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RESTEasy JSAPI</servlet-name>
+		<!-- O mapeamento da url que a servlet interceptará sera o nome do arquivo js que sera gerado pela api e deve ser importado na pagina -->
+		<url-pattern>/restEasyJSApi.js</url-pattern>
+	</servlet-mapping>
+</web-app>

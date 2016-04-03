@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+	version="2.2">
+
+	<namespace>http://customFaceletsTags.com/tags</namespace>
+
+	<tag>
+		<tag-name>actionButton</tag-name>
+		<source>tagFacelets/actionButton.xhtml</source>
+	</tag>
+</facelet-taglib>
+
+<!-- Biblioteca de tags. Este arquivo e um descritor de tags customizadas facelets. Este arquivo pode possuir qualquer nome 
+	desde que termine com taglib.xml -->
+	

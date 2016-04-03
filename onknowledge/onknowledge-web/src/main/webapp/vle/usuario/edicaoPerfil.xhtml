@@ -1,0 +1,47 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="title">#{msgs['label.perfil']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<h:outputStylesheet name="signup.css" library="css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}-resources/css/cropper/cropper.min.css" />
+	</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.edicao']} > #{msgs['label.perfil']}</ui:define>
+
+	<ui:define name="content">
+		<h:form prependId="false" enctype="multipart/form-data" id="mainForm" acceptcharset="ISO-8859-1">
+			<div class="smart-form client-form">
+
+				<section>
+					<h:panelGroup styleClass="auth-error-message" id="signupErrorMessages" />
+				</section>
+
+				<ui:include src="edicaoUsuarioComposition.xhtml" />
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{usuarioMB.salvaUsuario()}"
+						rendered="#{!okSecurityContext.isUserInRole('ALUNO')}">
+						<f:ajax render="@form" onevent="signupPageSetUp" execute="@form" />
+					</h:commandButton>
+
+					<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{usuarioMB.salvaAluno()}"
+						rendered="#{okSecurityContext.isUserInRole('ALUNO')}">
+						<f:ajax render="@form" onevent="signupPageSetUp" execute="@form" />
+					</h:commandButton>
+				</footer>
+			</div>
+
+			<!-- Profile Picture Cropper Modal -->
+			<ui:include src="profilePictureCropperComposition.xhtml" />
+		</h:form>
+	</ui:define>
+
+	<ui:define name="specificJS">
+		<h:outputScript name="signup.js" library="js" />
+		<script type="text/javascript" src="#{request.contextPath}-resources/js/cropper/cropper.min.js"></script>
+	</ui:define>
+
+</ui:composition>

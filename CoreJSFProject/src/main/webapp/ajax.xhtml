@@ -1,0 +1,50 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="titulo">Ajax</ui:define>
+	<ui:define name="conteudo">
+
+		<h1>Ajax</h1>
+		<h:form prependId="false">
+			<h:panelGrid columns="3">
+				<h:outputLabel value="#{msgs.qtd}:" for="qtd" />
+				<h:inputText value="#{ajaxBean.quantidade}" id="qtd">
+					<!-- 
+						Em uma requisicao ajax, o JSF chama a funcao informada em onevent 3 vezes quando a requisocao obtem sucesso,
+						alem disso, um objeto data contendo informacoes referentes a requisicao e passado para a funcao:
+						Quando a requisicao ajax inicia - begin;
+						Quando a requisicao ajax e processada pelo servidor - complete;
+						Quando a requisicao ajax renderiza os componentes informados em render - success; 
+					 -->
+					<f:ajax event="keyup" render="msg" onevent="showProgressBar" />
+				</h:inputText>
+				<h:message for="qtd" style="color: red;" id="msg" />
+			</h:panelGrid>
+
+			<div id="progressbar" style="width: 20%; height: 20px;" />
+		</h:form>
+
+		<script type="text/javascript">
+		//<![CDATA[
+			function showProgressBar(data){
+				var status = data.status;
+				if(status == 'begin'){
+					$("#progressbar").progressbar();
+					setProgressBarValue(10);
+				} else if(status == 'complete'){
+					setProgressBarValue(50);
+				} else{
+					setProgressBarValue(100);
+				}
+			}
+
+			function setProgressBarValue(valor){
+				$("#progressbar").progressbar({value: valor});
+			}
+  		//]]>
+  		</script>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+	<!-- Definicao do Form Bean que tera os valores preenchidos na submissao do formulario. -->
+	<form-beans>
+		<form-bean name="UserBean" type="br.com.beans.UserBean" />
+	</form-beans>
+
+	<action-mappings>
+
+		<!-- Default "Welcome" action -->
+		<!-- Forwards to Welcome.jsp -->
+		<action path="/Welcome" forward="/pages/registerUser.jsp" />
+		<action path="/actions/registerUser" type="br.com.action.RegisterUserAction" name="UserBean" scope="request">
+			<forward name="success" path="/WEB-INF/results/result.jsp" />
+			<forward name="badaddress" path="/WEB-INF/results/badaddress.jsp" />
+			<forward name="badpassword" path="/WEB-INF/results/badpassword.jsp" />
+		</action>
+
+		<!-- E possivel utilizar caracteres coringas para definir as actions e os beans utilizados. Neste exemplo, o '*' e o '{1}' serao substituidos por User, pois o 
+			nome da pagina que originou a requisicao e registerUser.jsp <action path="/actions/register*" type="br.com.action.Register{1}Action" name="{1}Bean" scope="request"> 
+			<forward name="success" path="/WEB-INF/results/result.jsp" /> <forward name="bad-address" path="/WEB-INF/results/badaddress.jsp" /> <forward name="bad-password" 
+			path="/WEB-INF/results/badpassword.jsp" /> </action> -->
+
+	</action-mappings>
+
+</struts-config>
+

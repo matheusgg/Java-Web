@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<system-libraries>
+    <library path="/Development/Servers/glassfish4/glassfish/modules/org.eclipse.persistence.core.jar" source="/Users/Matheus/.m2/repository/org/eclipse/persistence/org.eclipse.persistence.core/2.5.0-RC2/org.eclipse.persistence.core-2.5.0-RC2-sources.jar"/>
+</system-libraries>

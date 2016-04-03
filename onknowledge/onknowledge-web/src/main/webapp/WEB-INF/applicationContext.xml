@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Configuracao para que o Spring detecte classes anotadas com @Component -->
+	<context:annotation-config />
+
+	<!-- Informa para o Spring quais pacotes ele deve escanear a procura de classes anotadas -->
+	<context:component-scan base-package="br.com.ok.security, br.com.ok.util, br.com.ok.facade, br.com.ok.business, br.com.ok.model.dao" />
+
+	<!-- Definicao dos beans necessarios para trabalho com injecao do EntityManager -->
+	<beans>
+		<!-- Bean responsavel por habilitar a utilizacao das anotacoes @PersistenceContext e @PersistenceUnit nos beans do Spring -->
+		<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+		<!-- Este bean e responsavel por criar um EntityManagerFactory compartilhado a partir do persistence unit informado -->
+		<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+			<property name="persistenceUnitName" value="onknowledge" />
+		</bean>
+	</beans>
+</beans>

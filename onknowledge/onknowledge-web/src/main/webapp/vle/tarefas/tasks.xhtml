@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<o:importConstants type="br.com.ok.model.enums.StatusTarefa" />
+	<h:form prependId="false" id="mainForm">
+		<div class="jarviswidget jarviswidget-color-blueDark" data-widget-togglebutton="false" data-widget-editbutton="false"
+			data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+			<header>
+				<h:commandLink action="#{taskMB.preparaInclusaoNovaTarefa()}" styleClass="btn btn-default pull-right events-buttons"
+					value="#{msgs['label.task.incluir']}">
+					<f:ajax execute="@this" onevent="initPage" render=":incluirTarefa" />
+				</h:commandLink>
+
+				<span class="widget-icon"> <i class="fa fa-check txt-color-white"></i>
+				</span>
+				<h2>#{msgs['label.task.titulo2']}</h2>
+			</header>
+			<div>
+				<div class="widget-body no-padding smart-form">
+					<div id="taskContainer">
+						<ui:include src="/vle/tarefas/taskAdd.xhtml" />
+						<h5 class="todo-group-title">
+							<i class="fa fa-warning"></i>#{msgs['label.task.tarefa.ativas']} <small class="num-of-tasks">
+								(#{taskMB.listTarefaAtiva.size()})</small>
+						</h5>
+						<ui:repeat value="#{taskMB.listTarefaAtiva}" var="tarefa">
+							<ul id="sortable1" class="todo ui-sortable">
+								<li><span class="handle ok-default-link-decoration"> <h:commandLink action="#{taskMB.updateTask(tarefa)}"
+											title="#{msgs['titulo.task.botao.encerrar']}">
+											<f:setPropertyActionListener value="#{StatusTarefa.ENCERRADA}" target="#{tarefa.statusTarefa}" />
+											<f:ajax execute="@this" onevent="initPage" render="@form :tarefasRecentes" />
+											<i class="fa fa-check" />
+										</h:commandLink> <h:commandLink title="#{msgs['titulo.task.botao.editar']}">
+											<f:setPropertyActionListener value="#{tarefa}" target="#{taskMB.tarefa}" />
+											<f:ajax execute="@this" onevent="initPage" render=":incluirTarefa" />
+											<i class="fa fa-pencil" />
+										</h:commandLink> <h:commandLink action="#{taskMB.deleteTask(tarefa)}" title="#{msgs['titulo.task.botao.excluir']}">
+											<f:ajax execute="@this" onevent="initPage" render="@form :tarefasRecentes" />
+											<i class="fa fa-times" />
+										</h:commandLink></span>
+									<p>
+										<strong>#{tarefa.nome}</strong> <span class="text-muted">#{tarefa.descricao} </span> <span class="text-muted"><h:outputText
+												value="#{tarefa.dataTarefa}">
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+											</h:outputText> </span>
+									</p></li>
+							</ul>
+						</ui:repeat>
+
+						<h5 class="todo-group-title">
+							<i class="fa fa-check"></i> #{msgs['label.task.tarefa.concluida']} <small class="num-of-tasks">(#{taskMB.listTarefaInativa.size()})</small>
+						</h5>
+						<ui:repeat value="#{taskMB.listTarefaInativa}" var="tarefa">
+
+							<ul id="sortable3" class="todo">
+								<li class="complete"><span class="handle tarefas-inativas ok-default-link-decoration"> <h:commandLink
+											title="#{msgs['titulo.task.botao.ativar']}" action="#{taskMB.updateTask(tarefa)}">
+											<f:setPropertyActionListener value="#{StatusTarefa.EM_ANDAMENTO}" target="#{tarefa.statusTarefa}" />
+											<f:ajax execute="@this" onevent="initPage" render="@form :tarefasRecentes" />
+											<i class="fa fa-chevron-circle-down" />
+										</h:commandLink> <h:commandLink action="#{taskMB.deleteTask(tarefa)}" title="#{msgs['titulo.task.botao.excluir']}">
+											<f:ajax execute="@this" onevent="initPage" render="@form :tarefasRecentes" />
+											<i class="fa fa-times" />
+										</h:commandLink>
+								</span>
+									<p>
+										<strong>#{tarefa.nome}</strong> <span class="text-muted">#{tarefa.descricao}</span> <span class="text-muted"><h:outputText
+												value="#{tarefa.dataTarefa}">
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+											</h:outputText> </span>
+
+									</p></li>
+							</ul>
+						</ui:repeat>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

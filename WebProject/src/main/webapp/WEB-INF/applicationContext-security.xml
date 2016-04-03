@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd ">
+	<http access-denied-page="/login.jsf">
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/public/**" access="ROLE_USER" />
+		<form-login login-page="/login.jsf"
+			always-use-default-target="true" default-target-url="/public/pagina1"
+			authentication-failure-url="/login" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="ds"
+				authorities-by-username-query="SELECT u.usuario, u.permissao FROM users u WHERE u.usuario = ?"
+				users-by-username-query="SELECT usuario, senha, ativo 
+									   FROM users 
+									  WHERE usuario = ?" />
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>

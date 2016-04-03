@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<!-- A tag 'f:validateDoubleRange' valida o valor inserido. Neste caso, 
+		o valor informado deve ser maior que 0. -->
+	<h:form id="edicao">
+		<h:inputHidden value="#{lancamentoBean.editado.lancamento}" />
+
+		<h:panelGrid columns="4">
+			<h:outputLabel value="Data" for="data" />
+			<h:outputLabel value="Categoria" for="categoria" />
+			<h:outputLabel value="Descrição" for="descricao" />
+			<h:outputLabel value="Valor" for="valor" />
+
+			<p:calendar id="data" value="#{lancamentoBean.editado.data}"
+				pattern="dd/MM/yyyy" effect="explode" showOn="button" />
+
+			<p:selectOneMenu value="#{lancamentoBean.editado.categoria}"
+				id="categoria">
+				<f:selectItems value="#{categoriaBean.categoriasSelect}" />
+			</p:selectOneMenu>
+
+			<p:inputText id="descricao"
+				value="#{lancamentoBean.editado.descricao}" required="true"
+				size="30" />
+
+			<p:inputText id="valor" value="#{lancamentoBean.editado.valor}"
+				required="true" size="10">
+				<f:validateDoubleRange minimum="0" />
+				<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+			</p:inputText>
+
+			<h:outputLabel value="Favorecido/Fornecedor"
+				for="favorecidoFornecedor" />
+			<h:outputLabel value="Classificação" for="rating" />
+			<h:outputLabel value="Cheque" for="numeroCheque" />
+			<h:outputLabel />
+
+			<p:autoComplete value="#{lancamentoBean.editado.entidade.nome}"
+				id="favorecidoFornecedor" maxResults="5"
+				completeMethod="#{entidadeBean.autoCompleteEntidade}"
+				required="true" size="20" queryDelay="100" />
+
+			<p:rating value="#{lancamentoBean.editado.classificacao}" id="rating" />
+
+			<p:inputText id="numeroCheque" value="#{lancamentoBean.numeroCheque}"
+				maxlength="6" size="6"
+				valueChangeListener="#{lancamentoBean.mudouCheque}" />
+			<!-- O atributo 'valueChangeListener' é executado somente quanto o formulário é enviado ao servidor, porém ele
+				 será sempre o primeiro método a ser executado caso o valor tenha sido alterado. Somente após a execução do
+				 método registrado neste atributo é que o método original do botão (salvar) será executado -->
+		</h:panelGrid>
+
+		<!-- Por padrão, o botão do PrimeFaces envia todos os componentes do mesmo form que ele está contido,
+		process='@this' faz com que apenas o botão seja enviado para o servidor, fazendo assim, com que não
+		haja validações, deste modo, o processo de novo cadastro será concluído com sucesso. É possível
+		informar também os id's dos componentes que serão enviados para o servidor. -->
+		<p:commandButton value="Novo" action="#{lancamentoBean.novo}"
+			process="@this" update=":edicao" />
+		<p:commandButton value="Salvar" action="#{lancamentoBean.salvar}"
+			update=":listagem, :edicao" />
+	</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,151 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+	<!-- Login -->
+	<url-mapping id="default">
+		<pattern value="/" />
+		<view-id value="/login.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="login">
+		<pattern value="/login" />
+		<view-id value="/login.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="start">
+		<pattern value="/start" />
+		<view-id value="/vle/inicial/inicio.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="dashboard">
+		<pattern value="/dashboard" />
+		<view-id value="/vle/dashboard.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="password">
+		<pattern value="/password/recovery" />
+		<view-id value="/recuperacaoSenha.xhtml" />
+	</url-mapping>
+
+	<!-- Calendário -->
+	<url-mapping id="events">
+		<pattern value="/events" />
+		<view-id value="/vle/events/events.xhtml" />
+	</url-mapping>
+
+	<!-- Usuário -->
+	<url-mapping id="signup">
+		<pattern value="/signup" />
+		<view-id value="/signup.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="userSignup">
+		<pattern value="/signup/user" />
+		<view-id value="/vle/usuario/cadastroUsuario.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="adminSearch">
+		<pattern value="/social/admins" />
+		<view-id value="/vle/usuario/pesquisaAdministradores.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="studentSearch">
+		<pattern value="/social/students" />
+		<view-id value="/vle/usuario/pesquisaAlunos.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="teacherSearch">
+		<pattern value="/social/teachers" />
+		<view-id value="/vle/usuario/pesquisaProfessores.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="editProfile">
+		<pattern value="/profile/edit" />
+		<view-id value="/vle/usuario/edicaoPerfil.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="viewProfile">
+		<pattern value="/social/profile" />
+		<view-id value="/vle/usuario/visualizacaoPerfil.xhtml" />
+	</url-mapping>
+
+	<!-- Disciplina -->
+	<url-mapping id="disciplineSearch">
+		<pattern value="/disciplines/search" />
+		<view-id value="/vle/disciplina/pesquisaDisciplinas.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="disciplineRegister">
+		<pattern value="/disciplines/register" />
+		<view-id value="/vle/disciplina/cadastroDisciplina.xhtml" />
+	</url-mapping>
+
+	<!-- Turma -->
+	<url-mapping id="classesSearch">
+		<pattern value="/classes/search" />
+		<view-id value="/vle/turma/pesquisaTurmas.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="classRegister">
+		<pattern value="/classes/register" />
+		<view-id value="/vle/turma/cadastroTurma.xhtml" />
+	</url-mapping>
+
+	<!-- Curso -->
+	<url-mapping id="courseSearch">
+		<pattern value="/course/search" />
+		<view-id value="/vle/curso/pesquisaCursos.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="courseRegister">
+		<pattern value="/course/register" />
+		<view-id value="/vle/curso/cadastroCurso.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="courseDisciplines">
+		<pattern value="/course/disciplines" />
+		<view-id value="/vle/curso/associacaoDisciplinas.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="courseClasses">
+		<pattern value="/course/classes" />
+		<view-id value="/vle/curso/associacaoTurmas.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="courseInformations">
+		<pattern value="/couse/informations" />
+		<view-id value="/vle/curso/informacoesCurso.xhtml" />
+	</url-mapping>
+
+	<!-- Atividades -->
+	<url-mapping id="activityRegister">
+		<pattern value="/activity/register" />
+		<view-id value="/vle/atividade/cadastroAtividade.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="activitySearch">
+		<pattern value="/activity/search" />
+		<view-id value="/vle/atividade/pesquisaAtividades.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="email">
+		<pattern value="/email" />
+		<view-id value="/vle/email/email.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="forum">
+		<pattern value="/forum" />
+		<view-id value="/forum.xhtml" />
+	</url-mapping>
+
+	<!-- Error Pages -->
+	<url-mapping id="404">
+		<pattern value="/404" />
+		<view-id value="/errorPages/404.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="500">
+		<pattern value="/500" />
+		<view-id value="/errorPages/500.xhtml" />
+	</url-mapping>
+</pretty-config>

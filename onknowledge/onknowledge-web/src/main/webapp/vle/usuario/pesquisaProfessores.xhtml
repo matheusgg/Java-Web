@@ -1,0 +1,76 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.professores']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.social']} > #{msgs['label.professores']}</ui:define>
+
+	<ui:define name="content">
+
+		<o:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+
+				<fieldset>
+					<ui:include src="pesquisaUsuariosComposition.xhtml" />
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.selecionar']}" styleClass="btn btn-primary" action="#{usuarioMB.selecionaProfessores()}"
+						rendered="#{!empty usuarioMB.callerPage}">
+						<o:ignoreValidationFailed />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.limpar']}" styleClass="btn btn-primary" action="#{usuarioMB.alteraTipoUsuario(true)}"
+						immediate="true">
+						<f:setPropertyActionListener value="#{null}" target="#{usuarioMB.usuariosDataModel.wrappedData}" />
+						<f:setPropertyActionListener value="0" target="#{usuarioMB.usuariosDataModel.rowCount}" />
+						<f:setPropertyActionListener value="PROFESSOR" target="#{usuarioMB.usuario.perfil.descricao}" />
+						<f:ajax render="@form" onevent="initPage" execute="@this" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.pesquisar']}" styleClass="btn btn-primary">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+
+				<fieldset>
+					<section>
+						<p:dataTable value="#{usuarioMB.usuariosDataModel}" var="professor" paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" lazy="true" rows="10" emptyMessage="#{msgs['msg.nenhum.registro.encontrado']}" rowKey="#{professor}"
+							selection="#{usuarioMB.selectionMode eq 'single' ? usuarioMB.usuarioSelecionado : usuarioMB.usuariosSelecionados}" id="results"
+							currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:column selectionMode="#{!empty usuarioMB.selectionMode ? usuarioMB.selectionMode : 'multiple'}"
+								rendered="#{!empty usuarioMB.callerPage}" width="20" />
+							<p:column headerText="#{msgs['label.nome']}">
+								#{professor.nome}
+							</p:column>
+							<p:column headerText="#{msgs['label.sobrenome']}">
+								#{professor.sobrenome}
+							</p:column>
+							<p:column headerText="#{msgs['label.apelido']}">
+								#{professor.apelido}
+							</p:column>
+							<p:column headerText="#{msgs['label.login']}">
+								#{professor.login}
+							</p:column>
+							<p:column headerText="#{msgs['label.email']}">
+								#{professor.email}
+							</p:column>
+							<p:column headerText="#{msgs['label.cadastrado.desde']}">
+								<h:outputText value="#{professor.dataCadastro}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" timeZone="#{okSessionMB.currentTimeZone}" />
+								</h:outputText>
+							</p:column>
+							<p:column styleClass="ok-align-center" width="20" rendered="#{empty usuarioMB.callerPage}">
+								<h:commandLink action="#{usuarioMB.visualizaPerfilUsuarioSelecionado(professor.id)}" title="#{msgs['label.visualizar.perfil']}">
+									<i class="fa fa-user" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</section>
+				</fieldset>
+			</div>
+		</o:form>
+	</ui:define>
+</ui:composition>

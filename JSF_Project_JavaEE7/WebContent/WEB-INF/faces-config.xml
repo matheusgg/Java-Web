@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<!-- Registro do manipulador de recursos customizado na FacesServlet -->
+	<application>
+	<!-- <resource-handler>resourcehandler.CustomResourceHandler</resource-handler> -->
+
+		<!-- Agora e possivel especificar qual implementacao do contrato de template que a aplicacao utilizara. Desta forma, os 
+			templates que estiverem dentro da pasta contrato2 serao utilizados mesmo se existirem templates com o mesmo nome dentro de 
+			outras pastas como implementacao do contrato -->
+		<resource-library-contracts>
+			<contract-mapping>
+				<url-pattern>*</url-pattern>
+				<contracts>contrato2</contracts>
+			</contract-mapping>
+		</resource-library-contracts>
+	</application>
+
+	<!-- <lifecycle> -->
+	<!-- <phase-listener>phaselistener.CustomPhaseListener</phase-listener> -->
+	<!-- </lifecycle> -->
+	
+</faces-config>

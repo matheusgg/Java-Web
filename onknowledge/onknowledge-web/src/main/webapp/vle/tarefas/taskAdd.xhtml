@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:panelGroup id="incluirTarefa" layout="block">
+		<fieldset jsf:rendered="#{!empty taskMB.tarefa}">
+			<section>
+				<label class="label">#{msgs['label.task.informe.nome']}</label> <label
+					class="input #{!component.findComponent('tarefaNome').valid ? 'state-error' : ''}"><i class="icon-append fa fa-user"></i> <h:inputText
+						value="#{taskMB.tarefa.nome}" pt:placeholder="#{msgs['label.task.informe.nome']}" id="tarefaNome" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="100" /> </label> <em class="invalid"> <h:message
+						for="tarefaNome" />
+				</em>
+			</section>
+
+			<section>
+				<label class="label">#{msgs['label.task.informe.descricao']}</label> <label
+					class="textarea #{!component.findComponent('tarefaDescricao').valid ? 'state-error' : ''}"> <h:inputTextarea
+						value="#{taskMB.tarefa.descricao}" pt:placeholder="#{msgs['label.task.informe.descricao']}" rows="4" pt:maxlength="300"
+						id="tarefaDescricao" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+					</h:inputTextarea>
+				</label><em class="invalid"> <h:message for="tarefaDescricao" />
+				</em>
+			</section>
+
+			<section>
+				<label class="label">#{msgs['label.task.data.cadastro']}</label> <label
+					class="input #{!component.findComponent('tarefaData').valid ? 'state-error' : ''}"> <h:inputText
+						value="#{taskMB.tarefa.dataTarefa}" styleClass="datetimepicker" pt:data-mask="99/99/9999 99:99" pt:data-dateformat="dd/MM/yy HH:mm"
+						pt:data-mask-placeholder="-" pt:placeholder="#{msgs['label.evento.informe.data.inicial']}" id="tarefaData" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+					</h:inputText> <i class="icon-append fa fa-calendar"></i>
+				</label><em class="invalid"> <h:message for="tarefaData" />
+				</em>
+			</section>
+
+			<footer class="custom-form-client-footer">
+				<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{taskMB.selecionarFuncao()}">
+					<f:ajax render="@form :tarefasRecentes" execute="@form" onevent="initPage" />
+				</h:commandButton>
+				<h:commandButton value="#{msgs['label.cancelar']}" styleClass="btn btn-default">
+					<f:ajax render=":incluirTarefa" execute="@this" />
+					<f:setPropertyActionListener value="#{null}" target="#{taskMB.tarefa}" />
+				</h:commandButton>
+			</footer>
+		</fieldset>
+	</h:panelGroup>
+</ui:composition>

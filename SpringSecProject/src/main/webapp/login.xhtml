@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+	<title>Login</title>
+</h:head>
+<h:body>
+	<f:view locale="#{appBean.locale}">
+		<!-- 	Pagina de login. Por padrão, toda requisicao para j_spring_security_check será capturada pelo filtro do SpringSecurity para realizacao da autenticacao. 
+			Par a autenticacao, a requisicao deve possuir dois parametros: j_username e j_password -->
+		<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
+			<h:panelGrid style="margin: 0 auto;">
+				<h:messages />
+				<!-- Mensagem de erro que pode ser gerada pela autenticacao do SpringSecurity -->
+				<h:outputText value="#{SPRING_SECURITY_LAST_EXCEPTION.message}" style="color:red;" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" style="margin: 0 auto;">
+				<h:outputLabel value="Login" />
+				<h:inputText id="j_username" required="true" requiredMessage="Por favor, Informe o usuário" />
+
+				<h:outputLabel value="Senha" />
+				<input type="password" jsf:id="j_password" jsf:required="true" jsf:requiredMessage="Por favor, Informe a senha" />
+
+				<h:commandButton value="Login" />
+			</h:panelGrid>
+		</form>
+
+		<h:form>
+			<p>#{msgs['mensagem.teste']}</p>
+			<h:commandButton action="#{appBean.changeLocale('pt', 'BR')}" value="Português" />
+			<h:commandButton action="#{appBean.changeLocale('en', 'US')}" value="Inglês" />
+		</h:form>
+	</f:view>
+</h:body>
+</html>

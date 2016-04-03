@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<locale-config>
+			<supported-locale>pt_BR</supported-locale>
+			<supported-locale>en_US</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>bundle.messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+
+		<!-- Mapeamento da classe que resolvera os beans mapeados com o escopo personalizado -->
+		<el-resolver>customscope.CustomElResolver</el-resolver>
+
+		<!-- E possivel definir listeners de sistema para toda a aplicacao. Desta forma, a classe EventosBean sera notificada pelo 
+			JSF toda vez que um evento de pre validacao ocorrer -->
+		<system-event-listener>
+			<system-event-listener-class>eventos.EventosBean</system-event-listener-class>
+			<system-event-class>javax.faces.event.PreValidateEvent</system-event-class>
+		</system-event-listener>
+	</application>
+
+	<!-- Caso o componente possua apenas um renderizador, ou seja, nao ha necessidade de uma classe para armazenar os atributos. 
+		E possivel fazer a declaracao do componente apenas no arquivo faces-config, ao inves de declarar o componente no descritor 
+		de biblioteca de tags -->
+	<!-- <component> -->
+	<!-- <component-type>ui.spinner</component-type> -->
+	<!-- <component-class>javax.faces.component.UIInput</component-class> -->
+	<!-- </component> -->
+
+</faces-config>

@@ -1,0 +1,37 @@
+.input-file-profile-picture {
+	left: 0 !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	position: relative !important;
+	max-width: 60px !important;
+}
+
+#signupErrorMessages ul {
+	list-style: none;
+}
+
+#profilePictureGroup a {
+	text-decoration: none !important;
+	text-align: center !important;
+}
+
+#profilePictureGroup a:HOVER {
+	text-decoration: none !important;
+	color: #FFF !important;
+}
+
+.week-password {
+	width: 10%;
+	border: 1px solid #F00;
+}
+
+.medium-password {
+	width: 50%;
+	border: 1px solid #CC0;
+}
+
+.strong-password {
+	width: 99%;
+	border: 1px solid #090;
+}

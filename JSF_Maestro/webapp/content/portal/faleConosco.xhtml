@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="conteudo">
+		<div class="conteudo">
+			<h:form id="faleConoscoForm">
+				<h:panelGrid styleClass="container">
+					<h:outputText value="#{msgs.label_fale_conosco}" styleClass="titulo" />
+					<p:spacer styleClass="spacerTitulo" />
+
+					<p:fieldset>
+						<h:panelGrid styleClass="descricao" cellspacing="5">
+							<h:outputText value="Este espaço foi criado para facilitar seu contato com a Maestro Automações." />
+
+							<h:outputText
+								value="Por favor, preencha o formulário abaixo e conheça melhor nossos serviços e soluções, 
+										ou requisite o contato de um de nossos profissionais." />
+
+							<h:outputText value="Se preferir, contate-nos através dos canais:" />
+
+							<h:panelGrid columns="2">
+								<h:panelGroup style="margin-right: 20px;">
+									<p:graphicImage styleClass="bullet" />
+									<h:outputText value="#{msgs.label_telefone}: " styleClass="bold" />
+									<h:outputText value="(11) 2579-7327" />
+								</h:panelGroup>
+
+								<h:panelGroup>
+									<p:graphicImage styleClass="bullet" />
+									<h:outputText value="#{msgs.label_email}: " styleClass="bold" />
+									<h:outputText value="#{msgs.label_email_maestro}" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset>
+						<h:panelGrid styleClass="descricao" cellspacing="5" columns="4">
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="#{msgs.label_nome}" />
+							</h:panelGroup>
+							<p:inputText id="nome" value="#{faleConoscoBean.viewHelper.nome}" required="true"
+								requiredMessage="Campo Nome Obrigatório">
+							</p:inputText>
+
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="#{msgs.label_ambiente}" />
+							</h:panelGroup>
+							<p:selectOneMenu effect="fade" value="#{faleConoscoBean.viewHelper.ambiente}">
+								<f:selectItem itemValue="0" itemLabel="Selecione" />
+								<f:selectItem itemValue="Residencial" itemLabel="Residencial" />
+								<f:selectItem itemValue="Comercial" itemLabel="Comercial" />
+							</p:selectOneMenu>
+
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="#{msgs.label_telefone}" />
+							</h:panelGroup>
+							<p:inputMask mask="(99) 9999-9999" value="#{faleConoscoBean.viewHelper.telefone}" id="telefone" />
+
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="#{msgs.label_celular}" />
+							</h:panelGroup>
+							<p:inputMask mask="(99) 99999-9999" id="celular" value="#{faleConoscoBean.viewHelper.celular}" />
+
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="#{msgs.label_email}" />
+							</h:panelGroup>
+							<p:inputText id="email" value="#{faleConoscoBean.viewHelper.email}" required="true"
+								requiredMessage="Campo Email Obrigatório" />
+
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="Assunto" />
+							</h:panelGroup>
+							<p:selectOneMenu effect="fade" value="#{faleConoscoBean.viewHelper.assuntoSelecionado}">
+								<f:selectItem itemValue="0" itemLabel="Selecione" />
+								<f:selectItem itemValue="Dúvida" itemLabel="Dúvida" />
+								<f:selectItem itemValue="Sugestão" itemLabel="Sugestão" />
+								<f:selectItem itemValue="Elogio" itemLabel="Elogio" />
+								<f:selectItem itemValue="Reclamação" itemLabel="Reclamação" />
+							</p:selectOneMenu>
+
+							<h:panelGroup>
+								<p:graphicImage styleClass="bullet" />
+								<h:outputText value="#{msgs.label_mensagem}" />
+							</h:panelGroup>
+							<p:inputTextarea maxlength="300" rows="3" id="mensagem" value="#{faleConoscoBean.viewHelper.mensagem}" />
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset styleClass="fieldsetBotao">
+						<h:panelGrid columns="2" styleClass="gridBotao">
+							<h:panelGrid styleClass="gridBotaoEsquerda">
+								<h:panelGroup>
+									<p:commandButton value="#{msgs.label_voltar}" action="pretty:home" styleClass="botao"
+										title="#{msgs.label_voltar}" />
+								</h:panelGroup>
+							</h:panelGrid>
+
+							<h:panelGrid styleClass="gridBotaoDireita">
+								<h:panelGroup>
+									<p:commandButton value="#{msgs.label_limpar}" update="faleConoscoForm" process="@this"
+										styleClass="botao" />
+
+									<p:commandButton value="#{msgs.label_enviar}" styleClass="botao"
+										action="#{faleConoscoBean.envioEmail}" title="#{msgs.label_enviar}" update="faleConoscoForm" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:panelGrid>
+
+				<p:dialog widgetVar="modalErro" modal="true" resizable="false" draggable="false"
+					visible="#{facesContext.validationFailed}">
+					<p:messages id="msgErro" closeable="false" />
+				</p:dialog>
+
+				<p:dialog widgetVar="modalConfirmacao" modal="true" resizable="false" draggable="false"
+					visible="#{faleConoscoBean.viewHelper.modal}">
+					<p:messages id="msgConfirmacao" closeable="false" />
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

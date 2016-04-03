@@ -1,0 +1,220 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<div class="widget-body">
+		<div class="panel-group smart-accordion-default" id="atividadesAcordion">
+			<ui:repeat var="atividade" value="#{atividadeUsuarioMB.atividades}" varStatus="i" id="atividades">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<h:commandLink pt:data-toggle="collapse" pt:data-parent="#atividadesAcordion" pt:href="#collapseOne-#{i.index}"
+								styleClass="collapsed" action="#{atividadeUsuarioMB.preparaAtividadeSelecionada(atividade.id)}">
+								<i class="fa fa-fw fa-plus-circle txt-color-green" />
+								<i class="fa fa-fw fa-minus-circle txt-color-red" /> #{atividade.descricao.length() lt 50 ? atividade.descricao : atividade.descricao.subSequence(0, 47).concat('...')}
+								<f:ajax render=":atividades:#{i.index}:coll1" execute="@this" onevent="initOkEditors" />
+								<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.resposta}" />
+							</h:commandLink>
+						</h4>
+					</div>
+					<div id="collapseOne-#{i.index}" class="panel-collapse collapse">
+						<h:panelGroup layout="block" id="coll1">
+							<div class="smart-form client-form">
+								<fieldset>
+
+									<!-- Anexos da atividade -->
+									<section jsf:id="anexosSection" class="anexos-section">
+										<p:fieldset toggleable="true" collapsed="true" legend="#{msgs['label.anexos']}" styleClass="anexos-field">
+											<div class="input state-error">
+												<div class="bootstrap-tagsinput">
+													<ui:repeat var="anexo" value="#{atividadeUsuarioMB.atividade.anexos}">
+														<span class="tag label label-info"> <h:commandLink action="#{atividadeUsuarioMB.downloadAnexo(anexo)}"
+																styleClass="tag-link" value="#{anexo.nomeArquivo}.#{anexo.extensaoArquivo}" immediate="true" />
+														</span>
+													</ui:repeat>
+												</div>
+											</div>
+										</p:fieldset>
+									</section>
+
+									<!-- Atividade Simples -->
+									<ui:fragment rendered="#{atividadeUsuarioMB.atividade.class.simpleName eq 'AtividadeSimples'}">
+										<section>
+											<label class="label">#{msgs['label.conteudo']}</label>
+											<h:inputTextarea value="#{atividadeUsuarioMB.atividade.conteudo}" styleClass="ok-editor" id="conteudo"
+												pt:data-editor-language="#{okSessionMB.currentLocale.language}-#{okSessionMB.currentLocale.country}"
+												pt:data-editor-height="200px" pt:data-editor-readonly="false" pt:data-editor-resizable="false" disabled="true" />
+										</section>
+									</ui:fragment>
+
+									<!-- Atividade Questionário -->
+									<ui:fragment rendered="#{atividadeUsuarioMB.atividade.class.simpleName eq 'AtividadeQuestionario'}">
+										<section jsf:rendered="#{!empty atividadeUsuarioMB.atividade.dataPrazoFinal}">
+											<label class="label">#{msgs['label.prazo.final']}: <h:outputText pt:placeholder="#{msgs['msg.informe.prazo.final']}"
+													value="#{atividadeUsuarioMB.atividade.dataPrazoFinal}" id="prazo" disabled="true">
+													<f:convertDateTime pattern="dd/MM/yyyy '#{msgs['label.as']}' HH:mm" locale="#{okSessionMB.currentLocale}" />
+												</h:outputText></label>
+										</section>
+
+										<!-- Questoes -->
+										<div class="widget-body">
+											<div class="panel-group smart-accordion-default" id="questoesAcordion-#{i.index}">
+												<ui:repeat var="questao" value="#{atividadeUsuarioMB.atividade.questoes}" varStatus="j" id="questoes">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<h:commandLink pt:data-toggle="collapse" pt:data-parent="#questoesAcordion-#{i.index}"
+																	pt:href="#questaoCollapseOne-#{i.index}#{j.index}" styleClass="collapsed">
+																	<i class="fa fa-fw fa-plus-circle txt-color-green" />
+																	<i class="fa fa-fw fa-minus-circle txt-color-red" /> #{msgs['label.questao']} #{j.index + 1}
+																	<f:ajax execute="@this" render=":atividades:#{i.index}:questoes:#{j.index}:respostaSection" />
+																	<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.resposta}" />
+																</h:commandLink>
+															</h4>
+														</div>
+														<div id="questaoCollapseOne-#{i.index}#{j.index}" class="panel-collapse collapse">
+															<fieldset>
+																<!-- Anexos da questao -->
+																<section class="anexos-section">
+																	<p:fieldset toggleable="true" collapsed="true" legend="#{msgs['label.anexos']}" styleClass="anexos-field">
+																		<div class="input state-error">
+																			<div class="bootstrap-tagsinput">
+																				<ui:repeat var="anexoQuestao" value="#{questao.anexos}">
+																					<span class="tag label label-info"> <h:commandLink action="#{atividadeUsuarioMB.downloadAnexo(anexoQuestao)}"
+																							styleClass="tag-link" value="#{anexoQuestao.nomeArquivo}.#{anexoQuestao.extensaoArquivo}" immediate="true" />
+																					</span>
+																				</ui:repeat>
+																			</div>
+																		</div>
+																	</p:fieldset>
+																</section>
+
+																<!-- Descricao da questao -->
+																<section>
+																	<label class="label">#{msgs['label.conteudo']}</label>
+																	<h:inputTextarea value="#{questao.descricao}" styleClass="ok-editor"
+																		pt:data-editor-language="#{okSessionMB.currentLocale.language}-#{okSessionMB.currentLocale.country}"
+																		pt:data-editor-height="200px" pt:data-editor-readonly="false" pt:data-editor-resizable="false" disabled="true" />
+																</section>
+
+																<section>
+																	<footer class="custom-form-client-footer ok-default-border-bottom">
+																		<h:commandButton value="#{msgs['label.adicionar.resposta']}" styleClass="btn btn-primary"
+																			action="#{atividadeUsuarioMB.preparaAdicaoResposta(questao, okSecurityContext.loggedUser)}">
+																			<f:ajax execute="@this" render=":atividades:#{i.index}:questoes:#{j.index}:respostaSection" />
+																		</h:commandButton>
+																	</footer>
+																</section>
+
+																<!-- Resposta do aluno -->
+																<section jsf:id="respostaSection">
+																	<fieldset jsf:rendered="#{!empty atividadeUsuarioMB.resposta}">
+																		<section jsf:rendered="#{atividadeUsuarioMB.resposta.respostaCorreta}">
+																			<em class="ok-font-green">#{msgs['msg.resposta.respondida.corretamente']}</em>
+																		</section>
+
+																		<section jsf:rendered="#{now.after(atividade.dataPrazoFinal)}">
+																			<em class="ok-font-green">#{msgs['msg.prazo.final.atingido']}</em>
+																		</section>
+
+																		<!-- Alternativas -->
+																		<fieldset>
+																			<ui:repeat var="alt" value="#{questao.alternativas}">
+																				<div class="row">
+																					<label class="checkbox"> <h:selectBooleanCheckbox value="#{alt.selecionada}"
+																							disabled="#{atividadeUsuarioMB.resposta.respostaCorreta or now.after(atividade.dataPrazoFinal)}" /> <i />#{alt.descricao}
+																					</label>
+																				</div>
+																			</ui:repeat>
+																		</fieldset>
+
+																		<!-- Justificativa -->
+																		<section jsf:rendered="#{questao.justivicativaObrigatoria}">
+																			<label class="label">#{msgs['label.justificativa']}</label> <label
+																				class="textarea textarea-expandable #{!component.findComponent('justificativa').valid ? 'state-error' : ''}"> <h:inputTextarea
+																					styleClass="custom-scroll" pt:maxlength="5000" id="justificativa" pt:placeholder="#{msgs['msg.informe.justificativa']}"
+																					required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}"
+																					value="#{atividadeUsuarioMB.resposta.descricao}"
+																					disabled="#{atividadeUsuarioMB.resposta.respostaCorreta or now.after(atividade.dataPrazoFinal)}" />
+																			</label> <em class="invalid"> <h:message for="justificativa" /></em>
+																		</section>
+
+																		<!-- Anexos resposta -->
+																		<section jsf:id="anexosSection" class="anexos-section">
+																			<label class="label">#{msgs['label.anexos']}</label>
+																			<div class="input state-error">
+																				<div class="bootstrap-tagsinput">
+																					<ui:repeat var="anexo" value="#{atividadeUsuarioMB.resposta.anexos}" varStatus="k">
+																						<span class="tag label label-info"> <h:commandLink action="#{atividadeUsuarioMB.downloadAnexo(anexo)}"
+																								styleClass="tag-link" value="#{anexo.nomeArquivo}.#{anexo.extensaoArquivo}" immediate="true" /> <h:commandLink
+																								action="#{atividadeUsuarioMB.removeAnexo(atividadeUsuarioMB.resposta.anexos, k.index)}" styleClass="tag-link"
+																								rendered="#{!atividadeUsuarioMB.resposta.respostaCorreta and now.before(atividade.dataPrazoFinal)}">
+																								<f:ajax execute="@this" render="atividades:#{i.index}:questoes:#{j.index}:anexosSection" />
+																								<span data-role="remove" />
+																							</h:commandLink>
+																						</span>
+																					</ui:repeat>
+																				</div>
+																			</div>
+																			<em class="invalid" id="anexosMsg#{i.index}#{j.index}"
+																				jsf:rendered="#{!atividadeUsuarioMB.resposta.respostaCorreta and now.before(atividade.dataPrazoFinal)}"><h:message
+																					for="anexos" /></em>
+																			<div class="input input-file"
+																				jsf:rendered="#{!atividadeUsuarioMB.resposta.respostaCorreta and now.before(atividade.dataPrazoFinal)}">
+																				<span class="button btn-primary"><input jsf:id="anexos" type="file" name="anexos"
+																					onchange="uploadSelectedFiles(this, uploadFiles, '#anexosMsg#{i.index}#{j.index}')"
+																					data-exceeded-max-file-size="#{msgs['msg.validacao.limite.maximo.arquivo']}" multiple="multiple" />#{msgs['label.selecionar']}</span>
+																			</div>
+																			<o:commandScript name="uploadFiles" render="anexosSection" execute="anexosSection"
+																				action="#{atividadeMB.uploadFilesToAnexosList(atividadeUsuarioMB.resposta.anexos, 'atividades:'.concat(i.index).concat(':questoes:').concat(j.index).concat(':anexos'))}" />
+																		</section>
+
+																		<!-- Rodape resposta -->
+																		<footer class="custom-form-client-footer">
+																			<h:commandButton value="#{msgs['label.responder']}" styleClass="btn btn-primary"
+																				rendered="#{!atividadeUsuarioMB.resposta.respostaCorreta and now.before(atividade.dataPrazoFinal)}"
+																				action="#{atividadeUsuarioMB.respondeQuestao()}">
+																				<f:ajax execute=":atividades:#{i.index}:questoes:#{j.index}:respostaSection"
+																					render=":atividades:#{i.index}:questoes:#{j.index}:respostaSection" />
+																			</h:commandButton>
+
+																			<h:commandButton value="#{msgs['label.cancelar']}" styleClass="btn btn-primary">
+																				<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.resposta}" />
+																				<f:ajax execute="@this" render=":atividades:#{i.index}:questoes:#{j.index}:respostaSection" />
+																			</h:commandButton>
+																		</footer>
+																	</fieldset>
+																</section>
+
+																<footer class="custom-form-client-footer ok-direction-rtl">
+																	<h:commandLink value="#{msgs['label.comentarios']}" action="#{comentarioMB.preparaComentariosQuestao(questao)}">
+																		<f:ajax execute="@this" render=":comentariosForm" onevent="initCommentsEditor" />
+																		<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.questaoSelecionada}" />
+																		<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.atividadeSelecionada}" />
+																	</h:commandLink>
+																</footer>
+															</fieldset>
+														</div>
+													</div>
+												</ui:repeat>
+											</div>
+										</div>
+									</ui:fragment>
+								</fieldset>
+
+								<!-- Comentarios da atividade-->
+								<footer class="custom-form-client-footer ok-direction-rtl">
+									<h:commandLink value="#{msgs['label.comentarios']}" action="#{comentarioMB.preparaComentariosAtividade(atividade)}">
+										<f:ajax execute="@this" render=":comentariosForm" onevent="initCommentsEditor" />
+										<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.questaoSelecionada}" />
+										<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.atividadeSelecionada}" />
+									</h:commandLink>
+								</footer>
+							</div>
+						</h:panelGroup>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+	</div>
+</ui:composition>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="ResourceInjectionProject" transaction-type="JTA">
+		<non-jta-data-source>java:jboss/datasources/MySQL</non-jta-data-source>
+		<class>jpa.model.Cliente</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.show_sql" value="true" />
+
+			<!-- No jboss, para definir um nome JNDI global para essa unidade de persistencia, basta especificar esta propriedade. -->
+			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:comp/env/persistence/ResourceInjectionProject" /> -->
+
+			<!-- Configuracao para conexoes nao gerenciadas pelo JBoss -->
+			<!-- <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> -->
+			<!-- <property name="hibernate.connection.username" value="root" /> -->
+			<!-- <property name="jhibernate.connection.password" value="" /> -->
+			<!-- <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/app_db" /> -->
+			<!-- <property name="hibernate.c3po.min_size" value="5" /> -->
+			<!-- <property name="hibernate.c3po.max_size" value="20" /> -->
+			<!-- <property name="hibernate.c3po.timeout" value="300" /> -->
+			<!-- <property name="hibernate.c3po.max_statements" value="50" /> -->
+			<!-- <property name="hibernate.c3po.idle_test_period" value="3000" /> -->
+		</properties>
+	</persistence-unit>
+</persistence>

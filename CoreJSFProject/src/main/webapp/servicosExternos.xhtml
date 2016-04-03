@@ -1,0 +1,35 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="titulo">Servicos Externos</ui:define>
+	<ui:define name="conteudo">
+
+		<h1>DataSource de Banco de Dados</h1>
+		<h:outputText value="#{servicosExternosBean.dataSource}" />
+
+		<h1>EntityManagerFactory</h1>
+		<h:outputText value="#{servicosExternosBean.emf}" />
+
+		<h1>UserTransaction</h1>
+		<h:outputText value="#{servicosExternosBean.transaction}" />
+
+		<h1>Cadastro de Usuario</h1>
+		<h:form prependId="false">
+			<h:messages />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Nome" for="nome" />
+				<h:inputText value="#{servicosExternosBean.usuario.nome}" id="nome" />
+
+				<h:outputLabel value="Nascimento" for="nascimento" />
+				<h:inputText value="#{servicosExternosBean.usuario.nascimento}" id="nascimento">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+				</h:inputText>
+
+			</h:panelGrid>
+			<h:commandButton value="Salvar" action="#{servicosExternosBean.save}" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

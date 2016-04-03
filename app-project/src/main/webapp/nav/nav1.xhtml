@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+	<f:viewParam name="viewParam1" />
+</f:metadata>
+
+<h:head>
+	<title>Nav 1</title>
+</h:head>
+<h:body>
+	<h1>Nav 1</h1>
+
+	<h:panelGrid>
+		<h:link value="Go" outcome="nav2" />
+		<h:link value="Go" outcome="nav2.jsf" />
+		<h:link value="Go" outcome="/nav/nav2" />
+		<h:link value="Go" outcome="/nav/nav2.jsf" />
+
+		<h:link value="Go" outcome="/nav/nav2.jsf?teste=teste" />
+		<h:link value="Go" outcome="/nav/nav2.jsf?teste=teste">
+			<f:param name="teste" value="teste1" />
+		</h:link>
+
+		<h:link value="Go" outcome="/nav/nav2.jsf" includeViewParams="true" />
+		<h:link value="Go" outcome="/nav/nav2.jsf?includeViewParams=true" />
+		<h:link value="Go" outcome="/nav/nav2.jsf">
+			<f:param name="includeViewParams" value="false" />
+		</h:link>
+		<h:link value="Go" outcome="/nav/nav2.jsf?includeViewParams=true">
+			<f:param name="includeViewParams" value="false" />
+		</h:link>
+
+		<h:link value="Go" outcome="nav2Test" />
+		<h:link value="Go" outcome="nav2Test">
+			<f:param name="param1" value="30" />
+		</h:link>
+	</h:panelGrid>
+
+	<h:form>
+		<h:panelGrid>
+			<h:commandButton action="nav2" value="Go" />
+			<h:commandButton action="nav2?includeViewParams=true" value="Go" />
+			<h:commandButton action="nav2?faces-redirect=true&amp;includeViewParams=true" value="Go" />
+			<h:commandButton action="nav2?faces-redirect=true&amp;teste=10" value="Go" />
+			<h:commandButton action="nav2?teste=10" value="Go" />
+			<h:commandButton action="nav2" value="Go">
+				<f:param name="teste" value="10" />
+			</h:commandButton>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<div class="jarviswidget jarviswidget-color-blueDark" data-widget-togglebutton="false" data-widget-editbutton="false"
+		data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+		<header>
+			<span class="widget-icon"> <i class="fa fa-calendar txt-color-white"></i>
+			</span>
+			<h2>#{msgs['label.eventos']}</h2>
+		</header>
+		<div>
+			<div class="widget-body no-padding smart-form">
+				<div id="calendar" data-source="#{request.contextPath}/ws/events/listaEventosUsuario" class="eventos-dashboard"
+					data-location="dashboard" />
+			</div>
+		</div>
+	</div>
+	<h:form>
+		<o:commandScript name="prepareEventDetails" action="#{eventoMB.preparaDetalhesEvento()}" immediate="true" render="@form" />
+		<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h5>#{eventoMB.evento.nome}</h5>
+					</div>
+					<div class="modal-body">
+						<div class="smart-form">
+							<section>
+								<label class="label">#{msgs['label.evento.detalhe']}</label> <label class="textarea textarea-expandable"> <h:inputTextarea
+										class="form-control textarea-disabled" value="#{eventoMB.evento.descricao}" styleClass="custom-scroll" rows="4" readonly="true"
+										id="eventoDetalhe">
+									</h:inputTextarea>
+								</label>
+							</section>
+
+							<div class="row">
+								<section class="col col-6">
+									<label class="label">#{msgs['label.evento.data.inicial']}</label> <label class="input"> <i
+										class="icon-append fa fa-calendar"></i> <h:inputText value="#{eventoMB.evento.dataInicial}" readonly="true">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+										</h:inputText>
+									</label>
+								</section>
+
+								<section class="col col-6">
+									<label class="label">#{msgs['label.evento.data.final']}</label> <label class="input "> <i
+										class="icon-append fa fa-calendar"></i> <h:inputText value="#{eventoMB.evento.dataFinal}" readonly="true">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+										</h:inputText>
+									</label><em class="invalid"> <h:message for="eventoDataFinal" />
+									</em>
+								</section>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.fechar']}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

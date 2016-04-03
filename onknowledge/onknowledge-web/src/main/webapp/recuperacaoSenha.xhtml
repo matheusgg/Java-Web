@@ -1,0 +1,54 @@
+<ui:composition template="/externalTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">#{msgs['label.recuperacao.senha']}</ui:define>
+
+	<ui:define name="content">
+		<div class="content-div">
+			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 minimum-space">
+				<div class="well no-padding">
+					<!-- CONTENT -->
+					<h:form id="mainForm" styleClass="smart-form client-form" prependId="false">
+						<header>#{msgs['label.recuperacao.senha']}</header>
+						<fieldset>
+							<section>
+								<label class="label">#{msgs['label.email']}</label> <label
+									class="input #{!component.findComponent('email').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-envelope-o" />
+									<h:inputText id="email" value="#{senhaMB.usuario.email}" required="true"
+										requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" pt:placeholder="#{msgs['msg.informe.email']}" maxlength="100" />
+								</label><em class="invalid"> <h:message for="email" />
+								</em>
+							</section>
+
+							<section jsf:rendered="#{!empty senhaMB.usuario.perguntaSeguranca}">
+								<label class="label">#{msgs['label.pergunta.seguranca']}:</label>
+								<p>#{senhaMB.usuario.perguntaSeguranca.descricao}</p>
+							</section>
+
+							<section jsf:rendered="#{!empty senhaMB.usuario.perguntaSeguranca}">
+								<label class="label">#{msgs['label.resposta']}</label> <label
+									class="input #{!component.findComponent('resposta').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-envelope-o" />
+									<h:inputText id="resposta" value="#{senhaMB.respostaSeguranca}" required="true"
+										requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" pt:placeholder="#{msgs['msg.responda.pergunta.seguranca']}"
+										maxlength="300" />
+								</label><em class="invalid"> <h:message for="resposta" />
+								</em>
+							</section>
+						</fieldset>
+						<footer>
+							<h:commandButton value="#{msgs['label.enviar']}" styleClass="btn btn-primary" action="#{senhaMB.verificaOperacaoEnviar()}">
+								<f:ajax render="@form" onevent="initPage" execute="@form" />
+							</h:commandButton>
+							<h:commandButton value="#{msgs['label.limpar']}" styleClass="btn btn-default" action="#{senhaMB.limpaCampos()}"
+								rendered="#{!empty senhaMB.usuario.id}">
+								<f:ajax render="@form" onevent="initPage" execute="@this" />
+								<f:setPropertyActionListener value="true" target="#{component.findComponent('resposta').valid}" />
+							</h:commandButton>
+						</footer>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

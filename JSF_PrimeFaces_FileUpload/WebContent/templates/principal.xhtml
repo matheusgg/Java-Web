@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title><ui:insert name="tituloJanela">Minha Página com template</ui:insert></title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+<h:body>
+	<div id="container">
+		<div id="titulo">
+			<ui:insert name="titulo">Página de Teste</ui:insert>
+		</div>
+		<div id="topo">
+			<ui:insert name="topo">Topo Float</ui:insert>
+		</div>
+		<div id="barra_menu">
+			<ui:insert name="barra_menu">Barra de Menu</ui:insert>
+		</div>
+		<div id="corpo">
+			<ui:insert name="corpo" />
+		</div>
+		<div id="rodape">
+			<ui:insert name="rodape">
+				<ui:include src="/templates/rodape.xhtml" />
+			</ui:insert>
+		</div>
+	</div>
+</h:body>
+</html>

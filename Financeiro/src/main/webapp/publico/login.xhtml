@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/principal.xhtml">
+	<ui:define name="corpo">
+		<p:growl />
+		<h:panelGrid style="margin: 0 auto;">
+			<!-- O conteúdo deste panelGrid só será exibido caso exista algum conteúdo em
+		 param.login_error -->
+			<h:panelGroup rendered="#{!empty param.login_error}">
+				<h:outputText value="Erro ao efetuar o login." styleClass="error" />
+				<br />
+				<br />
+				<h:outputText
+					value="#{SPRING_SECURITY_LAST_EXCEPTION.message eq 'Bad credentials' ? 'Usuário ou senha incorreta':''}"
+					styleClass="error" />
+			</h:panelGroup>
+
+			<!-- 'request.contextPath' fornece o nome da aplicação. No caso, FinanceiroWeb,
+		 montando assim, o caminho completo da ação do form /FinanceiroWeb/j_spring_security_check-->
+			<!-- Os nomes padronizados pelo Spring começam com j. Ex: j_username -->
+			<p:panel>
+				<form id="login" method="post"
+					action="#{request.contextPath}/j_spring_security_check">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Login" />
+						<p:inputText id="j_username" required="true"
+							requiredMessage="Por favor, Informe o usuário" />
+
+						<h:outputLabel value="Senha" />
+						<p:password id="j_password" required="true"
+							requiredMessage="Por favor, Informe a senha" />
+
+						<h:outputLabel value="Manter logado" />
+						<p:selectBooleanCheckbox id="_spring_security_remember_me" />
+					</h:panelGrid>
+					<h:form>
+						<h:panelGrid columns="2" style="margin: 0 auto;">
+							<p:commandButton value="Entrar" ajax="false" />
+							<p:commandButton value="Limpar" type="reset" />
+						</h:panelGrid>
+					</h:form>
+				</form>
+			</p:panel>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

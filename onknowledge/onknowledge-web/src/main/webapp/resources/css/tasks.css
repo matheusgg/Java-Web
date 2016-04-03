@@ -1,0 +1,35 @@
+.events-buttons {
+	margin: 0 0 5% 0;
+}
+
+.textarea-disabled {
+	resize: none;
+}
+
+.text-muted {
+	word-break: break-word !important;
+}
+
+.todo>li {
+	border-bottom: 1px solid #e7e7e7 !important;
+	background: none !important;
+}
+
+.handle {
+	width: 50px !important;
+	padding-top: 18px !important;
+	margin-left: -8px !important;
+	text-align: center !important;
+}
+
+.handle a {
+	color: #696969 !important;
+}
+
+.todo>li>p {
+	margin-left: 75px !important;
+}
+
+.tarefas-inativas {
+	text-decoration: none !important;
+}

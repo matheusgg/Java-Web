@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<p:growl />
+		<div class="conteudo">
+			<h:body>
+				<h:form id="orcamentoForm">
+					<h:panelGrid styleClass="container">
+						<h:outputText value="#{msgs.label_orcamento}" styleClass="titulo" />
+						<p:spacer styleClass="spacerTitulo" />
+
+						<p:fieldset style="font-size: 8pt !important;">
+							<h:panelGroup layout="block" style="width:100%">
+								<h:panelGrid columns="3">
+									<h:panelGrid styleClass="alignOrcamento" cellspacing="3" cellpadding="3">
+										<h:outputLabel value="#{msgs.label_novo_orcamento}" />
+										<p:spacer width="60" />
+										<p:message for="inpNome" id="mensagem" />
+										<h:panelGrid columns="2" cellspacing="5" cellpadding="3">
+											<h:outputLabel value="#{msgs.label_nome}" id="inpNome" />
+											<p:inputText value="#{orcamentoBean.viewHelper.nomeCliente}" size="30" />
+											<h:outputLabel value="#{msgs.label_email}" />
+											<p:inputText required="true" requiredMessage="#{msgs.msg_email_obrigatorio}" value="#{orcamentoBean.viewHelper.emailCliente}" size="30" />
+										</h:panelGrid>
+										<p:commandButton value="#{msgs.label_solicite_orcamento}" styleClass="botaoNovoOrcamento" action="#{orcamentoBean.cadastrarNovoUsuarioDeOrcamento}" />
+									</h:panelGrid>
+									<h:panelGrid styleClass="alignBarra">
+										<p:separator id="customSeparator" style="width:0px;height:300px" />
+									</h:panelGrid>
+									<h:panelGrid styleClass="alignPesquisa">
+										<h:outputLabel value="#{msgs.label_pesquise_orcamento}" />
+										<p:spacer width="80" />
+										<h:panelGrid columns="3" cellspacing="5" cellpadding="8" styleClass="campoPesquisaNovoOrcamento">
+											<h:outputLabel value="#{msgs.label_pesquisar}" />
+											<p:inputText value="#{orcamentoBean.viewHelper.campoDePesquisa}" size="30"
+												onfocus="retirarMensagemDeCampo(this,'#{msgs.msg_pesquise_orcamento_aqui}')"
+												onblur="adicionarMensagemDeCampo(this,'#{msgs.msg_pesquise_orcamento_aqui}')" />
+											<p:commandButton id="botaoPesquisar" icon="ui-icon-search" title="#{msgs.label_pesquisar}" action="#{orcamentoBean.pesquisar}"
+												update=":orcamentoForm" oncomplete="pesquisaOrcamento.show()" immediate="true" />
+										</h:panelGrid>
+									</h:panelGrid>
+								</h:panelGrid>
+							</h:panelGroup>
+						</p:fieldset>
+
+						<p:fieldset styleClass="fieldsetBotao">
+							<h:panelGrid styleClass="gridBotao">
+								<h:panelGrid styleClass="gridBotaoEsquerda">
+									<h:panelGroup>
+										<p:commandButton value="#{msgs.label_voltar}" action="pretty:home" immediate="true" styleClass="botao" title="#{msgs.label_voltar}" />
+									</h:panelGroup>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:fieldset>
+					</h:panelGrid>
+
+					<p:dialog modal="true" widgetVar="pesquisaOrcamento" id="pesquisaOrcamento" header="#{msgs.label_pesquisa_de_orcamentos}" resizable="false"
+						hideEffect="explode" showEffect="explode">
+						<p:dataTable value="#{orcamentoBean.viewHelper.orcamentosCliente}" var="orcamento" rows="4" paginator="true" paginatorPosition="bottom"
+							paginatorAlwaysVisible="false" emptyMessage="#{msgs.msg_nenhum_orcamento_encontrado}">
+							<f:facet name="header">
+								<h:outputText value="#{label_orcamentos}" />
+							</f:facet>
+							<p:column headerText="#{msgs.label_codigo_orcamento}">
+								<h:outputText value="#{orcamento.codigoOrcamento}" />
+							</p:column>
+							<p:column headerText="#{msgs.label_data_orcamento}">
+								<h:outputText value="#{orcamento.dataOrcamento}" />
+							</p:column>
+							<p:column headerText="#{msgs.label_status}">
+								<h:outputText value="#{orcamento.statusOrcamento}" />
+							</p:column>
+						</p:dataTable>
+						<h:outputLabel value="#{msgs.msg_acesse_seu_cadastro_mais_informacoes}" />
+					</p:dialog>
+				</h:form>
+			</h:body>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

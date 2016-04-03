@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces" id="extr-page">
+<h:head>
+	<ui:include src="/head.xhtml" />
+	<h:outputStylesheet name="onknowledge-error-pages.css" library="css" />
+	<ui:insert name="specificCSS" />
+</h:head>
+<h:body class="fixed-page-footer smart-style-1 animated fadeIn error-page-body">
+	<f:view locale="#{okSessionMB.currentLocale}">
+
+		<!-- HEADER -->
+		<header id="header" style="background-color: #22262e !important">
+			<div id="logo-group">
+				<span id="logo"> <pretty:link mappingId="start">
+						<img src="#{request.contextPath}-resources/img/logo-pale.png" alt="#{msgs['label.onknowledge']}" />
+					</pretty:link>
+				</span>
+			</div>
+		</header>
+		<!-- END HEADER -->
+
+		<!-- MAIN PANEL -->
+		<div id="main">
+			<!-- LANGUAGE DROPDOWN -->
+			<div class="languages external-pages-languages error-page-languages">
+				<ui:include src="/languages.xhtml" />
+			</div>
+			<!-- END LANGUAGE DROPDOWN -->
+
+			<!-- CONTENT -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="text-center error-box">
+								<ui:insert name="content">
+									<script type="text/javascript">
+										redirect("#{request.contextPath}");
+									</script>
+								</ui:insert>
+								<h:panelGroup rendered="#{!empty okSecurityContext.loggedUser}" layout="block">
+									<ul class="list-inline">
+										<li><a jsf:outcome="pretty:dashboard">#{msgs['menu.dashboard']} <i class="fa fa-home" /></a></li>
+										<li><a jsf:outcome="pretty:email">#{msgs['label.email']} <i class="fa fa-inbox" /></a></li>
+										<li jsf:rendered="#{!okSecurityContext.isUserInRole('ALUNO')}"><a jsf:outcome="pretty:events">#{msgs['menu.calendario']}
+												<i class="fa fa-calendar" />
+										</a></li>
+									</ul>
+								</h:panelGroup>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END CONTENT -->
+		</div>
+
+		<!-- FOOTER -->
+		<div class="page-footer page-footer-content error-page-footer error-page-footer-mobile">
+			<div class="row show-grid">
+				<div class="col-md-4">
+					<h5 class="about-heading">#{msgs['label.ava']}</h5>
+					<p>#{msgs['txt.rodape.ava']}</p>
+				</div>
+				<div class="col-md-4">
+					<h5 class="about-heading">#{msgs['label.compartilhamento.integracao']}</h5>
+					<p>#{msgs['txt.rodape.compartilhamento.integracao']}</p>
+				</div>
+				<div class="col-md-4">
+					<h5 class="about-heading">#{msgs['label.inovacao']}</h5>
+					<p>#{msgs['txt.rodape.inovacao']}</p>
+				</div>
+			</div>
+		</div>
+		<!-- END FOOTER -->
+
+		<!-- =============================================== SCRIPTS =============================================== -->
+		<ui:include src="/scripts.xhtml" />
+	</f:view>
+</h:body>
+</html>

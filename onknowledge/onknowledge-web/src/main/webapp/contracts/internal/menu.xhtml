@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+	<aside id="left-panel">
+		<!-- User info -->
+		<div class="login-info">
+			<span> <!-- User image size is adjusted inside CSS, it should stay as it --> <a href="#" id="show-shortcut"
+				data-action="toggleShortcut"> <ui:include src="/userProfilePicture.xhtml" /> <span> #{okSecurityContext.loggedUser.nome} </span> <i
+					class="fa fa-angle-down" />
+			</a>
+			</span>
+		</div>
+		<!-- end user info -->
+
+		<!-- Menu Itens -->
+		<nav>
+			<ul>
+				<li class="#{prettyContext.currentMapping.id eq 'start' ? 'active' : ''}" jsf:rendered="#{!okSecurityContext.isUserInRole('ADMIN')}">
+					<a jsf:outcome="pretty:start"> <i class="fa fa-lg fa-fw fa-home" /> <span class="menu-item-parent">#{msgs['label.inicio']}</span>
+				</a>
+				</li>
+				<li class="#{prettyContext.currentMapping.id eq 'dashboard' ? 'active' : ''}"><a jsf:outcome="pretty:dashboard"> <i
+						class="fa fa-lg fa-fw fa-dashboard" /> <span class="menu-item-parent">#{msgs['menu.dashboard']}</span>
+				</a></li>
+				<li
+					class="#{prettyContext.currentMapping.id eq 'disciplineSearch' or prettyContext.currentMapping.id eq 'disciplineRegister' or 
+							 prettyContext.currentMapping.id eq 'classesSearch' or prettyContext.currentMapping.id eq 'classRegister' or 
+							 prettyContext.currentMapping.id eq 'courseSearch' or
+							 prettyContext.currentMapping.id eq 'courseRegister' or
+							 prettyContext.currentMapping.id eq 'courseDisciplines' or
+							 prettyContext.currentMapping.id eq 'courseClasses' or
+							 prettyContext.currentMapping.id eq 'courseInformations' or
+							 prettyContext.currentMapping.id eq 'activitySearch' or
+							 prettyContext.currentMapping.id eq 'activityRegister' ? 'active' : ''}">
+					<a href="#"> <i class="fa fa-lg fa-fw fa-university" /> <span class="menu-item-parent">#{msgs['menu.universidade']}</span>
+				</a>
+					<ul>
+						<li><a jsf:outcome="pretty:disciplineSearch">#{msgs['label.disciplinas']}</a></li>
+						<li><a jsf:outcome="pretty:classesSearch" jsf:rendered="#{!okSecurityContext.isUserInRole('ALUNO')}">#{msgs['label.turmas']}</a></li>
+						<li><a jsf:outcome="pretty:courseSearch" jsf:rendered="#{!okSecurityContext.isUserInRole('ALUNO')}">#{msgs['label.cursos']}</a></li>
+						<li><a jsf:outcome="pretty:activitySearch"
+							jsf:rendered="#{okSecurityContext.isUserInRole('COORDENADOR') or okSecurityContext.isUserInRole('PROFESSOR')}">#{msgs['label.atividades']}</a></li>
+					</ul>
+				</li>
+				<li class="#{prettyContext.currentMapping.id eq 'events' ? 'active' : ''}" jsf:rendered="#{!okSecurityContext.isUserInRole('ALUNO')}"><a
+					jsf:outcome="pretty:events"> <i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">#{msgs['label.eventos']}</span>
+				</a></li>
+				<li class="#{prettyContext.currentMapping.id eq 'email' ? 'active' : ''}"><a jsf:outcome="pretty:email"> <i
+						class="fa fa-lg fa-fw fa-inbox" /> <span class="menu-item-parent">#{msgs['label.email']}</span> <span
+						class="badge pull-right inbox-badge qtdMsgsNaoLidas" />
+				</a></li>
+				<li class="#{prettyContext.currentMapping.id eq 'userSignup' ? 'active' : ''}" jsf:rendered="#{okSecurityContext.isUserInRole('ADMIN')}">
+					<a href="#"> <i class="fa fa-lg fa-fw fa-save" /> <span class="menu-item-parent">#{msgs['label.cadastro']}</span>
+				</a>
+					<ul>
+						<li><a jsf:outcome="pretty:userSignup">#{msgs['label.usuarios']}</a></li>
+					</ul>
+				</li>
+				<li
+					class="#{prettyContext.currentMapping.id eq 'adminSearch' or prettyContext.currentMapping.id eq 'studentSearch' 
+								or prettyContext.currentMapping.id eq 'teacherSearch' ? 'active' : ''}">
+					<a href="#"> <i class="fa fa-lg fa-fw fa-group" /> <span class="menu-item-parent">#{msgs['label.social']}</span>
+				</a>
+					<ul>
+						<li jsf:rendered="#{okSecurityContext.isUserInRole('ADMIN')}"><a jsf:outcome="pretty:adminSearch">#{msgs['label.administradores']}</a></li>
+						<li><a jsf:outcome="pretty:studentSearch">#{msgs['label.alunos']}</a></li>
+						<li><a jsf:outcome="pretty:teacherSearch">#{msgs['label.professores']}</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<!-- End Menu Itens -->
+	</aside>
+</ui:composition>

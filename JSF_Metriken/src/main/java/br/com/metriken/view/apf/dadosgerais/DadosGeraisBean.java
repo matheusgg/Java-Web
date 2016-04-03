@@ -1,0 +1,39 @@
+package br.com.metriken.view.apf.dadosgerais;
+
+import javax.annotation.PostConstruct;
+import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ConversationScoped;
+
+import br.com.metriken.facade.contagem.ContagemFacade;
+import br.com.metriken.util.FacesUtils;
+import br.com.metriken.view.apf.metrica.MetricaBean;
+import br.com.metriken.view.base.crud.AbstractAPF;
+
+@Named
+@ConversationScoped
+public class DadosGeraisBean extends AbstractAPF {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4939815295876305631L;
+
+	@Inject
+	private ContagemFacade contagemFacade;
+
+	@PostConstruct
+	public void begin() {
+		this.getViewHelper().setComboTipoContagem(this.contagemFacade.getComboTipoContagem());
+		this.getViewHelper().setComboTipoProjeto(this.contagemFacade.getComboTipoProjeto());
+		this.getViewHelper().setComboCFPS(this.contagemFacade.getComboCFPS());
+	}
+
+	public void tipoContagemChange(ValueChangeEvent event) {
+		MetricaBean metricaBean = (MetricaBean) FacesUtils.getBeanFromSession("MetricaBean");
+		metricaBean.begin(this.getViewHelper());
+	}
+
+}

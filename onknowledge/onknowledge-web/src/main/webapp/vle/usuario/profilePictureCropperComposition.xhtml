@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<!-- Modal -->
+	<div class="modal fade" id="cropperModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h5 class="modal-title">#{msgs['titulo.profile.picture.cropper']}</h5>
+				</div>
+
+				<!-- Body -->
+				<div class="modal-body">
+					<div class="row show-grid">
+						<h:panelGroup layout="block" styleClass="col-md-12" id="cropArea">
+							<h:inputHidden value="#{usuarioMB.coords}" id="coords" />
+							<img src="#{usuarioMB.usuario.profilePicture.encodedData}" id="cropPicture" alt="#{msgs['titulo.profile.picture.cropper']}" width="100%" height="400px" />
+						</h:panelGroup>
+					</div>
+				</div>
+
+				<!-- Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.cancelar']}</button>
+					<h:commandButton action="#{usuarioMB.cropProfilePicture()}" onclick="getCoords()" styleClass="btn btn-primary" value="#{msgs['label.selecionar']}">
+						<f:ajax execute="@this, coords" render="profilePictureGroup" />
+					</h:commandButton>
+				</div>
+			</div>
+		</div>
+	</div>
+</ui:composition>

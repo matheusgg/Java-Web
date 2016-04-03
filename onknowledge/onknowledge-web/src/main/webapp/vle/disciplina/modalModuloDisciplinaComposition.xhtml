@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<div class="modal fade" id="modulosModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h5>#{msgs['label.incluir.modulos']}</h5>
+				</div>
+				<div class="modal-body" jsf:id="modalModulos">
+					<div class="smart-form client-form">
+						<div align="center">
+							<p:selectOneButton value="#{disciplinaMB.novoModulo}">
+								<f:ajax execute="@this" render=":modalModulos" listener="#{disciplinaMB.preparaTipoInclusaoModuloDisciplina()}" />
+								<f:selectItem itemLabel="#{msgs['label.novo.modulo']}" itemValue="true" />
+								<f:selectItem itemLabel="#{msgs['label.modulo.existente']}" itemValue="false" />
+							</p:selectOneButton>
+						</div>
+
+						<fieldset>
+							<div class="row" jsf:rendered="#{disciplinaMB.novoModulo}">
+								<section>
+									<label class="label">#{msgs['label.nome']}</label> <label
+										class="input #{!component.findComponent('nomeModulo').valid ? 'state-error' : ''}"><i
+										class="icon-append fa fa-folder-open-o"></i> <h:inputText id="nomeModulo" value="#{disciplinaMB.modulo.nome}"
+											pt:placeholder="#{msgs['msg.informe.nome.modulo']}" maxlength="200" onblur="alphaNumeric(this, true)" /> </label><em class="invalid">
+										<h:message for="nomeModulo" />
+									</em>
+								</section>
+							</div>
+
+							<div class="row" jsf:rendered="#{!disciplinaMB.novoModulo}">
+								<section jsf:id="sectionDisciplinas">
+									<label class="label">#{msgs['label.disciplina']}</label> <label class="select"> <h:selectOneMenu
+											id="comboDisciplinasModulo" value="#{disciplinaMB.disciplinaSelecionada}" converter="omnifaces.SelectItemsConverter">
+											<f:ajax execute="@this" render=":sectionModulos :sectionDisciplinas" />
+											<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+											<f:selectItems value="#{disciplinaMB.disciplinasSelecionadas}" var="disciplina" itemLabel="#{disciplina.nome}"
+												itemValue="#{disciplina}" />
+										</h:selectOneMenu> <i />
+									</label>
+								</section>
+
+								<section jsf:id="sectionModulos">
+									<label class="label">#{msgs['label.modulo']}</label> <label class="select"><h:selectOneMenu id="comboModulos"
+											value="#{disciplinaMB.modulo}" converter="omnifaces.SelectItemsConverter">
+											<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+											<f:selectItems value="#{disciplinaMB.disciplinaSelecionada.modulos}" var="modulo" itemLabel="#{modulo.nome}"
+												itemValue="#{modulo}" />
+										</h:selectOneMenu> <i /> </label>
+								</section>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.fechar']}</button>
+					<h:commandButton value="#{msgs['label.incluir']}" styleClass="btn btn-primary" action="#{disciplinaMB.incluiModuloDisciplina()}"
+						pt:data-toggle="modal" pt:data-target="#modulosModal">
+						<f:ajax execute=":modalModulos" render=":modulosSection :modalModulos" />
+					</h:commandButton>
+				</div>
+			</div>
+		</div>
+	</div>
+</ui:composition>

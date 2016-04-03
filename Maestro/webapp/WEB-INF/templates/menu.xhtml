@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form id="menuForm">
+		<div class="menu">
+			<h:panelGrid>
+				<p:megaMenu id="menu" style="background: none;">
+					<p:menuitem id="home" value="#{msgs.label_home}" action="pretty:home" icon="ui-icon-home" styleClass="menuRoot" />
+
+					<p:menuitem id="quemSomos" value="#{msgs.label_quem_somos}" action="pretty:quemSomos" icon="ui-icon-person"
+						styleClass="menuRoot" />
+
+					<p:menuitem id="automacoes" value="#{msgs.label_automacoes}" action="pretty:automacoes" icon="ui-icon-lightbulb"
+						styleClass="menuRoot" />
+
+					<p:menuitem id="planos" value="#{msgs.label_planos}" action="pretty:planos" icon="ui-icon-cart"
+						styleClass="menuRoot" />
+
+					<p:menuitem id="faq" value="#{msgs.label_perguntas_frequentes}" icon="ui-icon-help"
+						action="pretty:perguntasFrequentes" styleClass="menuRoot" />
+
+					<p:menuitem id="faleConosco" value="#{msgs.label_fale_conosco}" icon="ui-icon-comment"
+						action="#{faleConoscoBean.iniciarPagina}" styleClass="menuRoot" />
+
+					<p:menuitem id="cadastro" value="#{msgs.label_cadastre_se}" action="#{usuarioBean.iniciarPaginaCadastroUsuario}"
+						icon="ui-icon-document" styleClass="menuRoot" />
+				</p:megaMenu>
+			</h:panelGrid>
+		</div>
+	</h:form>
+</ui:composition>

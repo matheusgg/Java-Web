@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<h:panelGrid width="100%">
+		<h:form id="graficosCarteira">
+			<p:panel header="Graficos da Carteira" toggleable="true"
+				collapsed="true">
+				<h:panelGrid columns="2" width="100%">
+					<p:pieChart value="#{acaoBean.graficoAcoesQuantidade}"
+						title="Composição carteira em % de quantidade" legendPosition="e"
+						style="width:350px;height:150px;"
+						seriesColors="00BFFF, B22222, 00FF00, FFFF00"
+						showDataLabels="true" sliceMargin="5" />
+
+					<p:pieChart value="#{acaoBean.graficoAcoesValor}"
+						title="Composição carteira em % de valor" legendPosition="e"
+						style="width:320px;height:150px;"
+						seriesColors="FFFF00, B22222, 00BFFF, 00FF00"
+						showDataLabels="true" sliceMargin="5" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</h:panelGrid>
+</ui:composition>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+	<managed-bean>
+		<managed-bean-name>fileUploadController</managed-bean-name>
+		<managed-bean-class>br.com.estudos.fileupload.FileUploadController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tabelaBean</managed-bean-name>
+		<managed-bean-class>br.com.estudos.tabela.TabelaBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>listaBean</managed-bean-name>
+		<managed-bean-class>br.com.estudos.duallist.ListaBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>menuBean</managed-bean-name>
+		<managed-bean-class>br.com.estudos.menu.Menu</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>formacoesBean</managed-bean-name>
+		<managed-bean-class>br.com.estudos.menu.Formacoes</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>controladoraBean</managed-bean-name>
+		<managed-bean-class>br.com.estudos.menu.Controladora</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>candidatoBean</managed-bean-name>
+		<managed-bean-class>br.com.estudos.doublelist.CandidatoBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>/index.jsf</from-view-id>
+		<navigation-case>
+			<from-outcome>
+			</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

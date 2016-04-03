@@ -1,0 +1,232 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui"
+	xmlns:ok="http://java.sun.com/jsf/composite/components/okConfirmDialog">
+
+	<ui:define name="title">#{msgs['label.email']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<link rel="stylesheet" href="#{request.contextPath}-resources/css/summernote.css" />
+		<h:outputStylesheet name="email.css" library="css" />
+	</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.email']}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{emailMB.recuperaEmailRecebidoInformado()}" />
+			<f:viewAction action="#{emailMB.pesquisaEmailsCaixaEntradaDestinatario()}" />
+			<f:viewAction action="#{emailMB.pesquisaDiretoriosEmailUsuario()}" />
+		</f:metadata>
+
+		<h:form id="mainForm" prependId="false" enctype="multipart/form-data" acceptcharset="ISO-8859-1">
+			<div class="row">
+				<section class="col-md-2">
+					<div class="inbox-side-bar-mail">
+						<h1 class="txt-color-blueDark">
+							<i class="fa fa-fw fa-inbox"></i> #{msgs['label.email']} <span class="btn-group btn-group-right"> <a href="#"
+								data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret single"></span></a>
+								<ul class="dropdown-menu dropdown-menu-mail">
+									<li><h:link outcome="pretty:email" value="#{msgs['label.atualizar']}" /></li>
+									<li><h:commandLink action="#{emailMB.preparaCadastroNovoDiretorioEmailUsuario()}" value="#{msgs['label.email.pastas.novo']}">
+											<f:ajax execute="@this" render=":novoDiretorioUsuarioModal" onevent="initPage" />
+										</h:commandLink></li>
+									<li class="divider" />
+									<li><a href="#" onclick="$('#modalEsvaziarLixeira').modal('show')"> #{msgs['label.esvaziar.lixeira']} </a></li>
+								</ul>
+							</span>
+						</h1>
+
+						<h:commandLink value="#{msgs['label.nova.mensagem']}" styleClass="btn btn-primary btn-block" action="#{emailMB.preparaNovoEmail()}">
+							<f:ajax render="@form" execute="@this" onevent="initPage" />
+						</h:commandLink>
+
+						<h6>
+							#{msgs['label.atualizar']}
+							<h:link outcome="pretty:email" styleClass="pull-right txt-color-darken" title="#{msgs['label.atualizar']}">
+								<i class="fa fa-refresh"></i>
+							</h:link>
+						</h6>
+
+						<ul class="inbox-menu-lg">
+							<li class="#{emailMB.modoVisualizacaoEmail eq 'CAIXA_ENTRADA' ? 'active' : ''}"><h:commandLink
+									action="#{emailMB.pesquisaEmailsCaixaEntradaDestinatario()}" value="#{msgs['label.caixa.entrada']}">
+									<f:ajax render="@form" execute="@this" onevent="initPage" />
+								</h:commandLink></li>
+
+							<li class="#{emailMB.modoVisualizacaoEmail eq 'ENVIADOS' ? 'active' : ''}"><h:commandLink
+									action="#{emailMB.pesquisaEmailsEnviados()}" value="#{msgs['label.email.pastas.enviados']}">
+									<f:ajax render="@form" execute="@this" onevent="initPage" />
+								</h:commandLink></li>
+
+							<li class="#{emailMB.modoVisualizacaoEmail eq 'LIXEIRA' ? 'active' : ''}"><h:commandLink
+									action="#{emailMB.pesquisaEmailsExcluidosUsuario()}" value="#{msgs['label.email.pastas.lixeira']}">
+									<f:ajax render="@form" execute="@this" onevent="initPage" />
+								</h:commandLink></li>
+						</ul>
+
+						<h6>
+							#{msgs['label.minhas.pastas']}
+							<h:commandLink action="#{emailMB.preparaCadastroNovoDiretorioEmailUsuario()}" title="#{msgs['label.email.pastas.novo']}"
+								styleClass="pull-right txt-color-darken">
+								<i class="fa fa-plus" />
+								<f:ajax execute="@this" render=":novoDiretorioUsuarioModal" onevent="initPage" />
+							</h:commandLink>
+						</h6>
+
+						<div class="user-folders custom-scroll">
+							<ul class="inbox-menu-lg">
+								<ui:repeat var="diretorioEmail" value="#{emailMB.diretoriosEmailUsuario}">
+									<li class="#{emailMB.diretorioCorrente.id eq diretorioEmail.id and emailMB.modoVisualizacaoEmail eq 'PASTAS' ? 'active' : ''}">
+										<h:commandLink styleClass="link-user-folder" value="#{diretorioEmail.nome}"
+											action="#{emailMB.pesquisaEmailsByDiretorioAndDestinatario()}">
+											<f:setPropertyActionListener value="#{diretorioEmail}" target="#{emailMB.diretorioCorrente}" />
+											<f:ajax render="@form" execute="@this" onevent="initPage" />
+										</h:commandLink>
+									</li>
+								</ui:repeat>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<!-- Botoes superiores -->
+				<div class="inbox-checkbox-triggered btn-group-right espacamento-inferior-simples">
+					<div class="btn-group">
+						<h:commandLink styleClass="btn btn-default" title="#{msgs['label.email.mover']}"
+							action="#{emailMB.preparaAlteracaoDiretorioEmailsSelecionados()}"
+							rendered="#{emailMB.modoVisualizacaoEmail ne 'ENVIADOS' and emailMB.modoVisualizacaoEmail ne 'LEITURA' and !empty emailMB.emailsUsuario}">
+							<strong><i class="fa fa-folder-open fa-lg"> </i> </strong>
+							<f:ajax execute=":emailsRecebidos" render="@form" onevent="initPage" />
+						</h:commandLink>
+
+						<button jsf:rendered="#{emailMB.modoVisualizacaoEmail ne 'LEITURA' and !empty emailMB.emailsUsuario}" type="button"
+							class="deletebutton btn btn-default" title="#{msgs['label.email.excluir']}" onclick="$('#modalExclusaoEmails').modal('show')">
+							<strong><i class="fa fa-trash-o fa-lg"></i></strong>
+						</button>
+
+						<button jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'PASTAS' and empty emailMB.emailsUsuario}" type="button"
+							class="btn btn-default" title="#{msgs['label.excluir.pasta']}" onclick="$('#modalExclusaoPasta').modal('show')">
+							<strong><i class="fa fa-times fa-lg"></i></strong>
+						</button>
+
+						<h:commandLink styleClass="btn btn-default" title="#{msgs['label.responder']}"
+							rendered="#{emailMB.modoVisualizacaoEmail eq 'LEITURA'}" action="#{emailMB.preparaRespostaEmail()}">
+							<strong><i class="fa fa-reply fa-lg"></i></strong>
+							<f:ajax execute="@this" render="@form" onevent="initPage" />
+						</h:commandLink>
+
+						<h:commandLink styleClass="btn btn-default" title="#{msgs['label.encaminhar']}"
+							rendered="#{emailMB.modoVisualizacaoEmail eq 'LEITURA'}" action="#{emailMB.preparaEncaminhamentoEmail()}">
+							<strong><i class="fa fa-arrow-left fa-lg"></i></strong>
+							<f:ajax execute="@this" render="@form" onevent="initPage" />
+						</h:commandLink>
+					</div>
+				</div>
+
+
+				<!-- Dialog de confirmacao de exclusao de emails -->
+				<ok:okConfirmDialog action="#{emailMB.excluiEmailsSelecionados()}" update="@form" id="modalExclusaoEmails"
+					actionButtonText="#{msgs['label.sim']}" execute=":emailsRecebidos :emailsEnviados" closeText="#{msgs['label.nao']}"
+					contentText="#{msgs['msg.confirmacao.remocao.emails']}" />
+
+				<!-- Dialog de confirmacao de exclusao de pasta -->
+				<ok:okConfirmDialog action="#{emailMB.excluiDiretorioEmailUsuario()}" update="@form" id="modalExclusaoPasta"
+					actionButtonText="#{msgs['label.sim']}" execute="@this" closeText="#{msgs['label.nao']}"
+					contentText="#{msgs['msg.confirmacao.remocao.pasta']}" />
+
+				<!-- Dialog de confirmacao esvaziar lixeira -->
+				<ok:okConfirmDialog action="#{emailMB.esvaziaLixeira()}" update="@form" id="modalEsvaziarLixeira"
+					actionButtonText="#{msgs['label.sim']}" execute="@this" closeText="#{msgs['label.nao']}"
+					contentText="#{msgs['msg.confirmacao.esvaziar.lixeira']}" />
+
+				<!-- Secoes de emails -->
+				<section class="col-md-10" jsf:id="painelEmails">
+
+					<ui:include src="emailsRecebidos.xhtml" />
+
+					<ui:include src="emailsEnviados.xhtml" />
+
+					<ui:include src="novoEmail.xhtml" />
+
+					<div align="center"
+						jsf:rendered="#{(emailMB.modoVisualizacaoEmail eq 'LIXEIRA' or 
+										emailMB.modoVisualizacaoEmail eq 'ENVIADOS' or
+										emailMB.modoVisualizacaoEmail eq 'PASTAS') and 
+										empty emailMB.emailsUsuario}">
+						<h4 class="txt-color-blueDark">#{msgs['msg.nao.existem.emails']}</h4>
+					</div>
+
+					<div align="center" jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'CAIXA_ENTRADA' and empty emailMB.emailsUsuario}">
+						<h4 class="txt-color-blueDark">#{msgs['msg.caixa.entrada.muito.limpa']}</h4>
+					</div>
+
+				</section>
+			</div>
+
+			<!-- Modal de alteracao de diretorio de emails -->
+			<div class="modal fade" jsf:id="diretoriosUsuarioModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h5>#{msgs['label.selecione.pasta']}</h5>
+						</div>
+						<div class="modal-body" align="center">
+							<div class="smart-form">
+								<section>
+									<label class="label">#{msgs['label.pasta']}</label> <label class="select"> <h:selectOneMenu
+											value="#{emailMB.diretorioSelecionado}" converter="omnifaces.SelectItemsConverter">
+											<f:selectItem itemLabel="#{msgs['label.caixa.entrada']}" itemValue="#{null}" />
+											<f:selectItems value="#{emailMB.diretoriosEmailUsuario}" var="diretorio" itemLabel="#{diretorio.nome}" itemValue="#{diretorio}" />
+										</h:selectOneMenu> <i></i>
+									</label>
+								</section>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.fechar']}</button>
+							<h:commandButton value="#{msgs['label.email.mover']}" styleClass="btn btn-primary" action="#{emailMB.moveEmailsSelecionados()}"
+								onclick="$('#diretoriosUsuarioModal').modal('hide');">
+								<f:ajax execute=":diretoriosUsuarioModal" render="@form" onevent="initPage" />
+							</h:commandButton>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal de criacao de novo diretorio de email -->
+			<div class="modal fade" jsf:id="novoDiretorioUsuarioModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h5>#{msgs['label.nome.pasta']}</h5>
+						</div>
+						<div class="modal-body" align="center">
+							<div class="smart-form">
+								<section>
+									<label class="label">#{msgs['label.nome.pasta']}</label> <label class="input"><i class="icon-append fa fa-folder-open"></i>
+										<h:inputText value="#{emailMB.diretorioSelecionado.nome}" pt:placeholder="#{msgs['msg.informe.nome.pasta']}" maxlength="100"
+											onblur="alpha(this, true)" /> </label>
+								</section>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.fechar']}</button>
+							<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary"
+								onclick="$('#novoDiretorioUsuarioModal').modal('hide');" action="#{emailMB.salvaNovoDiretorioEmailUsuario()}">
+								<f:ajax execute=":novoDiretorioUsuarioModal" render="@form" onevent="initPage" />
+							</h:commandButton>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="specificJS">
+		<script src="#{request.contextPath}-resources/js/plugin/ckeditor/ckeditor.js"></script>
+		<script src="#{request.contextPath}-resources/js/plugin/select2/select2.min.js"></script>
+	</ui:define>
+</ui:composition>

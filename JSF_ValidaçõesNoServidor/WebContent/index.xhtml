@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<title>Cadastro</title>
+	</h:head>
+	<h:body>
+		<h:form>
+		<h:outputLabel for="nome" value="Nome: "/>
+		<!-- Este campo de texto captura o nome do usuário -->
+		<!-- O atributo binding forma uma ligação entre esta tag e um objeto na classe Bean -->
+		<!-- Aqui, é feita uma validação simples para verificar se o campo está preenchido -->
+		<h:inputText id="nome" binding="#{usuario.nomeTextField}" required="true" requiredMessage=" O preenchimento do campo 'Nome' é obrigatório!"/>
+		<p:message for="nome"/>	
+		
+		<!-- Label que exibe o texto para (for) a caixa de texto "email" -->
+		<h:outputLabel for="email" value="Email: "/>
+		
+		<!-- Caixa de texto cujo preenchimento é obrigatório -->
+		<h:inputText id="email" binding="#{usuario.emailTextField}" required="true">		
+		<!-- Aqui, o validator é atribuído a este componente -->
+		<f:validator validatorId="valida" />
+		</h:inputText><br />
+		
+		<!-- Mensagem que exibirá o texto capturado da exceção lançada no método validate do Bean -->
+		<p:message for="email"/>	
+			
+		<h:commandButton value="OK"/>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

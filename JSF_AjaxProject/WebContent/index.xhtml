@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<title>Ajax Exemplo</title>
+	</h:head>
+	<h:body>
+		<h:form style="text-align:center">
+			<h:outputLabel for="user" value="Usuário: " />
+			<h:inputText value="#{bean.user}" id="user" />
+			<br />
+			<h:outputLabel for="senha" value="Senha: " />
+			<h:inputSecret value="#{bean.pass}" id="senha" />
+			<br />
+			<h:commandButton action="#{bean.verificaCliente}" value="Mostrar Valor do Dia"> 
+				<f:ajax execute="@form" render="valor msg" /> <!-- Podemos passar vários ID's para o render -->
+				<!-- O @form do execute envia todos os elementos do form para o servidor para serem processados -->
+				<!-- O render reexibe os elementos especificados já atualizados -->
+			</h:commandButton>
+			<br />
+			<h:outputText value="#{bean.valorDoDia}" id="valor"/>
+			<h:outputText value="#{bean.mensagem}" id="msg"/>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

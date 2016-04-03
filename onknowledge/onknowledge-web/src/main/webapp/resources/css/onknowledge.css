@@ -1,0 +1,551 @@
+/**************************** OnKnowledge Global Styles ******************************/
+.mainTemplate {
+	background: #FFF !important;
+}
+
+.smart-style-2 aside {
+	background: #FFF !important;
+}
+
+#noscript-element {
+	position: absolute;
+	z-index: 10000;
+	right: 0;
+}
+
+.header-languages {
+	margin: 8% 0 0 0;
+}
+
+@media screen and (max-width: 800px) {
+	.ok-mobile-profile-img {
+		display: none !important;
+	}
+}
+
+.ok-msg-saudacao {
+	color: #fff;
+}
+
+@media screen and (max-width: 985px) {
+	.ok-mobile-saudacao {
+		display: none !important;
+	}
+}
+
+.no-script-style {
+	color: #FFF;
+	position: absolute;
+	display: block !important;
+}
+
+.btn {
+	text-shadow: none !important;
+	color: #FFF !important;
+}
+
+.btn-default {
+	color: #333 !important;
+}
+
+.ok-default-btn {
+	margin-bottom: 0 !important;
+	padding: 6px 12px !important;
+	cursor: pointer !important;
+}
+
+.ok-float-right {
+	float: right !important;
+}
+
+.ok-float-left {
+	float: left !important;
+}
+
+.ok-direction-rtl {
+	direction: rtl;
+}
+
+.ok-default-border-bottom {
+	border-bottom: 1px solid rgba(0, 0, 0, .1) !important;
+}
+
+.ok-default-link-decoration a {
+	text-decoration: none !important;
+}
+
+.MessageBoxButtonSection button {
+	color: #333 !important;
+}
+
+.user-profile-picture {
+	height: 30px !important;
+}
+
+.custom-box-notification-style {
+	margin: 20px 0 20px 0 !important;
+}
+
+#show-shortcut {
+	color: #69737A !important
+}
+
+#show-shortcut:HOVER {
+	color: #33455A !important;
+}
+
+.custom-form-client-footer {
+	background: none !important;
+}
+
+.ok-align-center {
+	text-align: center;
+}
+
+.ok-align-center a {
+	text-decoration: none !important;
+}
+
+.ok-default-margin-left {
+	margin-left: 2% !important;
+}
+
+.ok-default-margin-left-3 {
+	margin-left: 3% !important;
+}
+
+.ok-text-bold {
+	font-weight: bold;
+}
+
+.ok-smart-form-header {
+	text-align: center !important;
+	background: none !important;
+}
+
+.ok-color-black {
+	color: #000 !important;
+}
+
+.ok-notification-item {
+	margin-left: -2px;
+}
+
+.ok-hidden {
+	display: none !important;
+}
+
+.ok-sem-lembrates {
+	margin: 12px 0 0 0;
+}
+
+/**************************** Dropdown de linguagens ******************************/
+.languages-dropdown {
+	list-style: none;
+	position: relative;
+	margin: 0;
+	float: right;
+}
+
+.languages-dropdown-color {
+	color: #FFF;
+}
+
+.languages-dropdown-color:link {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.languages-dropdown-color:active {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.languages-dropdown-color:visited {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.languages {
+	margin-top: 15px;
+}
+
+.languages span {
+	color: #fff;
+}
+
+.languages i {
+	color: #fff;
+}
+
+.external-pages-languages {
+	float: right !important;
+}
+
+#languageForm {
+	margin-right: 10px;
+}
+
+.error-page-languages {
+	margin-top: 0;
+}
+
+.error-page-languages span {
+	color: #333;
+}
+
+.error-page-languages i {
+	color: #333;
+}
+
+/**************************** Loading ******************************/
+.loading-div {
+	background-color: #000;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0.6;
+	-moz-opacity: 0.6;
+	filter: alpha(opacity = 60);
+	z-index: 100000;
+	top: 0;
+	display: none;
+}
+
+.loading-img {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	height: 70px;
+	width: 70px;
+	z-index: 6000
+}
+
+@media screen and (min-width: 800px) {
+	.load-img-desktop-position {
+		left: 48% !important;
+	}
+}
+
+.center-text {
+	text-align: center;
+}
+
+/**************************** Tooltips ******************************/
+.ui-tooltip-global {
+	margin-top: -90000px !important;
+}
+
+/**************************** Faces Messages ******************************/
+.globalFacesMessages {
+	width: 99%;
+}
+
+.ui-messages-warn {
+	color: #826430 !important;
+	background: #efe1b3 !important;
+	border: none !important;
+	margin-left: 5px !important;
+	border-left: 5px solid #dfb56c !important;
+}
+
+.ui-messages-warn-summary {
+	font-weight: normal !important;
+}
+
+.ui-messages-warn-summary:before {
+	content: "\f071" !important;
+	display: inline-block !important;
+	font-family: FontAwesome !important;
+	line-height: 1 !important;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
+	width: 1.28571429em !important;
+	text-align: center !important;
+	margin: 0 3px 0 -10px !important;
+}
+
+.ui-messages-error {
+	color: #fff !important;
+	background: #c26565 !important;
+	border: none !important;
+	margin-left: 5px !important;
+	border-left: 5px solid #953b39 !important;
+}
+
+.ui-messages-error-summary {
+	font-weight: normal !important;
+}
+
+.ui-messages-error-summary:before {
+	content: "\f00d" !important;
+	display: inline-block !important;
+	font-family: FontAwesome !important;
+	line-height: 1 !important;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
+	width: 1.28571429em !important;
+	text-align: center !important;
+	margin: 0 3px 0 -10px !important;
+}
+
+.ui-messages-fatal {
+	color: #fff !important;
+	background: #c26565 !important;
+	border: none !important;
+	margin-left: 5px !important;
+	border-left: 5px solid #953b39 !important;
+}
+
+.ui-messages-fatal-summary {
+	font-weight: normal !important;
+}
+
+.ui-messages-fatal-summary:before {
+	content: "\f00d" !important;
+	display: inline-block !important;
+	font-family: FontAwesome !important;
+	line-height: 1 !important;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
+	width: 1.28571429em !important;
+	text-align: center !important;
+	margin: 0 3px 0 -10px !important;
+}
+
+.ui-messages-info {
+	color: #305d8c !important;
+	background: #d6dde7 !important;
+	border: none !important;
+	margin-left: 5px !important;
+	border-left: 5px solid #9cb4c5 !important;
+}
+
+.ui-messages-info-summary {
+	font-weight: normal !important;
+}
+
+.ui-messages-info-summary:before {
+	content: "\f129";
+	display: inline-block !important;
+	font-family: FontAwesome !important;
+	line-height: 1 !important;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
+	width: 1.28571429em !important;
+	text-align: center !important;
+	margin: 0 3px 0 -10px !important;
+}
+
+/**************************** OnKnowledge External Pages Styles ******************************/
+.background-pt_BR {
+	background: url("#{request.contextPath}-resources/img/login/slider-1-slide-pt_BR.png") no-repeat center fixed !important;
+	background-size: 160% 100% !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+.background-en_US {
+	background: url("#{request.contextPath}-resources/img/login/slider-1-slide-en_US.png") no-repeat center fixed !important;
+	background-size: 160% 100% !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+.background-es_ES {
+	background: url("#{request.contextPath}-resources/img/login/slider-1-slide-es_ES.png") no-repeat center fixed !important;
+	background-size: 160% 100% !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+.content-div {
+	opacity: 1;
+	position: absolute;
+	width: 100%;
+	margin-top: 100px;
+	float: none;
+}
+
+@media screen and (min-width: 830px) {
+	.login-container {
+		margin: 0 auto !important;
+		width: 35% !important;
+	}
+}
+
+.header-style {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	color: #fff;
+	background: none !important;
+	height: 8%
+}
+
+.external-pages-logo {
+	z-index: 90000 !important;
+	position: absolute !important;
+	left: 0 !important;
+}
+
+.external-background {
+	opacity: 0.4;
+	-moz-opacity: 0.85;
+	filter: alpha(opacity = 85);
+	background: #000 !important;
+	width: 100% !important;
+	position: absolute;
+}
+
+.hero {
+	background-position: 0 137px !important;
+	height: 360px !important;
+}
+
+.page-footer {
+	padding-left: 2% !important;
+	height: 18%;
+	color: #FFF !important;
+	display: none;
+}
+
+@media screen and (min-width: 800px) {
+	.page-footer-content {
+		display: block !important;
+	}
+}
+
+h5.about-heading {
+	color: #FFF !important;
+}
+
+#extr-page #header {
+	background-color: #2C3742 !important;
+}
+
+.minimum-space {
+	margin-top: 1%;
+}
+
+.auth-error-message {
+	display: block;
+	margin-top: 6px;
+	padding: 0 1px;
+	font-style: normal;
+	font-size: 11px;
+	line-height: 15px;
+	color: #D56161;
+}
+
+.sexo-section {
+	margin-top: 25px !important;
+}
+
+#JSFFrameId {
+	display: none !important;
+}
+
+.login-messages {
+	color: #090;
+	font-style: normal !important;
+}
+
+.ok-font-green {
+	color: #090;
+}
+
+.login-messages ul {
+	list-style: none;
+}
+/**************************** OnKnowledge Error Pages Styles ******************************/
+.error-page-body {
+	overflow-x: hidden;
+}
+
+.error-page-footer {
+	height: 110px !important;
+}
+
+.error-languages {
+	float: right !important;
+	margin-top: 25px !important;
+}
+
+@media screen and (max-width: 800px) {
+	.error-page-footer-mobile {
+		display: none !important;
+	}
+}
+
+/**************************** Sobrescrita de css do PrimeFaces e SmartAdmin ******************************/
+.ui-selectoneradio label {
+	margin: 6px 15px !important;
+	color: #333;
+	font-size: 13px;
+}
+
+.state-error .ui-radiobutton-box {
+	border: 1px solid #FF0000;
+}
+
+.ui-datepicker-calendar td {
+	background-color: #FFF !important;
+}
+
+.btn-primary {
+	color: #fff !important;
+	background-color: #3276b1 !important;
+	border-color: #2c699d !important;
+}
+
+.ui-menu.ui-widget {
+	border-radius: 0 !important;
+}
+
+.ui-autocomplete {
+	max-height: 100px !important;
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+}
+
+* html .ui-autocomplete {
+	height: 100px !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	color: #FFF !important;
+}
+
+.ui-datepicker-next {
+	font-family: FontAwesome !important;
+	padding-top: 2px !important;
+}
+
+.ui-datepicker-next span {
+	display: none !important;
+}
+
+.ui-datepicker-next:before {
+	content: '\f054' !important;
+}
+
+.ui-datepicker-prev {
+	font-family: FontAwesome !important;
+	padding-top: 2px !important;
+}
+
+.ui-datepicker-prev span {
+	display: none !important;
+}
+
+.ui-datepicker-prev:before {
+	content: '\f053' !important;
+}
+
+#ui-datepicker-div {
+	z-index: 1000 !important;
+}

@@ -1,0 +1,21 @@
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<jsp:directive.page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" />
+	
+	<![CDATA[<!DOCTYPE html>]]>
+	<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>XML Syntax</title>
+</head>
+<body>
+	<h1>
+		<jsp:text>Sintaxe XML</jsp:text>
+	</h1>
+
+	<jsp:scriptlet>String include = "/jspPages/scripting2.jsp";</jsp:scriptlet>
+	<br />
+	<c:out value="%=include%" />
+</body>
+	</html>
+</jsp:root>

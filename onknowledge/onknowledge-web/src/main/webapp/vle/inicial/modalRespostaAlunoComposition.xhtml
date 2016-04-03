@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<div class="modal fade" jsf:id="respostaModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h5>#{msgs['label.resposta']} - #{atividadeUsuarioMB.resposta.aluno.nome} #{atividadeUsuarioMB.resposta.aluno.sobrenome}</h5>
+				</div>
+				<div class="modal-body" jsf:id="respostaModalBody">
+					<div class="smart-form client-form">
+						<fieldset>
+
+							<!-- Anexos da resposta -->
+							<section class="anexos-section">
+								<p:fieldset toggleable="true" collapsed="true" legend="#{msgs['label.anexos']}" styleClass="anexos-field">
+									<div class="input state-error">
+										<div class="bootstrap-tagsinput">
+											<ui:repeat var="anexoResposta" value="#{atividadeUsuarioMB.resposta.anexos}">
+												<span class="tag label label-info"> <h:commandLink action="#{atividadeUsuarioMB.downloadAnexo(anexoResposta)}"
+														styleClass="tag-link" value="#{anexoResposta.nomeArquivo}.#{anexoResposta.extensaoArquivo}" immediate="true" />
+												</span>
+											</ui:repeat>
+										</div>
+									</div>
+								</p:fieldset>
+							</section>
+
+							<!-- Alternativas da resposta -->
+							<section class="section-alternativas-selecionadas" jsf:rendered="#{!empty atividadeUsuarioMB.resposta.alternativas}">
+								<label class="label">#{msgs['label.alternativas.selecionadas']}</label>
+								<fieldset class="field-alternativas-selecionadas">
+									<ui:repeat var="alt" value="#{atividadeUsuarioMB.resposta.alternativas}">
+										<div class="row">
+											<label class="checkbox"> <h:selectBooleanCheckbox value="true" disabled="true" /> <i />#{alt.descricao}
+											</label>
+										</div>
+									</ui:repeat>
+								</fieldset>
+							</section>
+
+							<section jsf:rendered="#{!empty atividadeUsuarioMB.resposta.descricao}">
+								<label class="label">#{msgs['label.justificativa']}</label> <label class="textarea textarea-expandable"> <h:inputTextarea
+										styleClass="custom-scroll" disabled="true" value="#{atividadeUsuarioMB.resposta.descricao}" />
+								</label>
+							</section>
+						</fieldset>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<h:commandButton value="#{msgs['label.resposta.correta']}" styleClass="btn btn-primary"
+						rendered="#{!atividadeUsuarioMB.resposta.respostaCorreta}" action="#{atividadeUsuarioMB.corrigeResposta(true)}">
+						<f:ajax execute="@this" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.resposta.incorreta']}" styleClass="btn btn-primary"
+						rendered="#{!atividadeUsuarioMB.resposta.respostaCorreta}" action="#{atividadeUsuarioMB.corrigeResposta(false)}">
+						<f:ajax execute="@this" />
+					</h:commandButton>
+					<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.fechar']}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</ui:composition>

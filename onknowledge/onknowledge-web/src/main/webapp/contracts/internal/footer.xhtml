@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+	<div class="page-footer">
+		<div class="row">
+			<!-- LANGUAGE DROPDOWN -->
+			<div class="col-md-6 col-md-offset-6" align="right">
+				<ui:include src="/languages.xhtml" />
+			</div>
+			<!-- END LANGUAGE DROPDOWN -->
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-6" align="right">
+				<span class="txt-color-white"> #{msgs['label.onknowledge']} #{msgs['numero.versao']} #{msgs['label.copyright']}</span>
+			</div>
+		</div>
+	</div>
+</ui:composition>

@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w4.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/template2.xhtml">
+	<ui:define name="conteudo">
+		<ui:decorate template="/WEB-INF/templates/error.xhtml">
+			<ui:define name="headerError">
+				<h1 style="text-align: left;">#{msgs.txt_titulo_erro}</h1>
+			</ui:define>
+			<ui:define name="messageError">
+				<h:outputText value="#{msgs.txt_mensagem_erro}" style="font-size:14px;" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

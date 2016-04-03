@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Pick List</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:pickList value="#{principalBean.lista}" var="candidato"
+			effect="bounce" itemValue="#{candidato}"
+			converter="candidatoConverter">
+			<f:facet name="sourceCaption">Concorrendo</f:facet>
+			<f:facet name="targetCaption">Disponíveis</f:facet>
+
+			<p:column>
+				<h:outputText value="#{candidato.nome}" />
+			</p:column>
+		</p:pickList>
+
+		<br />
+		<p:commandButton value="Mostrar Selecionados" update=":form2" />
+	</h:form>
+	<h:form id="form2">
+		<p:dataTable value="#{principalBean.lista.target}"
+			rendered="#{!empty principalBean.lista.target}" var="candidato"
+			style="width: 50%;">
+			<p:column headerText="Nome">
+				<h:outputText value="#{candidato.nome}" />
+			</p:column>
+
+			<p:column headerText="Idade">
+				<h:outputText value="#{candidato.idade}" />
+			</p:column>
+
+			<p:column headerText="Situação">
+				<p:selectOneMenu value="#{candidato.situacao}">
+					<f:selectItem itemValue="1" itemLabel="Concorrendo" />
+					<f:selectItem itemValue="2" itemLabel="Aprovado" />
+					<f:selectItem itemValue="3" itemLabel="Reprovado" />
+				</p:selectOneMenu>
+			</p:column>
+		</p:dataTable>
+		<br />
+		<p:commandButton value="Mostrar Dados"
+			action="#{principalBean.mostraDados}" update=":form2"
+			rendered="#{!empty principalBean.lista.target}" />
+	</h:form>
+</h:body>
+</html>

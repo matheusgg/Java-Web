@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<style type="text/css">
+.ui-dock-container-top {
+	position: absolute;
+	height: 1px;
+	background: none;
+	border: none;
+}
+</style>
+	<h:form id="menuForm">
+		<p:dock position="top" halign="center" itemWidth="70">
+			<p:menuitem value="#{msgs.lbl_audio}" icon="/resources/images/HiFi_On.png" ajax="false" url="automacoes/audio"
+				style="color:white;" />
+			<p:menuitem value="#{msgs.lbl_video}" icon="/resources/images/Cinema_On.png" ajax="false" url="automacoes/cinema"
+				style="color:white;" />
+			<p:menuitem value="#{msgs.lbl_luz}" icon="/resources/images/Lighting_On.png" ajax="false" url="automacoes/luz"
+				style="color:white;" />
+			<p:menuitem value="#{msgs.lbl_clima}" icon="/resources/images/Additionals_On.png" ajax="false"
+				url="automacoes/ambiente" style="color:white;" />
+		</p:dock>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,216 @@
+<!-- O POM (Project Model Object) é o arquivo de configuração do Maven que 
+	descreve todo o projeto que está sendo desenvolvido, desde a fase de teste 
+	até a fase de implantação. Aqui pode ser definidas várias configurações, 
+	além das dependências (plugins) que a aplicação utilizará. Um projeto Maven 
+	é baseado em um ciclo de vida que possui várias fases: Validate - Valida 
+	a estrutura do projeto de acordo com padrões java; Compile - Compila o código-fonte 
+	do projeto que está em src/main/java; Test - Usa ferramentas de testes como 
+	JUnit para testar o código-fonte; Package - Empacota o projeto conforme o 
+	tipo do mesmo, gerando um jar, war, etc; Verify - Verifica a integridade 
+	do projeto; Install - Instala (faz o deploy) do projeto no repositório local; 
+	Deploy - Faz o deploy do projeto em um repositório global da organização; -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Informações referentes ao projeto -->
+	<groupId>br.com.financeiro</groupId>
+	<artifactId>Financeiro</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>FinanceiroWeb</name>
+	<description>Projeto Didático Financeiro Web</description>
+	<developers>
+		<developer>
+			<name>Matheus</name>
+		</developer>
+	</developers>
+
+	<!-- Bibliotecas necessárias para o funcionamento do sistema. Essas biliotecas 
+		também são conhecidas como dependências do projeto. Um dependência segue 
+		o mesmo padrão de informações do projeto e pode possuir ainda um escopo: 
+		compile: É o escopo padrão. A dependência fica disponível em todas as fases 
+		do projeto e é empacotada junto com o mesmo; provided: A dependência é disponibilizada 
+		no momento da compilação do projeto, porém não é empacotada junto com o mesmo; 
+		runtime: A dependência fica disponível somente em tempo de execução; test: 
+		A biblioteca fica disponível apenas na fase de testes; system: A bilioteca 
+		não é empacotada junto ao projeto, pois presume-se que será disponibilizada 
+		pelo sistema; É possível adicionar uma dependência manualmente que não exista 
+		em nenhum repositório utilizando o seguinte comando: mvn install:install-file 
+		-Dfile=<caminhoDoJar> -DgroupId=<groupIdDoJar> -DartifactId=<nomeDoJar> -Dversion=<versaoDoJar> 
+		-Dpackaging=jar -->
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.1.16</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jstl-impl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-digester3</artifactId>
+			<version>3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.21</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.1.7.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>4.1.7.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>4.1.7.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>start</artifactId>
+			<version>1.0.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>spring.security.tools</groupId>
+			<artifactId>taglib-core</artifactId>
+			<version>0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>spring.security.tools</groupId>
+			<artifactId>facelets-taglib-jsf20-spring-3</artifactId>
+			<version>0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+
+	</dependencies>
+
+	<!-- É possível declarar repositórios onde o Maven irá procurar as dependências 
+		informadas -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+</project>

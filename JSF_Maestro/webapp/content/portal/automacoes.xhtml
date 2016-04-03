@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<div class="conteudo">
+			<f:view>
+				<h:form id="automacoesForm">
+					<h:panelGrid styleClass="container">
+						<h:outputText value="#{msgs.label_automacoes}" styleClass="titulo" />
+						<p:spacer styleClass="spacerTitulo" />
+
+						<!-- LAYOUT TOTAL -->
+						<p:layout styleClass="layoutAutomacoes">
+							<!-- LAYOUT ESQUERDA - SUBMENU AUTOMAÇÕES -->
+							<p:layoutUnit position="west" styleClass="subMenu">
+								<ui:include src="/WEB-INF/templates/menuPlanos.xhtml" />
+							</p:layoutUnit>
+
+							<!-- LAYOUT DIREITA - IMAGEM/VÍDEO -->
+							<p:layoutUnit position="east" styleClass="multimidia">
+								<p:graphicImage url="/resources/images/homeautomation.jpg" />
+							</p:layoutUnit>
+
+							<!-- LAYOUT CENTRAL - CONTEÚDO -->
+							<p:layoutUnit position="center" styleClass="conteudo">
+								<h:panelGrid>
+									<h:outputText
+										value="A Maestro Automações é um novo conceito de automação residencial, comercial e predial. 
+									    					Aqui você encontra os principais recursos, facilidades e beneficios que o sistema oferece"
+										styleClass="descricao" />
+									<br />
+									<h:outputText
+										value="O Sistema Maestro Automações se diferencia em vários níveis, desde a facilidade de expasão, 
+									    					robustez e, principalmente, inteligência na administração de ações, controle de acesso, monitoramento, automação de tarefas, segurança, acesso remoto, GPS e muito mais."
+										styleClass="descricao" />
+									<br />
+									<h:outputText
+										value="A Maestro Automações possui um sistema que vai além de um controle de iluminação, áudio e vídeo, é um novo conceito em automação residencial sem fio. 
+									    					Foi criado com foco na experiência do usuário e pode ser instalado em qualquer ambiente, casa, apartamento ou empresa."
+										styleClass="descricao" />
+									<br />
+									<h:outputText
+										value="Bem-vindo ao mundo Maestro Automações, que oferece soluções inteligentes para uma vida dinâmica e em alto estilo."
+										styleClass="descricao" />
+								</h:panelGrid>
+							</p:layoutUnit>
+						</p:layout>
+
+						<p:fieldset styleClass="fieldsetBotao">
+							<h:panelGrid columns="2" styleClass="gridBotao">
+								<h:panelGrid styleClass="gridBotaoEsquerda">
+									<h:panelGroup>
+										<p:commandButton value="#{msgs.label_voltar}" action="pretty:home" styleClass="botao"
+											title="#{msgs.label_voltar}" />
+									</h:panelGroup>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:fieldset>
+
+					</h:panelGrid>
+				</h:form>
+			</f:view>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,475 @@
+html, body {
+	height: 100%;
+	font-family: Verdana !important;
+	font-size: 8pt !important;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	background-image: url("#{resource['images:back2.png']}");
+}
+
+img {
+	border: 0 !important;
+}
+
+.principal {
+	width: 1000px;
+	min-height: 100%;
+	position: relative;
+	text-align: left;
+	padding: 0;
+	margin: 0 auto;
+	border-left: #CCC 1px solid;
+	border-right: #CCC 1px solid;
+	background-color: #FFF;
+	background-image: url("../resources/images/fundo.jpg");
+	box-shadow: 8px 2px 6px rgba(0, 0, 0, 0.5), -8px -5px 10px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 8px 2px 6px rgba(0, 0, 0, 0.5), -8px -5px 10px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 8px 2px 6px rgba(0, 0, 0, 0.5), -8px -5px 10pxrgba(0, 0, 0, 0.3);
+}
+
+/* hack para IE6 que trata height como min-height */
+* html .principal {
+	height: 100%;
+}
+
+.cabecalho {
+	width: 100%;
+	height: 113px;
+	background-image: url("../resources/images/background/header_area.png");
+	background-repeat: repeat-x;
+	font-size: 8pt !important;
+}
+
+.cabecalho .container {
+	width: 100%;
+	height: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+}
+
+.cabecalho .gridLogo {
+	width: 120px;
+	height: 90px;
+}
+
+.cabecalho .gridBotoes {
+	width: 300px;
+	height: 90px;
+	text-align: center;
+	color: #CCC;
+}
+
+.cabecalho .gridRedes {
+	width: 100%;
+}
+
+.cabecalho .logo {
+	border: 0;
+	margin-top: -8px !important;
+}
+
+.menu {
+	width: 100%;
+	height: 100%;
+	background-image: url("../resources/images/background/menu_area.png");
+	border-bottom: #CCC 1px solid;
+	border-top: #CCC 1px solid;
+}
+
+.ui-megamenu {
+	width: 650px !important;
+	height: 100%;
+	font-family: Verdana !important;
+	font-size: 8pt !important;
+	color: #000 !important;
+	border: 0 !important;
+}
+
+.menu .menuRoot {
+	margin-left: 10px !important;
+}
+
+.bullet {
+	width: 5px;
+	height: 5px;
+	margin-top: 5px;
+	margin-right: 5px;
+	background-color: #000;
+	text-align: left;
+}
+
+.inputPesquisar {
+	font-family: Verdana !important;
+	font-size: 8pt !important;
+	color: #666 !important;
+}
+
+.botaoLupa {
+	height: 25px;
+	width: 25px;
+}
+
+.conteudo {
+	width: 100%;
+	padding-bottom: 50px;
+}
+
+.conteudo .container {
+	padding: 5px;
+	width: 100%;
+	height: 100%;
+	color: #333 !important;
+}
+
+.container .titulo {
+	font-weight: bold;
+	font-size: 9pt;
+	color: white;
+}
+
+.container .subTitulo {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 9pt;
+}
+
+.bold {
+	font-weight: bold !important;
+	font-size: 8pt !important;
+	color: #333;
+}
+
+.inputLogin {
+	color: #333 !important;
+	font-family: Verdana !important;
+	font-size: 8pt !important;
+}
+
+.videoInstitucional {
+	width: 450px !important;
+	height: 350px !important;
+}
+
+.videoAutomacao {
+	height: 290px;
+	width: 400px;
+}
+
+.rodape {
+	font-size: 7.5pt;
+	width: 100%;
+	height: 60px;
+	position: absolute;
+	bottom: 0;
+	background-image: url("../resources/images/background/footer_area.png");
+	background-repeat: repeat-x;
+}
+
+.rodape .container {
+	padding: 20px;
+	width: 100%;
+	text-align: center;
+	color: #CCC;
+}
+
+.gridBotao {
+	width: 100%;
+}
+
+.gridBotaoCentralizado {
+	width: 100%;
+	text-align: center;
+}
+
+.gridBotaoDireita {
+	width: 100%;
+	text-align: right;
+}
+
+.gridBotaoEsquerda {
+	width: 100%;
+	text-align: left;
+}
+
+.botao {
+	font-family: Verdana !important;
+	font-size: 8pt !important;
+}
+
+.descricao {
+	font-size: 8pt !important;
+}
+
+.fundoClimaAmbiente {
+	background-color: #9900CC !important;
+}
+
+.fundoVideoCinema {
+	background-color: #0000CC !important;
+}
+
+.fundoLuzCenas {
+	background-color: #FF6633 !important;
+}
+
+.fundoAudio {
+	background-color: #009900 !important;
+}
+
+.layoutAutomacoes {
+	height: 300px !important;
+	width: 980px !important;
+	margin: 0 !important;
+	margin-top: -4px !important;
+	margin-left: 2px !important;
+	padding: 0 !important;
+}
+
+.layoutAutomacoes .subMenu {
+	width: 100px !important;
+}
+
+.layoutAutomacoes .multimidia {
+	width: 400px !important;
+}
+
+.layoutAutomacoes .multimidia img {
+	height: 290px !important;
+	width: 400px !important;
+}
+
+.layoutAutomacoes .subMenu .gridBotoes {
+	width: 100%;
+	text-align: center;
+}
+
+.gridQuemSomos {
+	height: 100%;
+	font-size: 8pt !important;
+}
+
+.gridQuemSomos .gridInterna {
+	height: auto !important;
+}
+
+.ui-separator {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.slot {
+	background: #333333;
+	width: 55px;
+	height: 70px;
+}
+
+.itemInterno {
+	margin: 0 auto;
+	width: 200px;
+	height: 80px;
+}
+
+.gridDeItens {
+	margin: 0 auto;
+	width: 450px;
+	height: 500px;
+}
+
+.tabDeItens {
+	width: 500px;
+	height: 450px;
+}
+
+.fildSetDeItens {
+	width: 500px;
+	height: 500px;
+}
+
+.fildSetDeItensSelecionados {
+	width: 380px;
+	height: 450px;
+}
+
+.alinhamentoOrcamento {
+	margin-left: 20%;
+	font-family: Verdana !important;
+	font-weight: bold;
+}
+
+.alinhamentoOrcamento .alinhamentoNovoOrcamento {
+	margin-top: 0%;
+	padding: 0 auto;
+	width: 225px;
+}
+
+.alignPesquisa {
+	font-family: Verdana !important;
+	font-weight: bold;
+	text-align: center;
+	padding-left: 10%;
+	margin-top: -10%;
+}
+
+.alignOrcamento {
+	text-align: center;
+	padding-left: 20%;
+	padding-right: 15%;
+	font-family: Verdana !important;
+	font-weight: bold;
+}
+
+.alignBarra {
+	text-align: center;
+}
+
+.alinhamentoOrcamento .alinhamentoNovoOrcamento .botaoNovoOrcamento {
+	margin: 30px 10px 50px 55px;
+}
+
+.alinhamentoOrcamento .alinhamentoPesquisaOrcamento {
+	margin-top: -30%;
+	margin-left: 10%;
+}
+
+.alinhamentoOrcamento .alinhamentoPesquisaOrcamento .campoPesquisaNovoOrcamento {
+	margin-top: 30%;
+	margin-left: 15%;
+}
+
+.tabOrcamentosCliente {
+	margin-top: 10%;
+	margin-left: 10%;
+	margin-bottom: 10%;
+	width: 830px;
+	height: 330px
+}
+
+.painelDetalhesOrcamento {
+	margin-top: 10%;
+	margin-left: 10%;
+}
+
+.textoPadrao {
+	color: white;
+	background-color: #333333;
+}
+
+.fieldsetBotao {
+	padding: 0 !important;
+}
+
+.tabviewPlanos {
+	font-size: 8pt;
+	width: 973px !important;
+	margin-left: 2px !important;
+}
+
+.accordionFaq {
+	width: 980px !important;
+	margin-left: 2px !important;
+}
+
+.spacerTitulo {
+	height: 10px !important;
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+.linkModalLogin {
+	font-size: 7pt !important;
+	margin-top: -12px !important;
+	text-align: right;
+	width: 100%;
+}
+
+.menuLogin {
+	width: 100%;
+	height: 25px;
+	color: #FFF;
+	font-family: Verdana !important;
+	font-size: 7.5pt !important;
+	background-color: #333;
+	border-bottom: #CCC 1px solid;
+}
+
+.menuLogin .areaUsuario {
+	left: 0;
+	position: absolute;
+	margin-left: 20px;
+}
+
+.menuLogin .areaContato {
+	right: 0;
+	position: absolute;
+	margin-right: 20px;
+	font-size: 8.5pt !important;
+}
+
+.menuLogin a {
+	color: #FFF !important;
+	text-decoration: none !important;
+}
+
+.menuLogin a:HOVER {
+	color: #FFF !important;
+	text-decoration: underline !important;
+}
+
+.gridPesquisar {
+	margin-left: 50px;
+	font-family: Verdana !important;
+	font-size: 8pt !important;
+	color: #FFF;
+}
+
+.rede {
+	margin-left: o !important;
+}
+
+.rsDivPrincipal {
+	margin: 0 auto;
+	width: 90%;
+	color: white;
+	font-weight: bold;
+}
+
+.rsSeparator {
+	width: 100%;
+	height: 2px;
+	background: #FFF;
+}
+
+.rsDivMsgPreenchaCampos {
+	margin: 0 auto;
+	margin-top: 2%;
+	margin-bottom: 4%;
+	text-align: center;
+}
+
+.rsPanelGridPadrao {
+	margin: 0 auto;
+}
+
+.painelIdentificacao {
+	width: 440px;
+	height: 242px;
+}
+
+.btnCadastreSe {
+	margin-top: 70px;
+	width: 200px;
+	height: 45px;
+}
+
+.txtUsuarioSenha {
+	text-align: left;
+	display: block;
+}
+.fildSetBotaoOrcamento {
+	margin-top: -10%;
+	margin-left: 10%;
+	background-color: transparent !important;
+	border: 0 !important;
+}

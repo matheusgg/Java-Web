@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+	<!-- 
+		Atributos do componente. Para o JSF, quando o tipo nao e especificado, todos os valores dos
+		atributos sao do tipo Object. 
+	-->
+	<composite:interface>
+		<composite:attribute name="usuario" required="true" />
+		<composite:attribute name="senha" required="true" />
+		<composite:attribute name="dataNascimento" required="true" />
+		<composite:attribute name="acaoCadastrar" required="true" method-signature="java.lang.String action()" />
+
+		<!-- 
+			Estas tags expoem os componentes indicados em targets para o usuario que esta desenvolvendo a pagina,
+			desta forma e possivel que o desenvolvedor acesse atraves do name os campos referenciados em targets.
+		 -->
+		<composite:editableValueHolder name="usuario" targets="usuario" />
+		<composite:editableValueHolder name="senha" targets="senha" />
+		<composite:editableValueHolder name="dataNascimento" targets="dataNascimento" />
+		<composite:actionSource name="btnCadastrar" targets="btnCadastro" />
+
+		<!-- Especificando os facets que este componente composto suporta -->
+		<composite:facet name="header" />
+		<composite:facet name="footer" />
+	</composite:interface>
+
+	<composite:implementation>
+
+		<h:panelGrid columns="3">
+			<!-- 
+				Com insertFacet, o JSF insere tudo que foi especificado neste facet no facet que o componente suporta, neste caso,
+				o panelGrid possui o facet header, desta forma, tudo que foi inserido dentro do facet informado na interface sera
+				inserido dentro do header do panelGrid.	Ou seja, o JSF vincula o facet informado ao facet do componente pai.				
+			-->
+			<composite:insertFacet name="header" />
+
+			<h:outputText value="#{cc.attrs.resourceBundleMap.usuario}" />
+			<h:inputText value="#{cc.attrs.usuario}" id="usuario" />
+			<h:message for="usuario" />
+
+			<h:outputText value="#{cc.attrs.resourceBundleMap.senha}" />
+			<h:inputSecret value="#{cc.attrs.senha}" id="senha" />
+			<h:message for="senha" />
+
+			<h:outputText value="#{cc.attrs.resourceBundleMap.nascimento}" />
+			<h:inputText value="#{cc.attrs.dataNascimento}" id="dataNascimento" />
+			<h:message for="dataNascimento" />
+
+			<h:commandButton action="#{cc.attrs.acaoCadastrar}" value="#{cc.attrs.resourceBundleMap.btn_cadastrar}"
+				id="btnCadastro" />
+		</h:panelGrid>
+
+		<!-- RenderFacet simplesmente renderiza uma secao onde foi especificado, ele nao insere os itens no facet do componente pai. -->
+		<composite:renderFacet name="footer" />
+
+		<!-- Insere nesta posicao tudo que estiver dentro do componente composto que nao sejam facets, validadores ou converters. -->
+		<composite:insertChildren />
+
+	</composite:implementation>
+
+</ui:composition>

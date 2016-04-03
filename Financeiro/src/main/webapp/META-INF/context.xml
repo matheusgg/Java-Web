@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Este xml configura um DataSource JNDI (Java Naming and Directory Interface)
+	 para compartilhamento da conexão com o banco entre o Hibernate e o Spring Security.
+	 Em servidores como JBoss e GlassFish, este arquivo não é necessário, pois a configuração
+	 é feita diretamente no servidor -->
+<Context reloadable="true">
+	<Resource name="jdbc/FinanceiroDB"
+		auth="Container"
+		type="javax.sql.DataSource"
+		maxActive="100"
+		maxIdle="30"
+		maxWait="10000"
+		username="root"
+		password="root"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost/financeiro?autoReconnect=true" />
+		
+	<Resource name="mail/Session"
+		auth="Container"
+		type="javax.mail.Session"
+		mail.smtp.host="smtp.gmail.com"
+		mail.smtp.port="587"
+		mail.smtp.auth="true"
+		mail.smtp.user=""
+		mail.smtp.password="" />
+</Context>
+<!-- Resource jdbc/FinanceiroDB -->
+<!-- Informações do pool de conexão -->
+<!-- maxActive = Número máximo de conexões em uso -->
+<!-- maxIdle = NNúmero máximo de conexões aguardando uso -->
+<!-- maxWait = Tempo máximo de espera por uma conexão disponível -->
+<!-- Além destas configurações, o driver do banco de dados deve
+	 estar dentro da pasta lib do Tomcat -->
+	 
+<!-- Resource mail/Session -->
+<!-- Informações da nova JNDI referente a configuração do servidor 
+	 de envio de emails -->

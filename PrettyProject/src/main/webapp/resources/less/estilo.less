@@ -1,0 +1,52 @@
+/* LESS é uma linguagem semelhante com CSS que simplifica
+ * o trabalho com o mesmo e possibilita a criação de código
+ * CSS utilizando recursos extras como variáveis e funções.
+ * O LESS é um processador de CSS, com ele podemos escrever
+ * código less e gerar o código CSS correspondente no final.
+ * O script less.js faz o parse do código less para o codigo
+ * CSS, que pode ser interpretado pelo navegador. No LESS
+ * podem ser criadas funções conhecidas como mixin. Essas
+ * funções podem receber parâmetros ou não.
+ */
+
+/* Com o LESS é possível importar outros arquivos .less ou .css (a extensão é opcional) */
+@import "estilo2.less";
+@cor: blue;
+@altura: 300px;
+@largura: 600px;
+@espaco: 300;
+
+/* No LESS as variáveis locais são consideradas antes do que as variáveis globais.
+ * Além disso, no LESS é possível utilizar as variáveis globais dos arquivos importados.
+ */
+.textColor {
+	@cor: silver;
+	color: @cor;
+	font-family: @tamanho;
+}
+
+/* Chamando o mixin */
+.divClass {
+	.formataDivs(red, blue); 
+}
+
+/* Função (ou Mixin). Os parâmetros das funções podem possuir valores default */
+.formataDivs(@corH1, @corBorda: blue){
+	position: absolute;
+	width: @largura;
+	height: (@altura + @espaco);
+	border: 2px solid @corBorda;
+	h1 {
+		color: @corH1;
+	}
+}
+
+@seletor: text2;
+/* É possível utilizar variáveis como seletores desde que sejam declarados
+ * da seguinte forma:
+ * .@{seletor}{
+		color: red;
+	}
+ */
+
+

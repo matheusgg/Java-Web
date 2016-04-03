@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:cc="http://java.sun.com/jsf/composite" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<cc:interface>
+		<cc:attribute name="title" type="java.lang.String" default="#{msgs['label.confirmacao']}" />
+		<cc:attribute name="contentText" type="java.lang.String" required="true" />
+		<cc:attribute name="closeText" type="java.lang.String" default="#{msgs['label.fechar']}" />
+		<cc:attribute name="size" type="java.lang.String" default="sm" />
+		<cc:attribute name="actionButtonText" type="java.lang.String" required="true" />
+		<cc:attribute name="action" method-signature="void metodo()" required="true" />
+		<cc:attribute name="execute" type="java.lang.String" required="true" />
+		<cc:attribute name="update" type="java.lang.String" required="true" />
+	</cc:interface>
+
+	<cc:implementation>
+		<div class="modal fade" id="#{cc.attrs.id}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-#{cc.attrs.size}">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h5>#{cc.attrs.title}</h5>
+					</div>
+					<div class="modal-body" align="center">
+						<div class="smart-form client-form">#{cc.attrs.contentText}</div>
+					</div>
+					<div class="modal-footer">
+						<div align="center">
+							<button type="button" class="btn btn-default" data-dismiss="modal">#{cc.attrs.closeText}</button>
+							<h:commandButton value="#{cc.attrs.actionButtonText}" styleClass="btn btn-primary" action="#{cc.attrs.action}" pt:data-toggle="modal"
+								pt:data-target="##{cc.attrs.id}">
+								<f:ajax execute="#{cc.attrs.execute}" render="#{cc.attrs.update}" onevent="initPage" />
+							</h:commandButton>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</cc:implementation>
+
+</ui:composition>

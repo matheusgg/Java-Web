@@ -1,0 +1,54 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<h1>Cadastro de Funcionarios</h1>
+		<h:form prependId="false">
+			<p:growl globalOnly="true" />
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Salario R$" for="salario" />
+				<p:inputText required="true"
+					value="#{funcionarioBean.funcionarioSelecionado.salario}"
+					id="salario">
+					<f:convertNumber locale="pt_BR" />
+				</p:inputText>
+				<p:message for="salario" showSummary="true" showDetail="false" />
+
+				<h:outputLabel value="Codigo" for="codigo" />
+				<p:inputText required="true"
+					value="#{funcionarioBean.funcionarioSelecionado.codigo}"
+					id="codigo">
+				</p:inputText>
+				<p:message for="codigo" showSummary="true" showDetail="false" />
+
+				<h:outputLabel value="CPF" for="cpf" />
+				<p:inputText required="true"
+					value="#{funcionarioBean.funcionarioSelecionado.cpf}" id="cpf">
+					<f:validator validatorId="validadorCPF" />
+				</p:inputText>
+				<p:message for="cpf" showSummary="true" showDetail="false" />
+
+				<h:outputLabel value="Nascimento" for="nascimento" />
+				<p:calendar required="true" readonlyInput="true" navigator="true"
+					value="#{funcionarioBean.funcionarioSelecionado.nascimento}"
+					id="nascimento">
+					<f:validator validatorId="validadorNascimento" />
+				</p:calendar>
+				<p:message for="nascimento" showSummary="true" showDetail="false" />
+
+				<p:commandButton value="Cadastrar" update="@form"
+					action="#{funcionarioBean.cadastraFuncionario}" />
+			</h:panelGrid>
+
+			<ul>
+				<ui:repeat var="funcionario" value="#{funcionarioBean.funcionarios}">
+					<li><h:outputText
+							value="#{funcionario.cpf.numeroIdentificacao}-#{funcionario.cpf.primeiroDigitoVerificador}#{funcionario.cpf.segundoDigitoVerificador} - R$ #{funcionario.salario}" /></li>
+				</ui:repeat>
+			</ul>
+		</h:form>
+	</ui:define>
+</ui:composition>

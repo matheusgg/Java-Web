@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="leftMenu">
+		<ui:include src="/WEB-INF/templates/apf/leftMenuAPF.xhtml" />
+	</ui:define>
+
+	<ui:define name="form">
+
+		<!-- Le Style -->
+		<style type="text/css">
+.input-block-level {
+	display: block;
+	width: 90%;
+	min-height: 30px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.ui-inputfield {
+	font-weight: normal;
+	width: 10%;
+}
+</style>
+
+		<!-- Tab Views -->
+		<p:tabView id="tabView">
+
+			<p:ajax event="tabChange" listener="#{apfTabControlBean.tabControl}" process=":tabView" partialSubmit="true"
+				update="metricaForm" />
+
+			<p:tab title="#{msgs.lbl_dados_gerais}" id="tabDadosGerais">
+				<ui:include src="/view/apf/tabDadosGerais.xhtml" />
+			</p:tab>
+
+			<p:tab title="#{msgs.lbl_documentos_util}" id="tabDocumentos">
+				<h:form id="documentosForm">
+					<ui:include src="/view/apf/tabDocumentosUtilizados.xhtml" />
+				</h:form>
+			</p:tab>
+
+			<p:tab title="#{msgs.lbl_premissas}" id="tabPremissas">
+				<h:form id="premissasForm">
+					<ui:include src="/view/apf/tabPremissas.xhtml" />
+				</h:form>
+			</p:tab>
+
+			<p:tab title="#{msgs.lbl_metrica}" id="tabMetrica">
+				<h:form id="metricaForm">
+					<ui:include src="/view/apf/tabMetricaAPF.xhtml" />
+				</h:form>
+			</p:tab>
+
+			<p:tab title="#{msgs.lbl_resumo}" id="tabResumo" />
+
+		</p:tabView>
+	</ui:define>
+</ui:composition>

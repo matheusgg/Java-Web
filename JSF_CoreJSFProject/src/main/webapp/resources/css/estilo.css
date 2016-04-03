@@ -1,0 +1,42 @@
+#footer {
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	background-color: #000;
+	color: #FFF;
+	margin-left: -8px;
+}
+
+#header {
+	background-color: #000;
+	color: #FFF;
+	text-align: center;
+	height: 80px;
+	margin-top: -22px;
+	width: 101%;
+	margin-left: -7px;
+}
+
+.divDecorator1 {
+	color: gray;
+}
+
+.text {
+	font-size: 12px;
+	color: gray;
+}
+
+.par {
+	background: gray;
+	width: 150px;
+	text-align: center;
+	height: 20px;
+}
+
+.impar {
+	background: orange;
+	text-align: center;
+	width: 150px;
+	height: 20px;
+}

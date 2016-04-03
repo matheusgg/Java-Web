@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>CDI 1.1</title>
+</h:head>
+<h:body>
+	<h1>CDI 1.1</h1>
+	<h:form>
+		<h:messages />
+		<h:commandButton action="#{appBean.showFrendlyMessage}" value="Show Message" />
+		<h:commandButton action="#{appBean.list}" value="Teste Inject" />
+		<h:commandButton action="#{appBean.save}" value="Teste Transactional" />
+		<h:commandButton action="#{appBean.testRemetente}" value="Teste Qualificadores" />
+		<h:commandButton action="#{appBean.testAlternative}" value="Teste Alternative" />
+		<h:commandButton action="#{appBean.testDecorator}" value="Teste Decorator" />
+		<h:commandButton action="#{appBean.testObserver}" value="Teste Observer" />
+	</h:form>
+
+	<h:dataTable value="${appBean.cliente.produtos}" var="p" rendered="#{!empty appBean.cliente}">
+		<h:column>
+			<f:facet name="header">
+				ID
+			</f:facet>
+			<h:outputText value="#{p.id}" />
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				Nome
+			</f:facet>
+			<h:outputText value="#{p.nome}" />
+		</h:column>
+	</h:dataTable>
+</h:body>
+</html>

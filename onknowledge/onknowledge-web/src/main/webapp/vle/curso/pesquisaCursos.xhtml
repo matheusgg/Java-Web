@@ -1,0 +1,87 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.cursos']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.cursos']} > #{msgs['label.pesquisa']}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{cursoMB.preparaPesquisaCursos()}" />
+		</f:metadata>
+
+		<o:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+				<fieldset>
+					<div class="row">
+						<section class="col col-6">
+							<label class="label">#{msgs['label.nome']}</label> <label class="input"><i class="icon-append fa fa-graduation-cap"></i> <h:inputText
+									id="codigo" value="#{cursoMB.curso.nome}" pt:placeholder="#{msgs['msg.informe.nome.curso']}" maxlength="200"
+									onblur="alphaNumeric(this, false)" /> </label>
+						</section>
+
+						<section class="col col-6">
+							<label class="label">#{msgs['label.coordenador']}</label> <label class="input"><i class="icon-append fa fa-user"></i> <h:inputText
+									id="nome" value="#{cursoMB.curso.coordenador.nome}" pt:placeholder="#{msgs['msg.informe.nome.coordenador']}" maxlength="100"
+									onblur="alphaNumeric(this, true)" pt:data-autocomplete-source="#{request.contextPath}/ws/usuario/listaNomesProfessores?q=" /> </label>
+						</section>
+					</div>
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.selecionar']}" styleClass="btn btn-primary" action="#{cursoMB.selecionaCursos()}"
+						rendered="#{!empty cursoMB.callerPage}">
+						<o:ignoreValidationFailed />
+					</h:commandButton>
+
+					<h:commandButton value="#{msgs['label.novo.curso']}" styleClass="btn btn-primary" action="pretty:courseRegister" immediate="true"
+						rendered="#{okSecurityContext.isUserInRole('ADMIN') and empty cursoMB.callerPage}" />
+
+					<h:commandButton value="#{msgs['label.limpar']}" styleClass="btn btn-primary" action="#{cursoMB.init()}" immediate="true">
+						<f:setPropertyActionListener value="#{null}" target="#{cursoMB.cursosDataModel.wrappedData}" />
+						<f:setPropertyActionListener value="0" target="#{cursoMB.cursosDataModel.rowCount}" />
+						<f:ajax render="@form" onevent="initPage" execute="@this" />
+					</h:commandButton>
+
+					<h:commandButton value="#{msgs['label.pesquisar']}" styleClass="btn btn-primary">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+
+				<fieldset>
+					<section>
+						<p:dataTable value="#{cursoMB.cursosDataModel}" var="curso" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+							lazy="true" rows="10" emptyMessage="#{msgs['msg.nenhum.registro.encontrado']}"
+							currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							selection="#{cursoMB.cursosSelecionados}" rowKey="#{curso}">
+							<p:column selectionMode="#{!empty cursoMB.selectionMode ? cursoMB.selectionMode : 'multiple'}"
+								rendered="#{!empty cursoMB.callerPage}" width="20" />
+							<p:column headerText="#{msgs['label.nome']}">
+								#{curso.nome}
+							</p:column>
+							<p:column headerText="#{msgs['label.coordenador']}">
+								#{curso.coordenador.nome.concat(' ').concat(curso.coordenador.sobrenome)}
+							</p:column>
+							<p:column styleClass="ok-align-center" width="80" rendered="#{empty cursoMB.callerPage}">
+								<h:commandLink action="#{cursoMB.selecionaCursoParaEdicao(curso.id, 'pretty:courseRegister')}" title="#{msgs['label.editar']}"
+									rendered="#{okSecurityContext.isUserInRole('ADMIN')}">
+									<i class="fa fa-edit" />
+								</h:commandLink>
+								<h:commandLink action="#{cursoMB.selecionaCursoParaEdicao(curso.id, 'pretty:courseDisciplines')}"
+									title="#{msgs['label.disciplinas']}" rendered="#{okSecurityContext.isUserInRole('ADMIN')}">
+									<i class="fa fa-header" />
+								</h:commandLink>
+								<h:commandLink action="#{cursoMB.selecionaCursoParaEdicao(curso.id, 'pretty:courseInformations')}" title="#{msgs['label.resumo']}">
+									<i class="fa fa-file-text-o" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</section>
+				</fieldset>
+			</div>
+		</o:form>
+	</ui:define>
+</ui:composition>

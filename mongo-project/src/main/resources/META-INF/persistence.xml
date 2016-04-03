@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="mongo-project" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+
+		<class>br.com.model.Cliente</class>
+		<class>br.com.model.Produto</class>
+
+		<properties>
+			<property name="hibernate.ogm.datastore.provider" value="mongodb" />
+			<property name="hibernate.ogm.datastore.grid_dialect" value="org.hibernate.ogm.datastore.mongodb.MongoDBDialect" />
+			<property name="hibernate.ogm.mongodb.host" value="localhost" />
+			<property name="hibernate.ogm.mongodb.port" value="27017" />
+			<property name="hibernate.ogm.datastore.database" value="app_db" />
+		</properties>
+	</persistence-unit>
+</persistence>

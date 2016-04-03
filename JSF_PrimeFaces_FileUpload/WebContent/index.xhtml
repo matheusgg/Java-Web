@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Upload Test</title>
+</h:head>
+<h:body>
+	<!-- Carregamento avançado de arquivo único -->
+	<h:form enctype="multipart/form-data">
+		<p:fileUpload fileUploadListener="#{fileUploadController.upload}"
+			mode="advanced" update="messages" multiple="false"
+			sizeLimit="1000000" allowTypes="/(\.|\/)(doc|pdf|jpe?g)$/" />
+		<p:growl id="messages" />
+		<br />
+		<p:column binding="#{fileUploadController.coluna}">
+
+		</p:column>
+		<p:commandButton value="OK" action="#{fileUploadController.action}" />
+
+
+		<h:selectOneMenu value="" id="ident" immediate="true">
+			<f:selectItem itemValue=" " />
+			<f:selectItem itemValue="Teste" />
+			<f:selectItem itemValue="Teste 2" />
+			<f:ajax event="change"
+				listener="#{fileUploadController.executaEvento}" />
+		</h:selectOneMenu>
+	</h:form>
+
+
+</h:body>
+</html>

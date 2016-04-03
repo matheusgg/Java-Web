@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	<display-name>ELProject</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Mapeamento do descritor de tags, informando a URI (namespace da tag) e a localizacao do XML de configuracao. -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://el-project.com</taglib-uri>
+			<taglib-location>/WEB-INF/functions.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+</web-app>

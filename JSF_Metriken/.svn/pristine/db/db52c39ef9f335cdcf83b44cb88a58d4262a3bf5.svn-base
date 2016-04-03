@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="dadosGerais">
+		<p:messages globalOnly="true" for="dadosGerais" />
+
+		<!-- Bloco 1 -->
+		<p:fieldset>
+
+			<div class="row-fluid">
+				<div class="span12">
+					<label style="width: 100%;" class="label label-info">#{msgs.lbl_projeto}</label>
+				</div>
+			</div>
+
+
+			<div class="row-fluid">
+				<div class="span9">
+					<label for="inputProjeto">#{msgs.lbl_nome_projeto}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.descricao}" id="inputProjeto" styleClass="text"
+						style="width: 100%;" />
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span3">
+					<label for="selectTipo">#{msgs.lbl_tipo}</label>
+					<h:selectOneMenu id="selectTipo" value="#{dadosGeraisBean.viewHelper.projeto.tipoProjeto}" style="width: 100%;"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="#{msgs.lbl_selecione}" noSelectionOption="true" />
+						<f:selectItems value="#{dadosGeraisBean.viewHelper.comboTipoProjeto}" var="tipo" itemLabel="#{tipo.label}"
+							itemValue="#{tipo}" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+		</p:fieldset>
+
+		<br />
+
+		<!-- Bloco 2 -->
+		<p:fieldset>
+
+			<div class="row-fluid">
+				<div class="span12">
+					<label style="width: 100%;" class="label label-info">#{msgs.lbl_contagem}</label>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span3">
+					<label for="selectTipoContagen">#{msgs.lbl_tipo_contagem}</label>
+					<h:selectOneMenu id="selectTipoContagen" value="#{dadosGeraisBean.viewHelper.projeto.tipoContagem}"
+						style="width: 100%;" converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{dadosGeraisBean.viewHelper.comboTipoContagem}" var="tipo" itemLabel="#{tipo.label}"
+							itemValue="#{tipo}" />
+					</h:selectOneMenu>
+				</div>
+
+
+				<div class="span3">
+					<label for="calendarioInicio">#{msgs.lbl_inicio_em}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.contagem.contagemEm}"
+						onkeypress="return mascaraData(this, event);" onfocus="$(this).datepicker('show');">
+						<f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy" />
+					</h:inputText>
+				</div>
+
+
+				<div class="span3">
+					<label for="calendarioFim">#{msgs.lbl_finalizada_em}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.contagem.contagemFim}"
+						onkeypress="return mascaraData(this, event);" onfocus="$(this).datepicker('show');">
+						<f:convertDateTime type="date" dateStyle="medium" pattern="dd/MM/yyyy" />
+					</h:inputText>
+				</div>
+			</div>
+		</p:fieldset>
+
+		<br />
+
+		<!-- Bloco 3 -->
+		<p:fieldset>
+
+			<div class="row-fluid">
+				<div class="span12">
+					<label style="width: 100%;" class="label label-info">#{msgs.lbl_responsaveis}</label>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span6">
+					<label for="inputResponsavel">#{msgs.lbl_nome}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.responsavel.nome}" id="inputResponsavel"
+						style="width: 100%" />
+				</div>
+
+
+				<div class="span3">
+					<label for="selectCFPS">#{msgs.lbl_CFPS}</label>
+					<h:selectOneMenu id="selectCFPS" value="#{dadosGeraisBean.viewHelper.projeto.responsavel.cfps}"
+						style="width: 100%;" converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="#{msgs.lbl_selecione}" noSelectionOption="true" />
+						<f:selectItems value="#{dadosGeraisBean.viewHelper.comboCFPS}" var="cfps" itemLabel="#{cfps.label}"
+							itemValue="#{cfps}" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span6">
+					<label for="inputEmpresa">#{msgs.lbl_empresa}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.responsavel.empresa.descricao}" id="inputEmpresa"
+						style="width: 100%" />
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span3">
+					<label for="inputEmail">#{msgs.lbl_email}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.responsavel.email}" id="inputEmail" style="width: 100%" />
+				</div>
+
+				<div class="span3">
+					<label for="inputTelefone">#{msgs.lbl_telefone}</label>
+					<h:inputText value="#{dadosGeraisBean.viewHelper.projeto.responsavel.telefone}" id="inputTelefone"
+						style="width: 100%" />
+				</div>
+			</div>
+
+
+		</p:fieldset>
+
+		<br />
+
+		<!-- Bloco 4 -->
+		<p:fieldset>
+
+			<div class="row-fluid">
+				<div class="span12">
+					<label style="width: 100%;" class="label label-info">#{msgs.lbl_consideracoes}</label>
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span9">
+					<label for="inputEscopo">#{msgs.lbl_escopo}</label>
+					<h:inputTextarea value="#{dadosGeraisBean.viewHelper.projeto.consideracao.escopo}" id="inputEscopo"
+						style="width: 100%" />
+				</div>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span9">
+					<label for="inputFronteira">#{msgs.lbl_fronteira}</label>
+					<h:inputTextarea value="#{dadosGeraisBean.viewHelper.projeto.consideracao.fronteira}" id="inputFronteira"
+						style="width: 100%" />
+				</div>
+			</div>
+		</p:fieldset>
+
+	</h:form>
+
+</ui:composition>

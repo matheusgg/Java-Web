@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form id="cabecalhoForm">
+		<div class="cabecalho">
+			<h:panelGrid styleClass="container" columns="3">
+				<h:panelGrid styleClass="gridLogo">
+					<h:column>
+						<h:link outcome="pretty:home">
+							<p:graphicImage styleClass="logo" url="/resources/images/logo/logo.png" title="#{msgs.maestro_automacoes}" />
+						</h:link>
+					</h:column>
+				</h:panelGrid>
+
+				<h:panelGrid columns="3" styleClass="gridPesquisar">
+					<h:column>
+						<h:outputText value="#{msgs.label_pesquisar}" />
+					</h:column>
+					<h:column>
+						<p:inputText id="textoPesquisar" size="50" styleClass="inputPesquisar" />
+					</h:column>
+					<h:column>
+						<p:commandButton id="botaoPesquisar" icon="ui-icon-search" title="#{msgs.label_pesquisar}" styleClass="botaoLupa" />
+					</h:column>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="gridRedes">
+					<p:column>
+						<h:outputLink value="https://www.facebook.com/MaestroAutomacoes" target="_blank">
+							<p:graphicImage url="/resources/images/icons/facebook_icon.png" title="#{msgs.label_icone_facebook}" />
+						</h:outputLink>
+					</p:column>
+
+					<p:column styleClass="rede">
+						<h:outputLink value="http://twitter.com/#!/MaestroAut" target="_blank">
+							<p:graphicImage url="/resources/images/icons/twitter_icon.png" title="#{msgs.label_icone_twitter}" />
+						</h:outputLink>
+					</p:column>
+
+					<p:column>
+						<h:outputLink value="https://plus.google.com/118396503392326170047/posts" target="_blank">
+							<p:graphicImage url="/resources/images/icons/google_plus_icon.png" title="#{msgs.label_icone_google_plus}" />
+						</h:outputLink>
+					</p:column>
+
+					<p:column styleClass="rede">
+						<h:outputLink value="http://www.youtube.com/maestroautomacoes" target="_blank">
+							<p:graphicImage url="/resources/images/icons/youtube_icon.png" title="#{msgs.label_icone_youtube}" />
+						</h:outputLink>
+					</p:column>
+				</h:panelGrid>
+			</h:panelGrid>
+		</div>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd" version="2.2">
+
+	<!-- O JSF 2.2 trouxe uma nova forma amigavel de criacao de paginas utilizando HTML 5. Por padrao, o JSF 2.2 rendereza qualquer pagina 
+		com o doctype HTML5, para alterar esse comportamento (e voltar ao estilo antes do JSF 2.2) basta informar como o JSF devera processar 
+		as paginas com a configuracao abaixo. -->
+
+	<!-- <faces-config-extension> -->
+	<!-- <facelets-processing> -->
+	<!-- <file-extension>.xhtml</file-extension> -->
+	<!-- <process-as>xhtml</process-as> -->
+	<!-- </facelets-processing> -->
+	<!-- </faces-config-extension> -->
+</faces-config>

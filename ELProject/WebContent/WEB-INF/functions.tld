@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+	<tlib-version>1.0</tlib-version>
+	<short-name>functions</short-name>
+
+	<!-- Declaracao da EL Function. Nada mais e do que um mapeamento de uma metodo statico java para uma fiuncao. -->
+	<function>
+		<!-- Nome da funcao, desta forma a mesma nao precisa ter o mesmo nome do metodo. -->
+		<name>contains</name>
+
+		<!-- Classe que contem o metodo estatico que representa essa funcao -->
+		<function-class>functions.FunctionsFactory</function-class>
+
+		<!-- Assinatura do metodo que sera mapeado como uma funcao. Caso o retorno ou os parametros forem de tipos primitivos, nao e necessario 
+			declarar o nome totalmente qualificado, isso e necessario apenas quando o retorno ou os parametros forem objetos Java -->
+		<function-signature>boolean containsWord(java.lang.String, java.lang.String)</function-signature>
+	</function>
+</taglib>

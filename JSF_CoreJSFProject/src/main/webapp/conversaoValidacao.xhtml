@@ -1,0 +1,38 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:master="http://java.sun.com/master">
+
+	<ui:define name="titulo">Conversores e Validadores</ui:define>
+	<ui:define name="conteudo">
+
+		<h:messages showDetail="true" />
+
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Nome" />
+				<h:inputText value="#{validacaoConversaoBean.nome}" validator="#{requiredValidator.validate}" label="Nome"
+					p:placeholder="Insira o Nome" />
+
+				<h:outputText value="Idade" />
+				<h:inputText value="#{validacaoConversaoBean.idade}" validator="#{requiredValidator.validate}"
+					converter="#{idadeConverter}" label="Idade" p:placeholder="Insira a Idade" />
+
+				<h:outputText value="Salario" />
+				<h:inputText value="#{validacaoConversaoBean.salario}">
+					<master:numberConverter numberType="java.mat.BigDecimal" addErrorStyle="true"
+						convertErrorMessage="Erro de Conversao" p:placeholder="Insira o Salario" />
+				</h:inputText>
+
+				<h:commandButton value="OK" />
+				<h:commandButton value="Test Bean Validation" action="#{validacaoConversaoBean.testBeanValidation}" immediate="true" />
+			</h:panelGrid>
+		</h:form>
+
+		<p>
+			Nome: #{validacaoConversaoBean.nome} <br /> Idade: #{validacaoConversaoBean.idade} <br /> Salario:
+			#{validacaoConversaoBean.salario}
+		</p>
+	</ui:define>
+
+</ui:composition>

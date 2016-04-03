@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<div class="smart-form client-form">
+		<fieldset jsf:id="tabelaQuestoes">
+			<section>
+				<p:dataTable value="#{atividadeMB.atividade.questoes}" var="questao" paginator="true" paginatorAlwaysVisible="false"
+					paginatorPosition="bottom" rows="10" emptyMessage="#{msgs['msg.nenhuma.questao.adicionada']}" styleClass="tabela-questoes"
+					currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}" rowIndexVar="i"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+					<p:column headerText="#{msgs['label.ordem']}" styleClass="ok-align-center">
+						#{i + 1}
+					</p:column>
+
+					<p:column headerText="#{msgs['label.justificativa.obrigatoria']}" styleClass="ok-align-center">
+						#{questao.justivicativaObrigatoria ? msgs['label.sim'] : msgs['label.nao']}
+					</p:column>
+
+					<p:column headerText="#{msgs['label.qtd.alternativas']}" styleClass="ok-align-center">
+						#{questao.alternativas.size()}
+					</p:column>
+
+					<p:column styleClass="ok-align-center" width="20">
+						<h:commandLink
+							title="#{!empty atividadeMB.atividade.id and okSecurityContext.loggedUser.id ne atividade.professor.id ? msgs['label.visualizar'] : msgs['label.editar']}"
+							action="#{atividadeMB.preparaEdicaoQuestao()}">
+							<i
+								class="fa #{!empty atividadeMB.atividade.id and okSecurityContext.loggedUser.id ne atividade.professor.id ? 'fa-file-text-o' : 'fa-edit'}" />
+							<f:ajax execute="@this" render=":divNovaQuestao" onevent="initOkEditors" />
+							<f:setPropertyActionListener value="#{questao}" target="#{atividadeMB.questaoSelecionada}" />
+							<f:setPropertyActionListener value="#{true}" target="#{atividadeMB.edicaoQuestao}" />
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.adicionar']}" styleClass="btn btn-primary" action="#{atividadeMB.adicionaNovaQuestao()}"
+						rendered="#{empty atividadeMB.atividade.id or okSecurityContext.loggedUser.id eq atividadeMB.atividade.professor.id}">
+						<f:ajax execute="@this" render=":divNovaQuestao" onevent="initOkEditors" />
+						<f:setPropertyActionListener value="#{false}" target="#{atividadeMB.edicaoQuestao}" />
+					</h:commandButton>
+				</footer>
+			</section>
+		</fieldset>
+
+		<div jsf:id="divNovaQuestao">
+			<fieldset jsf:rendered="#{!empty atividadeMB.questaoSelecionada}">
+				<section jsf:id="anexosQuestaoSection" class="anexos-section">
+					<label class="label">#{msgs['label.anexos']}</label>
+					<div class="input state-error">
+						<div class="bootstrap-tagsinput">
+							<ui:repeat var="anexo" value="#{atividadeMB.anexosQuestao}" varStatus="i">
+								<span class="tag label label-info"> <h:commandLink action="#{atividadeMB.downloadAnexo(anexo)}" styleClass="tag-link"
+										value="#{anexo.nomeArquivo}.#{anexo.extensaoArquivo}" immediate="true" disabled="false" /> <h:commandLink
+										action="#{atividadeMB.removeAnexo(atividadeMB.anexosQuestao, i.index)}" styleClass="tag-link"
+										rendered="#{empty atividadeMB.atividade.id or okSecurityContext.loggedUser.id eq atividadeMB.atividade.professor.id}">
+										<f:ajax execute="anexosQuestaoSection" render="anexosQuestaoSection" />
+										<span data-role="remove" />
+									</h:commandLink>
+								</span>
+							</ui:repeat>
+						</div>
+					</div>
+					<em class="invalid" id="anexosQuestaoMsg"><h:message for="anexosQuestao" /></em>
+					<div class="input input-file"
+						jsf:rendered="#{empty atividadeMB.atividade.id or okSecurityContext.loggedUser.id eq atividadeMB.atividade.professor.id}">
+						<span class="button btn-primary"><input jsf:id="anexosQuestao" type="file"
+							onchange="uploadSelectedFiles(this, uploadQuestaoFiles, '#anexosQuestaoMsg')"
+							data-exceeded-max-file-size="#{msgs['msg.validacao.limite.maximo.arquivo']}" multiple="multiple" />#{msgs['label.selecionar']}</span>
+					</div>
+					<o:commandScript name="uploadQuestaoFiles" render="anexosQuestaoSection" execute="anexosQuestaoSection"
+						action="#{atividadeMB.uploadFilesToAnexosList(atividadeMB.anexosQuestao, 'anexosQuestao')}" />
+				</section>
+
+				<o:massAttribute name="disabled"
+					value="#{!empty atividadeMB.atividade.id and okSecurityContext.loggedUser.id ne atividadeMB.atividade.professor.id ? true : false}">
+					<section>
+						<label class="label">#{msgs['label.descricao']}</label>
+						<div class="#{!component.findComponent('descricaoQuestao').valid ? 'state-error' : ''}">
+							<h:inputTextarea value="#{atividadeMB.questaoSelecionada.descricao}" styleClass="ok-editor" id="descricaoQuestao"
+								pt:data-editor-language="#{okSessionMB.currentLocale.language}-#{okSessionMB.currentLocale.country}" pt:data-editor-height="200px"
+								pt:data-editor-readonly="false" pt:data-editor-resizable="false" />
+						</div>
+						<em class="invalid"> <h:message for="descricaoQuestao" /></em>
+					</section>
+
+					<section>
+						<label class="checkbox #{!component.findComponent('justificativaObrigatoria').valid ? 'state-error' : ''}"> <h:selectBooleanCheckbox
+								value="#{atividadeMB.questaoSelecionada.justivicativaObrigatoria}" id="justificativaObrigatoria" required="true"
+								requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+								<f:validateRequired />
+							</h:selectBooleanCheckbox> <i></i>#{msgs['label.justificativa.obrigatoria']}
+						</label> <em class="invalid"> <h:message for="justificativaObrigatoria" /></em>
+					</section>
+
+
+					<section jsf:id="alternativasSection">
+						<label class="label">#{msgs['label.alternativas']} <h:commandLink title="#{msgs['label.adicionar']}"
+								action="#{atividadeMB.adicionaNovaAlternativa()}">
+								<i class="fa fa-fw fa-plus-circle txt-color-green" />
+								<f:ajax render=":alternativasSection" execute=":alternativasSection" />
+							</h:commandLink>
+						</label>
+						<fieldset>
+							<ui:repeat var="alternativa" value="#{atividadeMB.questaoSelecionada.alternativas}" varStatus="i">
+								<div class="row">
+									<section class="col col-10">
+										<label class="label">#{msgs['label.descricao']} </label> <label
+											class="textarea textarea-expandable #{!empty alternativa.id ? (alternativa.correta ? 'state-success' : 'state-error') : ''}">
+											<h:inputTextarea styleClass="custom-scroll" value="#{alternativa.descricao}" pt:maxlength="1000"
+												readonly="#{!empty alternativa.id}" pt:placeholder="#{msgs['msg.informe.descricao.alternativa']}" />
+										</label>
+									</section>
+
+									<section class="col col-2" jsf:rendered="#{empty alternativa.id}">
+										<div class="checks-alternativa-correta">
+											<label class="checkbox"> <h:selectBooleanCheckbox value="#{alternativa.correta}">
+													<f:validateRequired />
+												</h:selectBooleanCheckbox> <i />#{msgs['label.alternativa.correta']}
+											</label>
+										</div>
+									</section>
+								</div>
+							</ui:repeat>
+						</fieldset>
+					</section>
+				</o:massAttribute>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.cancelar']}" styleClass="btn btn-primary" immediate="true" id="cancelaEdicao">
+						<f:ajax execute="@this" render=":divNovaQuestao" onevent="initOkEditors" listener="#{atividadeMB.preparaAnexosQuestao()}" />
+						<f:setPropertyActionListener value="#{null}" target="#{atividadeMB.questaoSelecionada}" />
+						<f:setPropertyActionListener value="#{false}" target="#{atividadeMB.edicaoQuestao}" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.salvar.questao']}" styleClass="btn btn-primary" action="#{atividadeMB.salvaNovaQuestao()}"
+						rendered="#{empty atividadeMB.atividade.id or (okSecurityContext.loggedUser.id eq atividadeMB.atividade.professor.id)}">
+						<f:ajax execute=":divNovaQuestao" render=":divNovaQuestao :tabelaQuestoes" onevent="initOkEditors" />
+					</h:commandButton>
+				</footer>
+			</fieldset>
+		</div>
+	</div>
+</ui:composition>

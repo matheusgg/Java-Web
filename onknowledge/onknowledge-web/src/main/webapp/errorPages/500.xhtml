@@ -1,0 +1,61 @@
+<ui:composition template="/errorTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:o="http://omnifaces.org/ui">
+	
+	<ui:define name="title">500</ui:define>
+	
+	<ui:define name="specificCSS">
+		<style type="text/css">
+			.jarviswidget-ctrls a {
+				color: #FFF !important;
+			}
+		</style>
+		<!--[if IE 9]>
+			<style>
+				.error-text {
+					color: #333 !important;
+				}
+			</style>
+		<![endif]-->
+	</ui:define>
+	
+	<ui:define name="content">
+		<o:importConstants type="br.com.ok.util.constants.OKConstants" />
+		<h1 class="error-text tada animated">
+			<i class="fa fa-times-circle text-danger error-icon-shadow" /> #{msgs['label.error.500']}
+		</h1>
+		<h2 class="font-xl">
+			<strong>#{msgs['msg.pagina.erro']}</strong>
+		</h2>
+		<br />
+		<p class="lead semi-bold">
+			<strong>#{msgs['msg.pagina.erro.detalhe']}</strong><br /> <br /> <small> #{msgs['msg.pagina.erro.subdetalhe']} <i class="fa fa-coffee" /></small>
+		</p>
+		<section id="widget-grid">
+			<div class="jarviswidget jarviswidget-color-blueDark" id="stackTrace" data-widget-colorbutton="false" data-widget-editbutton="false"
+				data-widget-custombutton="false" data-widget-deletebutton="false" jsf:rendered="#{!empty flash[OKConstants.STACK_TRACE_KEY]}">
+				<header>
+					<span class="widget-icon"> <i class="fa fa-graduation-cap" /></span>
+					<h2>#{msgs['label.detalhe.nerds']}</h2>
+				</header>
+				<div>
+					<div class="widget-body no-padding" style="text-align: left;">
+						<pre>#{flash[OKConstants.STACK_TRACE_KEY]}</pre>
+					</div>
+				</div>
+			</div>
+		</section>
+	</ui:define>
+	
+	<ui:define name="specificJS">
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var $link = $("#stackTrace").find("a[data-original-title='Collapse']");
+				var $icon = $link.children();
+				if($icon.hasClass("fa-minus")){
+					$link.click();
+				}
+			});
+		</script>
+	</ui:define>
+	
+</ui:composition>

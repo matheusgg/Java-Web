@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<div class="conteudo">
+			<f:view>
+				<h:form id="faqForm">
+					<h:panelGrid styleClass="container">
+						<h:outputText value="#{msgs.label_perguntas_frequentes}" styleClass="titulo" />
+						<p:spacer styleClass="spacerTitulo" />
+
+						<p:accordionPanel styleClass="accordionFaq" style="background: #FFF;">
+							<p:tab title="Meu Dispositivo foi roubado. O que fazer?">
+								<h:outputText
+									value="Se o seu dispositivo foi roubado, ou você perdeu seu dispositivo, imediatamente entre em contato
+														com o Service Desk da Maestro automações, e informe o seu UDID para que possamos bloquear toda e
+														qualquer função que seu dispositivo possa efetuar. Além disso a Maestro automações conta com uma
+														preparada para ajudar a configurar um novo dispositivo."
+									styleClass="descricao" />
+							</p:tab>
+
+							<p:tab title="Posso adquirir outra licença do sistema?">
+								<h:outputText
+									value="Sim o sistema da Maestro Automações é multi-plataforma, podendo ser instalado em quase todos os
+														 dispositivos móveis conhecidos no mercado. Além disso, o Sistema da Maestro Automações permite
+														 que mais de um dispositivo controle o mesmo ambiente."
+									styleClass="descricao" />
+							</p:tab>
+
+							<p:tab title="Como fazer upgrade de plano?">
+								<h:outputText
+									value="Será necessário entrar em contato com um de nossos representantes comerciais e informar o plano
+														para qual deseja mudar. Além disso nosso representante lhe mostrará a melhor solução para sua Residência,
+														Estabelecimento Comercial, Empresa e muitos outros."
+									styleClass="descricao" />
+							</p:tab>
+
+						</p:accordionPanel>
+
+						<p:fieldset styleClass="fieldsetBotao">
+							<h:panelGrid styleClass="gridBotao">
+								<h:panelGrid styleClass="gridBotaoEsquerda">
+									<h:panelGroup>
+										<p:commandButton value="Voltar" action="pretty:home" styleClass="botao" title="Voltar" />
+									</h:panelGroup>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:fieldset>
+
+					</h:panelGrid>
+				</h:form>
+			</f:view>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

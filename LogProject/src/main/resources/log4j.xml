@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!--######################################################################## 
+		## Usando 2 appenders, 1 para logar no console, outro para um arquivo ## 
+		######################################################################## 
+		# O Log4j trabalha com Loggers, Appenders e Layouts. Os Loggers recebem as 
+		# mensagens que serão salvas e as repassa para os Appenders, que sabem como 
+		# salvar ou exibir estas mensagens. Os Layouts definem como seão salvas ou 
+		# exibidas as mensagens de log. A ordem de prioridade é DEBUG, INFO, WARN, 
+		# ERROR, FATAL -->
+
+
+	<!-- Este primeiro Appender é para escrever em um arquivo. Utilizando o 
+		RollingFileAppender é possível fazer backup do log quanto este chega a um 
+		tamanho definido. Neste Appender é configurado também o nome do arquivo de 
+		log, além disso, é configurado como será gerado o arquivo de log, podendo 
+		ser texto, html, etc. Também é definido o padrão que será utilizado na geração 
+		das mensagens de log. Para especificar o formato da data basta apenas informar 
+		o valor do pattern entre chaves: %d{dd/MM/yyyy} -->
+	<appender class="org.apache.log4j.RollingFileAppender" name="fileOut">
+		<param value="project.log" name="File" />
+		<param value="1" name="MaxBackupIndex" />
+		<param value="100KB" name="MaxFileSize" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param value="%d [%t] %5p %F:%L - %m%n" name="ConversionPattern" />
+		</layout>
+	</appender>
+
+	<!-- Este segundo Appender é para escrever no console -->
+	<appender class="org.apache.log4j.ConsoleAppender" name="stdout">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param value="%5p [%t] (%F:%L) - %m%n" name="ConversionPattern" />
+		</layout>
+	</appender>
+
+	<!-- Este Appender é responsável por salvar as queries executadas pelo Hibernate, 
+		FileAppender é a superclasse de RollingFileAppender, porém ela não faz backup 
+		do arquivo de log -->
+	<appender class="org.apache.log4j.FileAppender" name="queryOut">
+		<param value="queries.log" name="File" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param value="%d [%t] - %m%n" name="ConversionPattern" />
+		</layout>
+	</appender>
+
+	<!-- Os Loggers são responsáveis por gerar as mensagens e repessá-las aos 
+		Appenders, que por sua vez, sabem o que fazer com elas. Este Logger mandará 
+		as mensagens de log a partir de INFO que vierem da classe ClienteDAO para 
+		o Appender fileOut -->
+	<logger name="app.model.dao.ClienteDAO">
+		<level value="info" />
+		<appender-ref ref="fileOut" />
+	</logger>
+
+	<!-- Este Logger mandará as mensagens de log a partir de INFO que vierem 
+		da classe ClienteDAO para o Appender fileOut -->
+	<logger name="app.util.HibernateUtil">
+		<level value="info" />
+		<appender-ref ref="fileOut" />
+	</logger>
+
+	<!-- Este Logger mandará mensagens para o Appender que salvará as queries 
+		executadas pelo Hibernate e habilita a impressão da query no console -->
+	<logger name="org.hibernate.SQL">
+		<level value="debug" />
+		<appender-ref ref="queryOut" />
+	</logger>
+
+	<!-- O root fala que por padrão, todas as mensagens a partir de INFO que 
+		forem geradas serão exibidas no console, pois serão repassadas para o Appender 
+		stdout, que é responsável por imprimir no console -->
+	<root>
+		<level value="info" />
+		<appender-ref ref="stdout" />
+	</root>
+</log4j:configuration>

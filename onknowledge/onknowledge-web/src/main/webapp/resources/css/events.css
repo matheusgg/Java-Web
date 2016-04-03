@@ -1,0 +1,84 @@
+#coresEvento a:link {
+	display: inline-block !important;
+	text-decoration: none !important;
+}
+
+#coresEvento .btn {
+	cursor: inherit;
+	height: 31px !important;
+	width: 43px !important;
+}
+
+#link-cores, focus {
+	text-decoration: none !important;
+}
+
+#calendar {
+	margin-top: 1.5% !important;
+}
+
+.events-buttons {
+	margin: 0 0 5% 0;
+}
+
+.textarea-disabled {
+	resize: none;
+}
+
+.text-muted {
+	word-break: break-word !important;
+}
+
+.todo>li {
+	border-bottom: 1px solid #e7e7e7 !important;
+	background: none !important;
+}
+
+#taskContainer {
+	max-height: 500px !important;
+	overflow: auto;
+}
+
+.handle {
+	width: 50px !important;
+	padding-top: 3% !important;
+}
+
+.handle a {
+	color: #696969 !important;
+}
+
+.todo>li>p {
+	margin-left: 75px !important;
+}
+
+#btgroupevento {
+	margin-bottom: 30px !important;
+}
+
+#btgroupevento>.btn-group {
+	margin-right: 17px;
+}
+
+#btgroupevento h6 {
+	font-size: 13px !important;
+}
+
+div[id^="select-div"] {
+	height: 80px !important;
+	overflow: auto;
+}
+
+div[id^="select-div"] a {
+	color: #FFFFFF !important;
+	display: inline-flex !important;
+	height: auto !important;
+}
+
+.espacamento-botoes-evento {
+	margin-right: 10px;
+}
+
+.eventos-dashboard {
+	margin-top: 10px !important;
+}

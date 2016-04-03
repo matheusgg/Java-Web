@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Sockets Project</title>
+</head>
+<body>
+	<h1>Sala 2</h1>
+
+	<input type="text" id="inputTxt" />
+	<button id="btnSend" onclick="send()">Enviar</button>
+
+	<h3>Mensagens</h3>
+	<div id="mensagens" style="max-height: 250px; overflow: auto;"></div>
+
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		var socket;
+
+		$(document).ready(function(){
+			init();
+		});
+
+		function init(){
+			socket = new WebSocket("ws://localhost:8081/web-sockets-project/MessageHandler/sala2");
+			socket.onmessage = function(e){onMessage(e)};
+		}
+
+		function onMessage(e){
+			var time = new Date(e.timeStamp);
+			$("<p />").text(time + ": " + e.data).appendTo($("#mensagens"));
+		}
+
+		function send(){
+			var $input = $("#inputTxt");
+			var message = $input.val();
+			socket.send(message);
+			$input.val("");
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:panelGrid style="margin: 0 auto;">
+	</h:panelGrid>
+	<h:panelGroup>
+		<h:form id="listagem">
+			<p:dataTable value="#{acaoBean.lista}" var="acaoVirtual"
+				rendered="#{!empty acaoBean.lista}">
+				<p:column headerText="Sigla">
+					<h:commandLink title="gráficos da ação">
+						<f:ajax execute="@this" render=":graficosAcao" />
+						<h:outputText value="#{acaoVirtual.acao.sigla}" />
+						<f:setPropertyActionListener target="#{acaoBean.selecionada}"
+							value="#{acaoVirtual}" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{acaoVirtual.acao.descricao}" />
+				</p:column>
+
+				<p:column headerText="Origem">
+					<h:outputText value="#{acaoVirtual.acao.origem}" />
+				</p:column>
+
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{acaoVirtual.acao.quantidade}"
+						style="text-align: right; display: block;" />
+				</p:column>
+
+				<p:column headerText="Último Preço">
+					<h:outputText value="#{acaoVirtual.ultimoPreco}"
+						style="text-align: right; display: block;">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Total">
+					<h:outputText value="#{acaoVirtual.total}"
+						style="text-align: right; display: block;">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+					<h:commandLink title="editar">
+						<f:ajax render=":edicao :listagem :graficosCarteira"
+							execute="@this" />
+						<h:graphicImage library="imagens" name="editar16.png" />
+						<f:setPropertyActionListener target="#{acaoBean.selecionada}"
+							value="#{acaoVirtual}" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column>
+					<h:commandLink title="excluir" action="#{acaoBean.excluir}"
+						onclick="if(!confirm('Deseja realmente excluir #{acaoVirtual.acao.descricao}?'))return false;">
+						<f:ajax render=":graficosAcao :listagem :graficosCarteira :edicao"
+							execute="@this" />
+						<h:graphicImage library="imagens" name="excluir16.png" />
+						<f:setPropertyActionListener target="#{acaoBean.selecionada}"
+							value="#{acaoVirtual}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</h:panelGroup>
+</ui:composition>
+</html>

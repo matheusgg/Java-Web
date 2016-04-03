@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<!-- #sidebar: Sidebar -->
+	<div id="sidebar">
+
+		<!-- ul.sidebar-menu: Sidebar Menu -->
+		<ul class="sidebar-menu on-click" id="main-menu">
+
+			<li id="home" class="#{view.viewId eq '/view/apf/homeAPF.xhtml' ? 'active' : 'inactive'}">
+				<div class="sidebar-menu-item-wrapper">
+					<h:link outcome="pretty:apf">
+						<i class="icon-home"></i>
+						<span>Dashboard</span>
+					</h:link>
+				</div>
+			</li>
+
+			<li id="contagem" class="#{view.viewId eq '/view/apf/contagem.xhtml' ? 'active' : 'inactive'}">
+				<div class="sidebar-menu-item-wrapper">
+					<h:link outcome="pretty:apf_contagem">
+						<i class="icon-bar-chart"></i>
+						<span>#{msgs.lbl_contagem}</span>
+					</h:link>
+				</div>
+			</li>
+		</ul>
+		<!-- /ul.sidebar-menu: Sidebar Menu -->
+
+
+		<a href="#" id="sidebar-resizer"> <i class="min icon-resize-small"></i> <i class="max icon-resize-full"></i>
+		</a>
+
+	</div>
+</ui:composition>

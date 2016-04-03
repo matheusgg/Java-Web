@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>JSF 2.2 HTML5 Frendly Markup</title>
+</h:head>
+<h:body>
+
+	<!-- O JSF 2.2 trouxe um novo estilo de desenvolvimento de paginas provendo suporte a simples HTML. Ou seja, agora e possivel
+		 criar paginas utilizando apenas tags HTML e linkar essas tags com componentes JSF no lado do servidor. Esse novo conceito
+		 e conhecido como "PassThrough Elements". -->
+		 
+	<!-- Para linkar uma tag HTML com um componente JSF, basta que a tag possua algum atributo do novo namespace
+		 "http://xmlns.jcp.org/jsf", desta forma, o JSF tentara converter a tag para um componente JSF correspondente.
+		 Caso a tag nao possua um componente correspondente como por exemplo um fieldset, a tag sera linkada com um componente
+		 do tipo "PassthroughElement" com suporte a AJAX. Desta forma, e possivel adicionar qualquer atributo que exista em um componente JSF.
+		 (comportamento semelhante ao jsfc). Quando uma tag que possua algum atributo do namespace jsf e encontrada na pagina, o JSF
+		 cria um componente na arvore de vizualizacao que represente essa Tag HTML.  -->
+	<form jsf:id="form">
+		<h:messages />
+	
+		<!-- Este input sera mapeado para um h:inputText, os atributos que pertencem ao namespace jsf serao passados para o componente
+			 criado, ja os outros atributos serao passados para o componente como passThrough attributes e renderizados no browser
+			 diretamente. -->
+		<input type="text" jsf:id="nome" jsf:value="#{appBean.nome}" placeholder="Informe o seu nome" jsf:required="true" /> 
+		<br />
+		
+		<input type="number" p:placeholder="Informa a sua idade" jsf:id="idade" jsf:required="true" />
+		<br />
+		
+		<input type="date" p:placeholder="Informe a sua data de nascimento" jsf:id="nascimento" jsf:title="Nascimento" jsf:required="true" /> 
+		<br />
+		
+		<!-- Esse input sera linkado como um commandButton no servidor -->
+		<input type="submit" value="OK"	jsf:action="#{appBean.showName}">
+			<f:ajax execute="@form" render=":div @form" />
+		</input>
+	</form>
+
+	<div jsf:id="div">
+		<h3 jsf:rendered="#{!empty appBean.nome}" jsf:id="teste">O nome informado foi #{appBean.nome}</h3>
+		<f:ajax event="click" execute="@this" render="@this" listener="#{appBean.testClickDiv}" />
+	</div>
+</h:body>
+</html>

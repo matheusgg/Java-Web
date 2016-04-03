@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#nav#*" PATH="/nav/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nav#*:0" NAME="item" PATH="/nav/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="nav2Test::#nav#nav2.jsf" NAME="output"
+    PATH="/nav/nav2.jsf" TARGET="rules:#nav#nav2.jsf" TITLE="nav2Test" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nav#nav2.jsf" PATH="/nav/nav2.jsf"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

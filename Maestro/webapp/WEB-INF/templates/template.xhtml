@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title><ui:insert name="title">#{msgs.maestro_automacoes}</ui:insert></title>
+	<h:outputStylesheet library="css" name="portal.css" />
+	<h:outputScript library="javascript" name="javaScript.js" target="head" />
+	<link rel="shortcut icon" href="/Maestro/javax.faces.resource/favicon.png.jsf?ln=images" type="image/ico" />
+</h:head>
+
+<h:body>
+	<div class="principal">
+		<ui:include src="/WEB-INF/templates/menuLogin.xhtml" />
+
+		<ui:include src="/WEB-INF/templates/cabecalho.xhtml" />
+
+		<ui:include src="/WEB-INF/templates/menu.xhtml" />
+
+		<ui:insert name="conteudo" />
+
+		<ui:include src="/WEB-INF/templates/rodape.xhtml" />
+	</div>
+
+	<h:form id="formDialogoPadrao">
+		<p:growl />
+		<p:dialog draggable="false" resizable="false" modal="true" hideEffect="explode" maximizable="false" position="center" showEffect="explode"
+			header="#{msgs.lbl_modal_mensagem}" widgetVar="dialogo" width="320">
+			<div align="center" style="margin-top: 4%; margin-bottom: 5%;">
+				<h:outputText id="textDialogoPadrao" />
+			</div>
+			<p:separator />
+			<div align="right" style="margin-top: 3%;">
+				<p:commandButton value="OK" onclick="dialogo.hide()" />
+			</div>
+		</p:dialog>
+	</h:form>
+
+	<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="#{msgs.msg_aguarde}" draggable="false" closable="false" width="190" resizable="false"
+		maximizable="false">
+		<p:graphicImage library="images" name="loading.gif" />
+	</p:dialog>
+</h:body>
+</html>

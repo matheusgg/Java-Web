@@ -1,0 +1,17 @@
+2012-07-31 15:48:54,900 [main] - 
+    insert 
+    into
+        Cliente
+        (endereco, nome, telefone) 
+    values
+        (?, ?, ?)
+2012-07-31 15:50:24,828 [main] - 
+    select
+        this_.id_cliente as id1_0_0_,
+        this_.endereco as endereco0_0_,
+        this_.nome as nome0_0_,
+        this_.telefone as telefone0_0_ 
+    from
+        Cliente this_ 
+    where
+        this_.nome=?

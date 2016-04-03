@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui" xmlns:pretty="http://ocpsoft.com/prettyfaces" class="background-#{okSessionMB.currentLocale}">
+
+<h:head>
+	<ui:include src="/head.xhtml" />
+	<ui:insert name="specificCSS" />
+</h:head>
+
+<h:body class="animated fadeIn fixed-header external-template">
+	<f:view locale="#{okSessionMB.currentLocale}">
+
+		<!-- LOGO -->
+		<div class="header-style" id="header">
+			<div class="external-background" />
+
+			<span id="logo" class="external-pages-logo"> <pretty:link mappingId="start">
+					<img src="#{request.contextPath}-resources/img/logo-pale.png" alt="#{msgs['label.onknowledge']}" />
+				</pretty:link>
+			</span>
+
+			<!-- LANGUAGE DROPDOWN -->
+			<div class="languages external-pages-languages">
+				<ui:include src="/languages.xhtml" />
+			</div>
+			<!-- END LANGUAGE DROPDOWN -->
+		</div>
+		<!-- END LOGO -->
+
+		<!-- CONTENT -->
+		<ui:insert name="content">
+			<script type="text/javascript">
+				redirect("#{request.contextPath}");
+			</script>
+		</ui:insert>
+		<!-- END CONTENT -->
+
+		<!-- =============================================== SCRIPTS =============================================== -->
+		<ui:include src="/scripts.xhtml" />
+	</f:view>
+</h:body>
+</html>

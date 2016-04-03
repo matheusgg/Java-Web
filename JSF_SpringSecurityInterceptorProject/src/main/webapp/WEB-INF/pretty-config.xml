@@ -1,0 +1,30 @@
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.2
+    http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.2.xsd">
+
+	<url-mapping id="login">
+		<pattern value="/login" />
+		<view-id value="/publico/login.jsf" />
+	</url-mapping>
+
+	<url-mapping id="home">
+		<pattern value="/home" />
+		<view-id value="/restrito/home.jsf" />
+	</url-mapping>
+
+	<url-mapping id="administrador">
+		<pattern value="/administrador" />
+		<view-id value="/restrito/admin/admin.jsf" />
+	</url-mapping>
+
+	<url-mapping id="usuario">
+		<pattern value="/usuario" />
+		<view-id value="/restrito/user/user.jsf" />
+	</url-mapping>
+
+	<url-mapping id="erro">
+		<pattern value="/erro" />
+		<view-id value="/restrito/erro.jsf" />
+	</url-mapping>
+</pretty-config>

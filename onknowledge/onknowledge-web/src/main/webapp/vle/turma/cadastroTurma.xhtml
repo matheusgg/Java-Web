@@ -1,0 +1,107 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.turmas']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.turmas']} > #{msgs['label.cadastro']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<h:outputStylesheet library="css" name="cadastro-turma.css" />
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{cursoMB.pesquisaCursos()}" />
+			<f:viewAction action="#{turmaMB.preparaCadastroTurma()}" />
+		</f:metadata>
+
+		<h:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+				<fieldset>
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">#{msgs['label.codigo']}</label> <label class="input"><i class="icon-append fa fa-barcode"></i> <h:inputText
+									id="codigo" value="#{turmaMB.turma.codigo}" disabled="true" pt:placeholder="#{msgs['msg.informe.codigo.turma']}" /> </label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.inicio']}</label> <label
+								class="input #{!component.findComponent('dataInicio').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataInicio" value="#{turmaMB.turma.dataInicio}" pt:placeholder="#{msgs['msg.informe.data.inicio']}"
+									pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" styleClass="datepicker" required="true"
+									requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataInicio" /></em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.termino']}</label> <label
+								class="input #{!component.findComponent('dataTermino').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataTermino" value="#{turmaMB.turma.dataEncerramento}" pt:placeholder="#{msgs['msg.informe.data.termino']}"
+									pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" styleClass="datepicker" required="true"
+									requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataTermino" /></em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.curso']}</label> <label
+								class="select #{!component.findComponent('curso').valid ? 'state-error' : ''}"> <h:selectOneMenu id="curso"
+									value="#{turmaMB.turma.curso}" converter="omnifaces.SelectItemsConverter" required="true"
+									requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+									<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+									<f:selectItems value="#{cursoMB.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" />
+								</h:selectOneMenu> <i />
+							</label><em class="invalid"> <h:message for="curso" /></em>
+						</section>
+					</div>
+
+					<div class="row">
+						<section class="col col-3" jsf:id="codigoSection">
+							<label class="checkbox"> <h:selectBooleanCheckbox value="#{turmaMB.turma.geraCodigosSeguranca}">
+									<f:ajax execute="@this" render=":codigoSection" />
+								</h:selectBooleanCheckbox> <i></i>#{msgs['msg.geracao.codigo.seguranca']}
+							</label> <label class="input" id="qtdCodigosSeguranca" jsf:rendered="#{turmaMB.turma.geraCodigosSeguranca}"><i
+								class="icon-append fa fa-lock"></i> <h:inputText value="#{turmaMB.turma.quantidadeCodigosSeguranca}"
+									pt:placeholder="#{msgs['msg.informe.quantidade']}" maxlength="3" onblur="numeric(this)" /> </label>
+						</section>
+					</div>
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#codigosSegurancaModal" onclick="return false;"
+						jsf:rendered="#{!empty turmaMB.turma.id and !empty turmaMB.turma.codigosSeguranca}">#{msgs['label.exibir.codigos']}</button>
+					<h:commandButton value="#{msgs['label.salvar']}" styleClass="btn btn-primary" action="#{turmaMB.salvaTurma()}">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+			</div>
+		</h:form>
+
+		<div class="modal fade" id="codigosSegurancaModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h5>#{msgs['label.codigos.seguranca']}</h5>
+					</div>
+					<div class="modal-body" align="center">
+						<p:dataTable var="codigoSeguranca" value="#{turmaMB.turma.codigosSeguranca}" scrollable="true" scrollHeight="200">
+							<p:column styleClass="ok-align-center">
+								#{codigoSeguranca.codigo}
+							</p:column>
+							<p:column styleClass="ok-align-center" style="width: 40px !important">
+								<i class="fa #{codigoSeguranca.ativo ? 'fa-asterisk' : ''}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['label.fechar']}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

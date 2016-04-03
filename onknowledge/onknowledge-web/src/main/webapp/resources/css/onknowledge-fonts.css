@@ -1,0 +1,48 @@
+/**************************** OnKnowledge Global Fonts Styles ******************************/
+@font-face {
+	font-family: Ubuntu;
+	font-weight: 400;
+	font-style: normal;
+	src: url(#{resource['fonts:Ubuntu.eot']}) format('embedded-opentype');
+	src: url(#{resource['fonts:Ubuntu.ttf']}) format('truetype'), url(#{resource['fonts:Ubuntu.woff']}) format('woff'), url(#{resource['fonts:Ubuntu.woff2']}) format('woff2');
+}
+
+body {
+	font-family: Ubuntu !important;
+}
+
+h1 {
+	font-family: Ubuntu !important;
+}
+
+h2 {
+	font-family: Ubuntu !important;
+}
+
+h3 {
+	font-family: Ubuntu !important;
+}
+
+h4 {
+	font-family: Ubuntu !important;
+}
+
+h5 {
+	font-family: Ubuntu !important;
+}
+
+h6 {
+	font-family: Ubuntu !important;
+}
+
+button {
+	font-family: Ubuntu !important;
+}
+
+ul {
+	font-family: Ubuntu !important;
+}
+
+label {
+	font-family: Ubuntu !important;
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:panelGrid style="margin: 0 auto;">
+		<h:form id="edicao">
+			<p:messages />
+			<h:inputHidden value="#{acaoBean.selecionada.acao.codigo}" />
+			<h:panelGrid columns="11">
+				<h:outputLabel value="Sigla" for="sigla" />
+				<p:inputText id="sigla" value="#{acaoBean.selecionada.acao.sigla}"
+					required="true" maxlength="10" size="10"
+					requiredMessage="Por favor, preencha o campo Sigla" />
+
+				<h:outputLabel value="Descrição" for="descricao" />
+				<p:inputText id="descricao"
+					value="#{acaoBean.selecionada.acao.descricao}" required="true"
+					maxlength="30" size="10"
+					requiredMessage="Por favor, preencha o campo Descrição" />
+
+				<h:outputLabel value="Qt. de Quotas" for="quantidade" />
+				<p:inputText id="quantidade"
+					value="#{acaoBean.selecionada.acao.quantidade}" required="true"
+					maxlength="6" size="6"
+					requiredMessage="Por favor, preencha o campo Quantidade de Quotas" />
+
+				<h:outputLabel value="Origem" for="origem" />
+				<p:selectOneMenu id="origem"
+					value="#{acaoBean.selecionada.acao.origem}">
+					<f:selectItem itemValue="B" itemLabel="Bovespa" />
+					<f:selectItem itemValue="M" itemLabel="Mundo" />
+				</p:selectOneMenu>
+
+				<p:commandButton value="Salvar" onclick="confirmation.show()" />
+				<p:confirmDialog message="Clique em OK para confirmar os dados"
+					header="Confirmação" severity="info" widgetVar="confirmation">
+					<p:commandButton value="OK" ajax="false"
+						action="#{acaoBean.salvar}" />
+				</p:confirmDialog>
+				<p:commandButton value="Limpar" action="#{acaoBean.limpaDados}"
+					update=":edicao" />
+			</h:panelGrid>
+		</h:form>
+	</h:panelGrid>
+</ui:composition>
+</html>

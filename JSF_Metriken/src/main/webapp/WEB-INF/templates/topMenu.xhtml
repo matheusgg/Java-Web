@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<!-- #topbar: Top Bar Menu -->
+		<ul id="topbar" class="on-click">
+			<li class="pull-left">
+				<h1 id="topbar-title">
+					<i class="icon-cogs"></i>
+					<h:link value="#{msgs.lbl_metriken}" outcome="pretty:home" />
+				</h1>
+			</li>
+			<li class="parent pull-right"><a href="#" data-toggle="dropdown"> <i class="icon-user"></i> <span>Usuario</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Profile</a></li>
+					<li><a href="#">Finances</a></li>
+					<li class="divider"></li>
+					<li><h:link outcome="pretty:login" value="Logout" /></li>
+				</ul></li>
+			<li class="parent pull-right"><a href="#" data-toggle="dropdown"> <i class="icon-globe"></i> <span>#{msgs.lbl_idioma}</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li><h:commandLink action="#{mtrkBean.changeApplicationLanguage('pt', 'BR')}">
+							<h:graphicImage name="pt_BR.gif" library="img" styleClass="flagsStyle" />
+								#{msgs.idioma_pt_BR}
+							</h:commandLink></li>
+
+					<li><h:commandLink action="#{mtrkBean.changeApplicationLanguage('en', 'US')}">
+							<h:graphicImage name="en_US.gif" library="img" styleClass="flagsStyle" />
+								#{msgs.idioma_en_US}
+							</h:commandLink></li>
+
+					<li><h:commandLink action="#{mtrkBean.changeApplicationLanguage('es', 'ES')}">
+							<h:graphicImage name="es_ES.gif" library="img" styleClass="flagsStyle" />
+								#{msgs.idioma_es_ES}
+							</h:commandLink></li>
+				</ul></li>
+			<li class="parent pull-right"><a href="#" data-toggle="dropdown"> <i class="icon-cog"></i> <span>Settings</span>
+			</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Backend Settings</a></li>
+					<li><a href="#">Frontend Settings</a></li>
+				</ul></li>
+		</ul>
+	</h:form>
+</ui:composition>

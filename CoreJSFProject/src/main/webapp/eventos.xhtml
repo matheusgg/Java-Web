@@ -1,0 +1,27 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:master="http://java.sun.com/master">
+
+	<ui:define name="titulo">Eventos</ui:define>
+	<ui:define name="conteudo">
+
+		<f:event listener="#{eventosBean.preRender}" type="preRenderView" />
+
+		<h:form>
+			<h:selectOneMenu value="#{eventosBean.local}" onchange="submit()" valueChangeListener="#{eventosBean.change}">
+				<f:selectItems value="#{eventosBean.localidades}" var="local" itemLabel="#{local.displayName}"
+					itemValue="#{local.country}" />
+			</h:selectOneMenu>
+		</h:form>
+		<p>Linguagem escolhida: #{eventosBean.local}</p>
+
+		<h:form prependId="false">
+			<h:commandButton actionListener="#{eventosBean.action}" image="#{resource['img:logo.png']}" id="btn" />
+		</h:form>
+		<p>
+			Coordenadas clicadas na imagem: <br />x = #{requestScope.x} <br />y = #{requestScope.y}
+		</p>
+	</ui:define>
+
+</ui:composition>

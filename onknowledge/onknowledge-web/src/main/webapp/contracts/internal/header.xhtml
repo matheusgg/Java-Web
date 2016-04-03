@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:of="http://omnifaces.org/functions"
+	xmlns:o="http://omnifaces.org/ui" xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<header id="header">
+		<div id="logo-group">
+
+			<!-- ONKNOWLEDGE LOGO PLACEHOLDER -->
+			<span id="logo"> <pretty:link mappingId="start">
+					<img src="#{request.contextPath}-resources/img/logo-pale.png" alt="#{msgs['label.onknowledge']}" />
+				</pretty:link>
+			</span>
+			<!-- END LOGO PLACEHOLDER -->
+
+			<!-- Quantidade de notificações (função definida no arquivo app.min.js)
+				 Note: The activity badge color changes when clicked and resets the number to 0
+				 Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
+			<span id="activity" class="activity-dropdown"> <i class="fa fa-user" /> <b class="badge qtdMsgsNaoLidas ok-hidden" />
+			</span>
+
+			<!-- Messages and Notify Dropdown -->
+			<div class="ajax-dropdown">
+				<ui:include src="/vle/email/emailNotifications.xhtml" />
+			</div>
+			<!-- End Messages and Notify Dropdown -->
+		</div>
+
+		<!-- tasks dropdown -->
+		<div class="project-context hidden-xs" jsf:id="tarefasRecentes">
+			<span class="label" jsf:rendered="#{!empty okSecurityContext.loggedUser.tarefasRecentes}">#{msgs['label.lembretes']}:</span> <span
+				class="label ok-sem-lembrates" jsf:rendered="#{empty okSecurityContext.loggedUser.tarefasRecentes}">#{msgs['msg.nao.ha.lembretes']}</span>
+
+			<span jsf:rendered="#{!empty okSecurityContext.loggedUser.tarefasRecentes}" class="project-selector dropdown-toggle"
+				data-toggle="dropdown">#{msgs['label.tarefas.recentes']}<i class="fa fa-angle-down" /></span>
+
+			<!-- Dropdown com as tres ultimas tarefas -->
+			<ul class="dropdown-menu" jsf:rendered="#{!empty okSecurityContext.loggedUser.tarefasRecentes}">
+				<ui:repeat var="tarefa" value="#{okSecurityContext.loggedUser.tarefasRecentes}">
+					<li><h:link outcome="pretty:dashboard">
+					#{tarefa.nome} (<h:outputText value="#{tarefa.dataTarefa}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>)
+					</h:link></li>
+				</ui:repeat>
+			</ul>
+			<!-- end dropdown-menu-->
+		</div>
+		<!-- end tasks dropdown -->
+
+		<!-- pulled right: nav area -->
+		<div class="pull-right header-search-custom">
+
+			<!-- collapse menu button -->
+			<div id="hide-menu" class="btn-header pull-right">
+				<span> <a href="#" data-action="toggleMenu" title="#{msgs['label.menu']}"><i class="fa fa-reorder" /></a></span>
+			</div>
+			<!-- end collapse menu -->
+
+			<!-- #MOBILE -->
+			<!-- Top menu profile link : this shows only when top menu is active -->
+			<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
+				<li><a href="#" class="dropdown-toggle no-margin userdropdown ok-mobile-profile-img" data-toggle="dropdown"> <ui:include
+							src="/userProfilePicture.xhtml" />
+				</a>
+					<ul class="dropdown-menu pull-right">
+						<li><a jsf:outcome="pretty:editProfile" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-user"></i>
+								#{msgs['label.perfil']} </a></li>
+						<li class="divider"></li>
+						<li><a href="#" data-action="toggleShortcut" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-arrow-down"></i>#{msgs['label.atalhos']}</a></li>
+						<li class="divider"></li>
+						<!-- logout button -->
+						<li><a href="#" data-action="userLogout" data-logout-msg="#{msgs['msg.confirmacao.logout']} "
+							data-logout-msg-usuario="#{okSecurityContext.loggedUser.nome}" data-logout-msg-datail="#{msgs['msg.detalhe.confirmacao.logout']}"
+							data-logout-action="#{request.contextPath}/ok_security_logout" data-button-yes="#{msgs['label.sim']}"
+							data-button-no="#{msgs['label.nao']}" data-login-page="#{request.contextPath}/login"
+							class="padding-10 padding-top-5 padding-bottom-5"> <i class="fa fa-sign-out fa-lg" /><strong>#{msgs['label.logout']}</strong>
+						</a></li>
+						<!-- end logout button -->
+					</ul></li>
+			</ul>
+
+			<!-- logout button -->
+			<div id="logout" class="btn-header transparent pull-right">
+				<span> <a href="#" title="#{msgs['label.logout']}" data-action="userLogout" data-logout-msg="#{msgs['msg.confirmacao.logout']} "
+					data-logout-msg-usuario="#{okSecurityContext.loggedUser.nome}" data-logout-msg-datail="#{msgs['msg.detalhe.confirmacao.logout']}"
+					data-logout-action="#{request.contextPath}/j_spring_security_logout" data-button-yes="#{msgs['label.sim']}"
+					data-button-no="#{msgs['label.nao']}" data-login-page="#{request.contextPath}/login"> <i class="fa fa-sign-out" />
+				</a>
+				</span>
+			</div>
+			<!-- end logout button -->
+		</div>
+		<!-- end pulled right: nav area -->
+	</header>
+</ui:composition>

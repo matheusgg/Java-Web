@@ -1,0 +1,30 @@
+#disciplinas button {
+	font-family: FontAwesome !important;
+}
+
+.painelAtividades {
+	margin-top: 5px !important;
+}
+
+.modulo-item {
+	display: block;
+	font-size: 15px;
+	margin: 5px 0 !important;
+	padding: 7px 15px !important;
+	color: #333;
+	text-decoration: none;
+	border: 1px solid #cfcfcf;
+	background: #fbfbfb;
+}
+
+.anexos-field legend {
+	margin: -12px !important;
+}
+
+.section-alternativas-selecionadas {
+	margin-top: -50px !important;
+}
+
+.field-alternativas-selecionadas {
+	margin-top: -10px !important;
+}

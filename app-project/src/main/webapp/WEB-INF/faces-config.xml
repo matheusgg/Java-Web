@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<application>
+		<action-listener>listeners.CustomActionListener</action-listener>
+	</application>
+
+	<navigation-rule>
+		<from-view-id>/nav/*</from-view-id>
+		<navigation-case>
+			<from-outcome>nav2Test</from-outcome>
+			<if>#{!empty param.viewParam1}</if>
+			<to-view-id>/nav/nav2.jsf</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>param1</name>
+					<value>10</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+
+	<lifecycle>
+		<phase-listener>listeners.CustomPhaseListener</phase-listener>
+		<phase-listener>event.PreRenderResponseListener</phase-listener>
+	</lifecycle>
+
+</faces-config>

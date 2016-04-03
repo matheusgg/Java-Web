@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/template.xhtml" xmlns="http://www.w4.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="conteudo">
+
+		<h:panelGrid columns="4" style="margin: 0 auto;">
+			<h:graphicImage name="climaAmbiente.png" library="images/dock" id="imgTipoItemAmbiente" height="80" alt="#{msgs.lbl_clima}" />
+			<h:graphicImage name="audio_preto_branco.png" library="images/dock" id="imgTipoItemAudio" height="80" alt="#{msgs.lbl_audio}" />
+			<h:graphicImage name="luzCenas_preto_branco.png" library="images/dock" id="imgTipoItemLuz" height="80" alt="#{msgs.lbl_luz}" />
+			<h:graphicImage name="videoCinema_preto_branco.png" library="images/dock" id="imgTipoItemCinema" height="80" alt="#{msgs.lbl_video}" />
+		</h:panelGrid>
+
+		<h:panelGroup layout="block" style="position: absolute; margin-top: 2%; margin-left: 2%;">
+			<h:form id="formItensSelecionados">
+				<p:fieldset legend="#{msgs.label_itens_selecionados}" id="itensSelecionados">
+					<!-- Tabela de itens selecionados pelo usuário -->
+					<p:dataTable value="#{orcamentoBean.viewHelper.itensDoOrcamento}" var="item" paginator="true" paginatorAlwaysVisible="false" id="tabelaItensSelecionados"
+						paginatorPosition="bottom" emptyMessage="#{msgs.label_no_records_found}" rows="4"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+						<p:column headerText="#{msgs.label_nome}">
+							<h:outputText value="#{item.itemOrcamento.nomeItem}" />
+						</p:column>
+						<p:column headerText="#{msgs.label_quantidade}">
+							<p:spinner value="#{item.quantidadeDoItem}" min="1" onkeypress="return permiteNumeros();" size="5" maxlength="6" />
+						</p:column>
+						<p:column headerText="#{msgs.label_detalhe}">
+							<h:panelGroup style="text-align: center; display: block;">
+								<p:commandButton icon="ui-icon-search" oncomplete="modalItemOrcamento.show()" update=":formModais"
+									process="@this,:formItensSelecionados:tabelaItensSelecionados">
+									<f:setPropertyActionListener value="#{item}" target="#{orcamentoBean.viewHelper.itemDetalhado}" />
+								</p:commandButton>
+							</h:panelGroup>
+						</p:column>
+						<p:column headerText="#{msgs.label_remover}">
+							<h:panelGroup style="text-align: center; display: block;">
+								<p:commandButton icon="ui-icon-trash" action="#{orcamentoBean.removerItemDoOrcamento}" oncomplete="trocaImagemTipos()"
+									update=":formItensSelecionados, :painelItensOrcamento, :droppableForm,:formItensSelecionados:btn">
+									<f:setPropertyActionListener value="#{item}" target="#{orcamentoBean.viewHelper.itemDetalhado}" />
+								</p:commandButton>
+							</h:panelGroup>
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+
+				<!-- Botões de enviar e limpar -->
+				<h:panelGrid columns="4" cellspacing="2" cellpadding="5">
+					<p:commandButton value="#{msgs.label_limpar}" actionListener="#{orcamentoBean.limparListaDeItensSelecionados}" oncomplete="trocaImagemTipos()"
+						update=":formItensSelecionados, :tabView, :formItensSelecionados:btn, :droppableForm" />
+					<h:commandLink value="#{msgs.label_enviar}" rendered="#{orcamentoBean.viewHelper.itensDoOrcamento.size() gt 0}" id="btn"
+						action="#{orcamentoBean.geraOrcamento}" target="_blank" style="width:48px; height: 20px; padding-top:5px;" ajax="false"
+						styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="enviarOrcamentoModal.show();" />
+					<p:selectBooleanCheckbox rendered="#{orcamentoBean.viewHelper.itensDoOrcamento.size() gt 0}" value="#{orcamentoBean.viewHelper.copiaDoCliente}" />
+					<h:outputLabel value="#{msgs.label_copia_por_email}" rendered="#{orcamentoBean.viewHelper.itensDoOrcamento.size() gt 0}" style="color:white;" />
+				</h:panelGrid>
+			</h:form>
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="painelItensOrcamento" style="position: absolute; margin-left: 43%; margin-top: 2%; width:55%;">
+			<p:fieldset legend="#{msgs.label_itens_disponiveis}" id="itensParaSelecionar">
+				<!-- Itens disponíveis para seleção separados por abas -->
+				<p:tabView style="width: 100%;" id="tabView" onTabShow="trocaImagemTipos()">
+
+					<p:ajax event="tabChange" listener="#{orcamentoBean.updateDroppableForm}" update=":droppableForm" />
+
+					<!-- Ambiente -->
+					<p:tab title="#{msgs.label_clima_e_ambiente_orcamento}" id="TabAmbiente">
+						<p:dataGrid id="dataGridTabAmbiente" var="item" columns="2" value="#{orcamentoBean.viewHelper.itensAmbiente}" paginator="true"
+							emptyMessage="#{msgs.label_no_records_found}" paginatorAlwaysVisible="false" rows="4"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:panel id="painelItemAmbiente" header="#{item.nomeItem}" style="text-align:center;">
+								<h:outputText value="#{item.valor}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</p:panel>
+							<p:draggable for="painelItemAmbiente" revert="true" cursor="move" handle=".ui-panel-titlebar" stack=".ui-panel" />
+						</p:dataGrid>
+					</p:tab>
+
+					<!-- Som -->
+					<p:tab title="#{msgs.label_som}" id="TabSom">
+						<p:dataGrid id="dataGridTabSom" var="item" columns="2" value="#{orcamentoBean.viewHelper.itensSom}" paginator="true" paginatorAlwaysVisible="false"
+							emptyMessage="#{msgs.label_no_records_found}" rows="4"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:panel id="painelItemSom" header="#{item.nomeItem}" style="text-align:center;">
+								<h:outputText value="#{item.valor}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</p:panel>
+							<p:draggable for="painelItemSom" revert="true" cursor="move" handle=".ui-panel-titlebar" stack=".ui-panel" />
+						</p:dataGrid>
+					</p:tab>
+
+					<!-- Segurança -->
+					<p:tab title="#{msgs.label_seguranca}" id="TabSeguranca">
+						<p:dataGrid id="dataGridTabSeguranca" var="item" columns="2" value="#{orcamentoBean.viewHelper.itensSeguranca}" paginator="true"
+							emptyMessage="#{msgs.label_no_records_found}" paginatorAlwaysVisible="false" rows="4"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:panel id="painelItemSeguranca" header="#{item.nomeItem}" style="text-align:center;">
+								<h:outputText value="#{item.valor}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</p:panel>
+							<p:draggable for="painelItemSeguranca" revert="true" cursor="move" handle=".ui-panel-titlebar" stack=".ui-panel" />
+						</p:dataGrid>
+					</p:tab>
+
+					<!-- Vídeo -->
+					<p:tab title="#{msgs.label_video}" id="TabVideo">
+						<p:dataGrid id="dataGridTabVideo" var="item" columns="2" value="#{orcamentoBean.viewHelper.itensVideo}" paginator="true" paginatorAlwaysVisible="false"
+							emptyMessage="#{msgs.label_no_records_found}" rows="4"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:panel id="painelItemVideo" header="#{item.nomeItem}" style="text-align:center;">
+								<h:outputText value="#{item.valor}">
+									<f:convertNumber type="currency" />
+								</h:outputText>
+							</p:panel>
+							<p:draggable for="painelItemVideo" revert="true" cursor="move" handle=".ui-panel-titlebar" stack=".ui-panel" />
+						</p:dataGrid>
+					</p:tab>
+				</p:tabView>
+			</p:fieldset>
+		</h:panelGroup>
+
+
+		<!-- Droppable das abas onde o usuário pode mover um item para a tabela de itens selecionados  -->
+		<!-- Destino de todas as grids -->
+		<h:form id="droppableForm">
+			<p:droppable for=":formItensSelecionados:itensSelecionados" tolerance="touch" activeStyleClass="ui-state-highlight"
+				datasource="#{orcamentoBean.viewHelper.dataSource}">
+				<p:ajax listener="#{orcamentoBean.adicionarItemAoOrcamento}"
+					update=":tabView:dataGrid#{orcamentoBean.viewHelper.tabToUpdate}, :formItensSelecionados:tabelaItensSelecionados, :formItensSelecionados, :droppableForm" />
+			</p:droppable>
+			<h:inputHidden value="#{orcamentoBean.viewHelper.tabToUpdate}" id="hidden" />
+		</h:form>
+
+		<!-- Modal de detalhe do item de orçamento selecionado -->
+		<h:form id="formModais">
+			<p:dialog modal="true" widgetVar="modalItemOrcamento" id="modalItemOrcamento" header="#{orcamentoBean.viewHelper.itemDetalhado.itemOrcamento.nomeItem}"
+				resizable="false" hideEffect="explode" showEffect="explode">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="#{msgs.label_tipo}:" style="font-weight: bold;" />
+					<h:outputLabel value="#{orcamentoBean.viewHelper.itemDetalhado.itemOrcamento.tipoItem.nomeTipoItem}" />
+					<h:outputLabel value="#{msgs.label_descricao}:" style="font-weight: bold;" />
+					<h:outputLabel value="#{orcamentoBean.viewHelper.itemDetalhado.itemOrcamento.descricao}" />
+					<h:outputLabel value="#{msgs.label_quantidade}:" style="font-weight: bold;" />
+					<h:outputLabel value="#{orcamentoBean.viewHelper.itemDetalhado.quantidadeDoItem}" />
+				</h:panelGrid>
+			</p:dialog>
+
+
+			<!-- Modal de confirmação de envio do orçamento por email -->
+			<p:dialog modal="true" draggable="false" showEffect="explode" widgetVar="enviarOrcamentoModal" resizable="false" header="#{msgs.label_orcamento}">
+				<h:panelGrid style="margin: 0 auto;">
+					<h:outputText value="#{msgs.msg_orcamento_enviado}" />
+				</h:panelGrid>
+				<h:panelGrid style="margin: 0 auto;">
+					<p:commandButton value="#{msgs.label_ok}" action="#{orcamentoBean.iniciarPagina}" onclick="enviarOrcamentoModal.hide();" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

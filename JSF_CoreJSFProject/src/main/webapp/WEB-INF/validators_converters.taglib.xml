@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+	version="2.2">
+
+	<namespace>http://java.sun.com/master</namespace>
+
+	<tag>
+		<tag-name>numberConverter</tag-name>
+		<converter>
+			<converter-id>master.numberConverter</converter-id>
+		</converter>
+
+		<attribute>
+			<description>Tipo da classe alvo na qual o valor sera convertido.</description>
+			<name>numberType</name>
+			<type>java.lang.String</type>
+			<required>true</required>
+		</attribute>
+
+		<attribute>
+			<description>Indica de seve ou nao ser adicionado o estilo no componente apos um erro de conversao.</description>
+			<name>addErrorStyle</name>
+			<type>java.lang.Boolean</type>
+			<required>true</required>
+		</attribute>
+
+		<attribute>
+			<description>Mensagem que sera exibida apos um erro de conversao.</description>
+			<name>convertErrorMessage</name>
+			<type>java.lang.String</type>
+			<required>true</required>
+		</attribute>
+	</tag>
+</facelet-taglib>
+	

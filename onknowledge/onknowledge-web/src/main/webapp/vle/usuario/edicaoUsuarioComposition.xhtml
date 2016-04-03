@@ -1,0 +1,183 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<fieldset>
+		<o:importConstants type="br.com.ok.model.enums.Sexo" />
+		<o:importConstants type="br.com.ok.model.enums.PerfilUsuario" />
+
+		<div class="row">
+			<section class="col col-4">
+				<label class="label">#{msgs['label.nome']}</label> <label class="input #{!component.findComponent('nome').valid ? 'state-error' : ''}"><i
+					class="icon-append fa fa-user"></i> <h:inputText value="#{usuarioMB.usuario.nome}" pt:placeholder="#{msgs['msg.informe.nome']}"
+						id="nome" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="100" onblur="alpha(this, true)" />
+				</label> <em class="invalid"> <h:message for="nome" />
+				</em>
+			</section>
+
+			<section class="col col-4">
+				<label class="label">#{msgs['label.sobrenome']}</label> <label class="input"> <i class="icon-append fa fa-user"></i> <h:inputText
+						value="#{usuarioMB.usuario.sobrenome}" pt:placeholder="#{msgs['msg.informe.sobrenome']}" maxlength="300" onblur="alpha(this, true)" />
+				</label>
+			</section>
+
+			<section class="col col-4">
+				<div class="input sexo-section">
+					<p:selectOneRadio value="#{usuarioMB.usuario.sexo}" id="sexo">
+						<f:ajax execute="@this" render="profilePictureGroup errorMessages" />
+						<f:selectItem itemLabel="#{msgs['label.masculino']}" itemValue="#{Sexo.MASCULINO}" />
+						<f:selectItem itemLabel="#{msgs['label.feminino']}" itemValue="#{Sexo.FEMININO}" />
+					</p:selectOneRadio>
+				</div>
+			</section>
+		</div>
+
+		<div class="row"
+			jsf:rendered="#{prettyContext.currentMapping.id eq 'userSignup' and usuarioMB.usuario.perfil.descricao ne PerfilUsuario.ADMIN and usuarioMB.usuario.perfil.descricao ne PerfilUsuario.ALUNO}">
+			<section class="col col-4">
+				<label class="label">#{msgs['label.perfil.acesso']}</label> <label
+					class="select #{!component.findComponent('perfilAcessoProfessor').valid ? 'state-error' : ''}"> <h:selectOneMenu
+						value="#{usuarioMB.usuario.perfil.descricao}" id="perfilAcessoProfessor" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="#{PerfilUsuario.PROFESSOR}" itemValue="#{PerfilUsuario.PROFESSOR}" />
+						<f:selectItem itemLabel="#{PerfilUsuario.COORDENADOR}" itemValue="#{PerfilUsuario.COORDENADOR}" />
+					</h:selectOneMenu> <i></i>
+				</label> <em class="invalid"> <h:message for="perfilAcessoProfessor" />
+				</em>
+			</section>
+		</div>
+
+		<div class="row" jsf:rendered="#{prettyContext.currentMapping.id ne 'userSignup'}">
+			<section class="col col-4">
+				<label class="label">#{msgs['label.apelido']}</label> <label class="input"> <i class="icon-append fa fa-user"></i> <h:inputText
+						value="#{usuarioMB.usuario.apelido}" pt:placeholder="#{msgs['msg.informe.apelido']}" maxlength="100" />
+				</label>
+			</section>
+
+			<section class="col col-4">
+				<label class="label">#{msgs['label.data.nascimento']}</label> <label
+					class="input #{!component.findComponent('nascimento').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-calendar"></i>
+					<h:inputText value="#{usuarioMB.usuario.dataNascimento}" pt:placeholder="#{msgs['msg.informe.data.nascimento']}"
+						styleClass="datepicker" pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" id="nascimento">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+					</h:inputText>
+				</label><em class="invalid"> <h:message for="nascimento" /></em>
+			</section>
+
+			<section class="col col-4">
+				<h:panelGroup id="profilePictureGroup" layout="block">
+					<div class="input input-file">
+						<img width="88px" height="70px"
+							src="#{!empty usuarioMB.usuario.profilePicture ? usuarioMB.usuario.profilePicture.encodedData : 
+															(usuarioMB.usuario.sexo eq Sexo.MASCULINO ? request.contextPath.concat('-resources/img/avatars/male-profile.jpg') : 
+															request.contextPath.concat('-resources/img/avatars/female-profile.jpg'))}" />
+						<span class="button btn-primary input-file-profile-picture"> <h:inputFile id="profilePictureFile"
+								onchange="handleSelectedProfilePictureFile(this)" value="#{usuarioMB.uploadedPicture}"
+								pt:data-max-length-message="#{msgs['msg.tamanho.maximo.foto.pefil']}" /> #{msgs['label.selecionar']}
+						</span>
+						<h:commandLink rendered="#{!empty usuarioMB.usuario.profilePicture}">
+							<f:ajax execute="@this" render="profilePictureGroup" />
+							<f:setPropertyActionListener value="#{null}" target="#{usuarioMB.usuario.profilePicture}" />
+							<span class="button btn-primary input-file-profile-picture"> #{msgs['label.remover']} </span>
+						</h:commandLink>
+					</div>
+					<o:commandScript name="uploadProfilePicture" execute="profilePictureFile" render="profilePictureFile"
+						action="#{usuarioMB.uploadProfilePicture()}" />
+				</h:panelGroup>
+			</section>
+		</div>
+	</fieldset>
+
+	<fieldset jsf:rendered="#{usuarioMB.usuario['class'].simpleName eq 'Aluno'}">
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">#{msgs['label.codigo.turma']}</label> <label
+					class="input #{!component.findComponent('turma').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-group"></i> <h:inputText
+						value="#{usuarioMB.usuario.turma.codigo}" pt:placeholder="#{msgs['msg.informe.codigo.turma']}" id="turma" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="10" />
+				</label> <em class="invalid"> <h:message for="turma" /></em>
+			</section>
+
+			<section class="col col-6">
+				<label class="label">#{msgs['label.codigo.seguranca']}</label> <label class="input"> <i class="icon-append fa fa-lock"></i> <h:inputText
+						value="#{usuarioMB.usuario.codigoSeguranca.codigo}" pt:placeholder="#{msgs['msg.informe.codigo.seguranca']}" id="codigoSeguranca"
+						disabled="true" maxlength="10" />
+				</label>
+			</section>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">#{msgs['label.usuario']}</label> <label
+					class="input #{!component.findComponent('usuario').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-user"></i> <h:inputText
+						value="#{usuarioMB.usuario.login}" pt:placeholder="#{msgs['msg.informe.usuario']}" id="usuario" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="100" onblur="verifyLoginPermittedCharacters(this)" />
+				</label> <em class="invalid"> <h:message for="usuario" /></em>
+			</section>
+
+			<section class="col col-6">
+				<label class="label">#{msgs['label.email']}</label> <label class="input #{!component.findComponent('email').valid ? 'state-error' : ''}">
+					<i class="icon-append fa fa-envelope-o"></i> <h:inputText value="#{usuarioMB.usuario.email}"
+						pt:placeholder="#{msgs['msg.informe.email']}" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" id="email"
+						maxlength="100" />
+				</label> <em class="invalid"> <h:message for="email" /></em>
+			</section>
+		</div>
+
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">#{msgs['label.senha']}</label> <label class="input #{!component.findComponent('senha').valid ? 'state-error' : ''}">
+					<i class="icon-append fa fa-lock"></i> <p:password placeholder="#{msgs['msg.informe.senha']}" value="#{usuarioMB.usuario.password}"
+						style="position: initial;" id="senha" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="20"
+						match="confirmacaoSenha" validatorMessage="#{msgs['msg.validacao.senhas.incompativeis']}" pt:data-indicator="senhaStrengthIndicator" />
+				</label> <em class="invalid"> <h:message for="senha" /></em>
+				<div id="senhaStrengthIndicator" />
+			</section>
+
+			<section class="col col-6">
+				<label class="label">#{msgs['label.confirmacao.senha']}</label> <label
+					class="input #{!component.findComponent('confirmacaoSenha').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-lock"></i>
+					<p:password placeholder="#{msgs['msg.informe.senha']}" value="#{usuarioMB.usuario.confirmPassword}" style="position: initial;"
+						id="confirmacaoSenha" required="true" requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" maxlength="20" validatorMessage="" />
+				</label> <em class="invalid"> <h:message for="confirmacaoSenha" /></em>
+			</section>
+		</div>
+
+		<section>
+			<label class="checkbox #{!component.findComponent('recebeNotificacoesPorEmail').valid ? 'state-error' : ''}"> <h:selectBooleanCheckbox
+					value="#{usuarioMB.usuario.recebeNotificacoesPorEmail}" id="recebeNotificacoesPorEmail" required="true"
+					requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}">
+					<f:validateRequired />
+				</h:selectBooleanCheckbox> <i></i>#{msgs['msg.notificacoes.email']}
+			</label> <em class="invalid"> <h:message for="recebeNotificacoesPorEmail" /></em>
+		</section>
+	</fieldset>
+
+	<fieldset jsf:rendered="#{prettyContext.currentMapping.id ne 'userSignup'}">
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">#{msgs['label.pergunta.seguranca']}</label> <label
+					class="select #{!component.findComponent('perguntaSeguranca').valid ? 'state-error' : ''}"> <h:selectOneMenu
+						id="perguntaSeguranca" value="#{usuarioMB.usuario.perguntaSeguranca}" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+						<f:selectItems value="#{perguntaSegurancaMB.perguntasSeguranca}" var="pergunta" itemLabel="#{pergunta.descricao}"
+							itemValue="#{pergunta}" />
+					</h:selectOneMenu> <i></i>
+				</label> <em class="invalid"> <h:message for="perguntaSeguranca" /></em>
+			</section>
+
+			<section class="col col-6">
+				<label class="label">#{msgs['label.resposta']}</label> <label
+					class="input #{!component.findComponent('resposta').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-question"></i> <h:inputText
+						value="#{usuarioMB.usuario.respostaPerguntaSeguranca}" id="resposta" maxlength="300"
+						pt:placeholder="#{msgs['msg.responda.pergunta.seguranca']}" required="true"
+						requiredMessage="#{msgs['msg.validacao.campo.obrigatorio']}" />
+				</label> <em class="invalid"> <h:message for="resposta" /></em>
+			</section>
+		</div>
+	</fieldset>
+
+</ui:composition>

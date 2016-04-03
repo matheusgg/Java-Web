@@ -1,0 +1,42 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="title">#{msgs['menu.dashboard']}</ui:define>
+
+	<ui:define name="specificCSS">
+		<link type="text/css" rel="stylesheet" href="#{request.contextPath}-resources/css/fullcalendar.min.css" />
+		<h:outputStylesheet name="tasks.css" library="css" />
+		<h:outputStylesheet name="events.css" library="css" />
+	</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['menu.dashboard']}</ui:define>
+
+	<ui:define name="content">
+
+		<section id="widget-grid">
+			<div class="row">
+
+				<!-- Eventos -->
+				<article class="col-sm-12 col-md-12 col-lg-8">
+					<ui:include src="/vle/events/eventsDashboard.xhtml" />
+				</article>
+
+				<!-- Tarefas -->
+				<article class="col-sm-12 col-md-12 col-lg-4">
+					<ui:include src="/vle/tarefas/tasks.xhtml" />
+				</article>
+				
+			</div>
+		</section>
+
+	</ui:define>
+
+	<ui:define name="specificJS">
+		<script type="text/javascript" src="#{request.contextPath}-resources/js/moment/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="#{request.contextPath}-resources/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
+		<script type="text/javascript"
+			src="#{request.contextPath}-resources/js/plugin/fullcalendar/jquery.fullcalendar.#{okSessionMB.currentLocale}.js"></script>
+		<h:outputScript name="events.js" library="js" />
+	</ui:define>
+</ui:composition>

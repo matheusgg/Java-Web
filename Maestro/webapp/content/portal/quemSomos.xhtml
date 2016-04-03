@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head />
+	
+	<ui:composition template="/WEB-INF/templates/template.xhtml">
+		<ui:define name="conteudo">
+			<div class="conteudo">
+				<f:view>				
+					<h:form id="quemSomosForm">
+						<h:panelGrid styleClass="container">
+							<h:outputText value="#{msgs.label_quem_somos}" styleClass="titulo" />
+							<p:spacer styleClass="spacerTitulo" />
+							
+							<p:fieldset>
+								<h:panelGrid columns="2" styleClass="gridInterna">
+									<h:panelGrid styleClass="gridQuemSomos">
+										<p:column> <p:graphicImage styleClass="bullet" /><h:outputText value="#{msgs.tx_quemSomos1}" /></p:column>
+										<br />
+										<p:column> <p:graphicImage styleClass="bullet" /><h:outputText value="#{msgs.tx_quemSomos2}" /></p:column>
+										<br />
+										<p:column> <p:graphicImage styleClass="bullet" /><h:outputText value="#{msgs.tx_quemSomos3}" /></p:column>
+									</h:panelGrid>
+									
+									<p:graphicImage value="/resources/images/quem_somos.png" title="#{msgs.label_quem_somos}" />
+								</h:panelGrid>
+							</p:fieldset>
+							
+							<p:fieldset styleClass="fieldsetBotao">
+								<h:panelGrid styleClass="gridBotao">
+									<h:panelGrid styleClass="gridBotaoEsquerda">
+										<h:panelGroup>
+											<p:commandButton value="#{msgs.label_voltar}" action="pretty:home" styleClass="botao" title="#{msgs.label_voltar}" />
+										</h:panelGroup>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:fieldset>
+						</h:panelGrid>
+					</h:form>
+				</f:view>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

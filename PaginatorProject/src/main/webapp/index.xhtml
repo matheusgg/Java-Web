@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Paginator Project</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:dataTable value="#{appBean.categorias}" lazy="true" paginator="true" paginatorPosition="bottom"
+			paginatorAlwaysVisible="false" var="categoria" rowKey="#{categoria}" rows="3" id="table">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+					<br />
+					<p:inputText value="#{appBean.filtros['id']}" converter="javax.faces.Integer" />
+				</f:facet>
+				<h:outputText value="#{categoria.id}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+					<br />
+					<p:inputText value="#{appBean.filtros['nome']}" />
+				</f:facet>
+				<h:outputText value="#{categoria.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Produto" />
+					<br />
+					<p:inputText value="#{appBean.filtros['produto.nome']}" />
+				</f:facet>
+				<h:outputText value="#{categoria.produto.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Cliente" />
+					<br />
+					<p:inputText value="#{appBean.filtros['produto.cliente.nome']}" />
+					<p:commandButton value="OK" update="@form" action="#{appBean.pesquisa}" />
+				</f:facet>
+				<h:outputText value="#{categoria.produto.cliente.nome}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

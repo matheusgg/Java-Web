@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<div class="conteudo">
+			<f:view>
+				<h:form id="automacoesForm">
+					<h:panelGrid styleClass="container">
+						<h:outputText value="#{msgs.label_automacoes}" styleClass="titulo" />
+						<p:spacer styleClass="spacerTitulo" />
+
+						<!-- LAYOUT TOTAL -->
+						<p:layout styleClass="layoutAutomacoes">
+							<!-- LAYOUT ESQUERDA - SUBMENU AUTOMAÇÕES -->
+							<p:layoutUnit position="west" styleClass="subMenu">
+								<ui:include src="/WEB-INF/templates/menuPlanos.xhtml" />
+							</p:layoutUnit>
+
+							<!-- LAYOUT DIREITA - IMAGEM/VÍDEO -->
+							<p:layoutUnit position="east" styleClass="multimidia">
+								<p:media value="http://www.youtube.com/v/yZsLrbIxyUk" player="flash" styleClass="videoAutomacao" />
+							</p:layoutUnit>
+
+							<!-- LAYOUT CENTRAL - CONTEÚDO -->
+							<!-- LAYOUT CENTRAL - CONTEÚDO -->
+							<p:layoutUnit position="center">
+								<h:panelGrid>
+									<h:outputText value="#{msgs.label_luz_e_cenas}" styleClass="subTitulo" />
+
+									<h:panelGrid columns="1">
+										<h:column>
+											<p:graphicImage styleClass="bullet" />
+											<h:outputText
+												value="O Módulo dimmerizável ajusta a intensidade da Luz, economizando energia e o tempo de vida da lâmpada."
+												styleClass="descricao" />
+										</h:column>
+										<h:column>
+											<p:graphicImage styleClass="bullet" />
+											<h:outputText value="Dimerização de luzes de modo eletrônico com controles centralizados."
+												styleClass="descricao" />
+										</h:column>
+										<h:column>
+											<p:graphicImage styleClass="bullet" />
+											<h:outputText
+												value="Sensores que medem a iluminação natural e possibilitam perfeita harmonia com a artificial."
+												styleClass="descricao" />
+										</h:column>
+										<h:column>
+											<p:graphicImage url="/resources/images/luz.fw.png" />
+										</h:column>
+									</h:panelGrid>
+								</h:panelGrid>
+							</p:layoutUnit>
+						</p:layout>
+
+						<p:fieldset styleClass="fieldsetBotao">
+							<h:panelGrid columns="2" styleClass="gridBotao">
+								<h:panelGrid styleClass="gridBotaoEsquerda">
+									<h:panelGroup>
+										<p:commandButton value="#{msgs.label_voltar}" action="automacoes.jsf" styleClass="botao"
+											title="#{msgs.label_voltar}" />
+									</h:panelGroup>
+								</h:panelGrid>
+							</h:panelGrid>
+						</p:fieldset>
+
+					</h:panelGrid>
+				</h:form>
+			</f:view>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

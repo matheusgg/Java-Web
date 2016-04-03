@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<div class="widget-body">
+		<div class="panel-group smart-accordion-default" id="atividadesAcordion">
+			<ui:repeat var="atividade" value="#{atividadeUsuarioMB.atividades}" varStatus="i" id="atividades1">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<h:commandLink pt:data-toggle="collapse" pt:data-parent="#atividadesAcordion" pt:href="#collapseOne-#{i.index}"
+								styleClass="collapsed" action="#{atividadeUsuarioMB.preparaAtividadeSelecionada(atividade.id)}">
+								<i class="fa fa-fw fa-plus-circle txt-color-green" />
+								<i class="fa fa-fw fa-minus-circle txt-color-red" /> #{atividade.descricao.length() lt 50 ? atividade.descricao : atividade.descricao.subSequence(0, 47).concat('...')}
+								<f:ajax render=":atividades1:#{i.index}:coll2" execute="@this" onevent="initOkEditors" />
+								<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.resposta}" />
+								<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.respostas}" />
+							</h:commandLink>
+						</h4>
+					</div>
+					<div id="collapseOne-#{i.index}" class="panel-collapse collapse">
+						<h:panelGroup layout="block" id="coll2">
+							<div class="smart-form client-form">
+								<fieldset>
+
+									<!-- Atividade Questionário -->
+									<ui:fragment rendered="#{atividadeUsuarioMB.atividade.class.simpleName eq 'AtividadeQuestionario'}">
+
+										<!-- Direcionamento para a descricao completa da atividade -->
+										<section>
+											<h:commandLink action="#{atividadeUsuarioMB.preparaVisualizacaoAtividade(atividade.id)}"
+												value="#{msgs['msg.visualizar.infos.atividade']}" immediate="true" />
+										</section>
+
+										<!-- Prazo final -->
+										<section jsf:rendered="#{!empty atividadeUsuarioMB.atividade.dataPrazoFinal}">
+											<label class="label">#{msgs['label.prazo.final']}: <h:outputText pt:placeholder="#{msgs['msg.informe.prazo.final']}"
+													value="#{atividadeUsuarioMB.atividade.dataPrazoFinal}" disabled="true">
+													<f:convertDateTime pattern="dd/MM/yyyy '#{msgs['label.as']}' HH:mm" locale="#{okSessionMB.currentLocale}" />
+												</h:outputText></label>
+										</section>
+
+										<!-- Questoes -->
+										<div class="widget-body">
+											<div class="panel-group smart-accordion-default" id="questoesAcordion-#{i.index}">
+												<ui:repeat var="questao" value="#{atividadeUsuarioMB.atividade.questoes}" varStatus="j" id="questoes1">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<h:commandLink pt:data-toggle="collapse" pt:data-parent="#questoesAcordion-#{i.index}"
+																	pt:href="#questaoCollapseOne-#{i.index}#{j.index}" styleClass="collapsed">
+																	<i class="fa fa-fw fa-plus-circle txt-color-green" />
+																	<i class="fa fa-fw fa-minus-circle txt-color-red" /> #{msgs['label.questao']} #{j.index + 1}
+																	<f:ajax execute="@this" render=":atividades1:#{i.index}:questoes1:#{j.index}:respostaSection1" />
+																	<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.resposta}" />
+																	<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.respostas}" />
+																</h:commandLink>
+															</h4>
+														</div>
+														<div id="questaoCollapseOne-#{i.index}#{j.index}" class="panel-collapse collapse">
+															<fieldset>
+
+																<!-- Descricao da questao -->
+																<section>
+																	<label class="label">#{msgs['label.conteudo']}</label>
+																	<h:inputTextarea value="#{questao.descricao}" styleClass="ok-editor"
+																		pt:data-editor-language="#{okSessionMB.currentLocale.language}-#{okSessionMB.currentLocale.country}"
+																		pt:data-editor-height="200px" pt:data-editor-readonly="false" pt:data-editor-resizable="false" disabled="true" />
+																</section>
+
+																<section>
+																	<footer class="custom-form-client-footer ok-default-border-bottom">
+																		<h:commandButton value="#{msgs['label.visualizar.respostas']}" styleClass="btn btn-primary"
+																			action="#{atividadeUsuarioMB.preparaRespostasQuestao(questao.id)}">
+																			<f:ajax execute="@this" render=":atividades1:#{i.index}:questoes1:#{j.index}:respostaSection1" />
+																		</h:commandButton>
+																	</footer>
+																</section>
+
+																<!-- Respostas da questao -->
+																<section jsf:id="respostaSection1">
+																	<div jsf:rendered="#{!empty atividadeUsuarioMB.respostas}">
+																		<label class="label">#{msgs['label.respostas']}</label>
+																		<p:dataTable value="#{atividadeUsuarioMB.respostas}" var="resposta" paginator="true" paginatorAlwaysVisible="false"
+																			paginatorPosition="bottom" rows="10" emptyMessage="#{msgs['msg.nenhum.registro.encontrado']}"
+																			currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}"
+																			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+																			<p:column headerText="#{msgs['label.aluno']}" filterBy="#{resposta.aluno.nome}" filterMatchMode="startsWith">
+																				#{resposta.aluno.nome}
+																			</p:column>
+																			<p:column headerText="#{msgs['label.turma']}" filterBy="#{resposta.aluno.turma.codigo}" filterMatchMode="startsWith">
+																				#{resposta.aluno.turma.codigo}
+																			</p:column>
+																			<p:column headerText="#{msgs['label.curso']}" filterBy="#{resposta.aluno.turma.curso.nome}" filterMatchMode="startsWith">
+																				#{resposta.aluno.turma.curso.nome}
+																			</p:column>
+																			<p:column styleClass="ok-align-center" width="20">
+																				<h:commandLink title="#{msgs['label.visualizar']}" action="#{atividadeUsuarioMB.preparaVisualizacaoResposta(resposta)}">
+																					<i class="fa fa-file-text-o" />
+																					<f:ajax execute="@this" render=":respostaModal" />
+																				</h:commandLink>
+																			</p:column>
+																		</p:dataTable>
+
+																		<section>
+																			<footer class="custom-form-client-footer">
+																				<h:commandButton value="#{msgs['label.cancelar']}" styleClass="btn btn-primary">
+																					<f:setPropertyActionListener value="#{null}" target="#{atividadeUsuarioMB.respostas}" />
+																					<f:ajax execute="@this" render=":atividades1:#{i.index}:questoes1:#{j.index}:respostaSection1" />
+																				</h:commandButton>
+																			</footer>
+																		</section>
+																	</div>
+																</section>
+
+																<!-- Comentarios da questao -->
+																<footer class="custom-form-client-footer ok-direction-rtl">
+																	<h:commandLink value="#{msgs['label.comentarios']}" action="#{comentarioMB.preparaComentariosQuestao(questao)}">
+																		<f:ajax execute="@this" render=":comentariosForm" onevent="initCommentsEditor" />
+																		<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.questaoSelecionada}" />
+																		<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.atividadeSelecionada}" />
+																	</h:commandLink>
+																</footer>
+															</fieldset>
+														</div>
+													</div>
+												</ui:repeat>
+											</div>
+										</div>
+									</ui:fragment>
+								</fieldset>
+
+								<!-- Comentarios da atividade-->
+								<footer class="custom-form-client-footer ok-direction-rtl">
+									<h:commandLink value="#{msgs['label.comentarios']}" action="#{comentarioMB.preparaComentariosAtividade(atividade)}">
+										<f:ajax execute="@this" render=":comentariosForm" onevent="initCommentsEditor" />
+										<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.questaoSelecionada}" />
+										<f:setPropertyActionListener value="#{null}" target="#{comentarioMB.atividadeSelecionada}" />
+									</h:commandLink>
+								</footer>
+							</div>
+						</h:panelGroup>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+	</div>
+</ui:composition>

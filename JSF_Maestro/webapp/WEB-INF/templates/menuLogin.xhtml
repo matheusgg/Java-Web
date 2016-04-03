@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<div class="menuLogin">
+		<h:panelGrid columns="2">
+			<h:form id="menuLoginForm">
+				<h:panelGrid styleClass="areaUsuario">
+					<h:panelGroup>
+						<h:outputText value="#{msgs.label_seja_bem_vindo}" />
+						<p:spacer style="margin-left: 5px;" />
+						<p:commandLink id="linkLogin" value="#{msgs.label_faca_seu_login}" onclick="modalLogin.show()" rendered="#{empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<h:outputText value="#{msgs.label_ou}" rendered="#{empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<p:commandLink id="linkCadastro" value="#{msgs.label_cadastre_se_menu_login}" action="#{usuarioBean.iniciarPaginaCadastroUsuario}"
+							rendered="#{empty sessionScope.loginUsuarioLogado}" />
+						<h:outputText value="#{sessionScope.loginUsuarioLogado}" rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<h:outputText value="#{msgs.separador}" rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<p:commandLink id="linkConsultarCadastro" value="#{msgs.label_consulte_seu_cadastro}" action="#{usuarioBean.iniciarPaginaDetalhesUsuario}"
+							rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<h:outputText value="#{msgs.separador}" rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<p:commandLink id="linkConsultarOrcamento" value="#{msgs.label_consulte_seus_orcamentos}" action="#{orcamentoBean.iniciarPagina}"
+							rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<h:outputText value="#{msgs.separador}" rendered="#{not empty sessionScope.loginUsuarioLogado}" />
+						<p:spacer style="margin-left: 5px;" />
+						<p:commandLink id="linkSair" value="Sair" action="#{loginBean.logout}" rendered="#{not empty sessionScope.loginUsuarioLogado}" ajax="false" />
+					</h:panelGroup>
+				</h:panelGrid>
+
+				<h:panelGrid styleClass="areaContato">
+					<p:commandLink id="linkContato" value="#{msgs.label_atendimento}" action="#{faleConoscoBean.iniciarPagina}" />
+				</h:panelGrid>
+			</h:form>
+		</h:panelGrid>
+	</div>
+
+	<p:dialog id="dialog" header="#{msgs.label_login}" widgetVar="modalLogin" showEffect="fade" hideEffect="fade" draggable="false" modal="true" resizable="false"
+		width="350">
+		<h:form id="modalForm">
+			<p:growl />
+			<h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="usuario" value="#{msgs.label_usuario}#{msgs.label_dois_pontos}" styleClass="bold" />
+					<p:inputText id="usuario" required="true" styleClass="inputLogin" size="35" value="#{loginBean.viewHelper.email}"
+						requiredMessage="#{msgs.msg_preencha_usuario}" />
+
+					<h:outputLabel for="senha" value="#{msgs.label_senha}#{msgs.label_dois_pontos}" styleClass="bold" />
+					<p:password id="senha" required="true" styleClass="inputLogin" size="35" value="#{loginBean.viewHelper.senha}" requiredMessage="#{msgs.msg_preencha_senha}" />
+					<h:outputText />
+					<h:panelGrid styleClass="linkModalLogin">
+						<h:link outcome="pretty:recuperarSenha" value="#{msgs.label_esqueceu_sua_senha}" />
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid styleClass="gridBotao" columns="2">
+					<h:panelGrid styleClass="gridBotaoCentralizado">
+						<p:commandButton value="#{msgs.label_acessar}" action="#{loginBean.login('menu_login')}" styleClass="botao" update=":modalForm :menuLoginForm" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</ui:composition>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- A autenticacao utilizando SSO (Single Sign On) com SpringSecurity e CAS (Central Authentication Service) funciona da seguinte forma: -->
+	<!-- O cliente tenta acessar uma página restrita na aplicacao, entao o SpringSecurity recebe essa requisicao e identifica que o cliente nao proveu um ticket de 
+		autenticacao, entao o SpringSecurity direciona o usuario para a pagina de login do servidor CAS, lá o usuário realiza o login. Após a autenticacao, o servidor CAS 
+		devolve o usuário para a URL requisitada anteriormente junto com um ticket de Seguranca gerado pelo CAS. Quando a aplicacao cliente recebe essa segunda requisicao, 
+		o SpringSecurity valida, junto ao servidor CAS, o ticket recebido. Desta forma, o servidor CAS diz para a aplicacao cliente que o usuário já está autenticado, deste 
+		modo, o usuario é autorizado a acessar a pagina solicitada. -->
+	<!-- A validacao do ticket pelo servidor CAS acontece por meio de uma conexao segura (HTTPS), ou seja, nao e possivel validar o ticket sem uma conexao SSL. Deste 
+		modo, é necessário configurar o servidor de aplicacao para trabalhar com conexoes HTTPS. -->
+
+	<!-- Este bean e responsavel por ler o arquivo properties que contem as informacoes de configuracao para trabalho com o CAS. Desta forma e possivel compartilhar 
+		as mesmas configuracoes entre varias aplicacoes de forma simplificada -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:singleSignOn.properties</value>
+			</array>
+		</property>
+	</bean>
+
+	<!-- Este ServiceProperties bean será o responsável por representar o servico CAS. A propriedade service informa qual é a URL de servico da aplicacao, ou seja, 
+		o SpringSecurity utilizara esta URL para verificar o status da autenticacao do usuario. -->
+	<bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">
+		<property name="service" value="${webapp.server.ssl.location}/sso2/j_spring_cas_security_check" />
+		<property name="sendRenew" value="false" />
+	</bean>
+
+	<!-- Este bean é responsavel por ser o ponto de entrada do processo de login configurado no elemento http do arquivo applicationContext-security -->
+	<bean id="casAuthenticationEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+		<!-- URL de login do servidor CAS -->
+		<property name="loginUrl" value="${cas.login.url}" />
+		<property name="serviceProperties" ref="serviceProperties" />
+	</bean>
+
+	<!-- Esta bean é responsavel pelo processo de autenticacao. Aqui é informada a pagina para qual o usuario sera direcionado caso ocorra alguma falha no login e a 
+		pagina para onde o usuario sera direcionada quando o login for efetuado com sucesso. -->
+	<bean id="casAuthenticationFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationFailureHandler">
+			<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<property name="defaultFailureUrl" value="/failed.jsf" />
+			</bean>
+		</property>
+		<property name="authenticationSuccessHandler">
+			<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+				<property name="defaultTargetUrl" value="/secure/logged.jsf" />
+			</bean>
+		</property>
+
+		<!-- Esta propriedade define onde deve ser armazenado o ticket depois de recebido -->
+		<property name="proxyGrantingTicketStorage" ref="proxyGrantingTicketStorage" />
+
+		<!-- Esta propriedade define para onde o servidor CAS mandara o ticket depois de autenticar o usuário -->
+		<property name="proxyReceptorUrl" value="/secure/receptor" />
+	</bean>
+
+	<!-- Bean responsável por armazenar o ticket recebido -->
+	<bean id="proxyGrantingTicketStorage" class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl" />
+
+	<!-- Bean responsavel por comparar os dados de autenticacao e o ticket gerado recebidos pelo servidor CAS. -->
+	<bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+		<property name="userDetailsService" ref="jdbcUserService" />
+		<property name="serviceProperties" ref="serviceProperties" />
+
+		<!-- Valida o ticket recebido junto ao servidor CAS. As propriedades proxyGrantingTicketStorage e proxyCallbackUrl sao utilizadas para armazenar o ticket recebido 
+			e a URL que devera ser chamada apos a validacao do ticket -->
+		<property name="ticketValidator">
+			<bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+				<constructor-arg index="0" value="${cas.server.location}" />
+				<property name="proxyGrantingTicketStorage" ref="proxyGrantingTicketStorage" />
+				<property name="proxyCallbackUrl" value="${webapp.server.ssl.location}/sso2/secure/logged.jsf" />
+			</bean>
+		</property>
+		<property name="key" value="${webapp.security.key}" />
+	</bean>
+
+	<!-- Filtro responsavel por interceptar as requisicoes de logout -->
+	<bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		<constructor-arg value="${cas.server.location.ssl}/logout" />
+		<constructor-arg>
+			<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+		</constructor-arg>
+		<property name="filterProcessesUrl" value="/j_spring_cas_security_logout" />
+	</bean>
+
+	<!-- Bean responsavel por realizar o processo de logout -->
+	<bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter" />
+
+	<!-- Datasource utilizada pelo servico de usuario JDBC -->
+	<bean id="ssoDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:/comp/env/jdbc/sso_db</value>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<div class="divFloatRight" align="right">
+		<p:commandButton value="#{msgs.lbl_plus_linhas}" action="#{documentosUtilizadosBean.adicionaLinhas}"
+			process=":tabView:documentosForm" update=":tabView:documentosForm" title="#{msgs.msg_adicao_linhas}" />
+	</div>
+
+	<div class="input-prepend input-append" style="margin-bottom: 20px;">
+		<span class="add-on" />
+		<h:inputText value="#{msgs.lbl_descricao}" readonly="true" style="font-weight: bold; cursor: default;"
+			styleClass="input-block-level" />
+	</div>
+
+	<h:panelGroup layout="block" id="groupDocumentos">
+		<ui:repeat var="documento" value="#{documentosUtilizadosBean.viewHelper.documentosUtilizados}" varStatus="i">
+			<div class="input-prepend input-append" style="margin-bottom: -1px;" onmouseover="return showOptionsButtons(this);"
+				onmouseout="return hideOptionsButtons(this);">
+				<span class="add-on">#{i.index + 1}</span>
+				<h:inputText value="#{documento.descriao}" styleClass="input-block-level" />
+
+				<f:ajax render=":tabView:documentosForm:groupDocumentos" execute=":tabView:documentosForm">
+					<h:commandButton value="#{msgs.lbl_mais}" styleClass="btn" style="display:none;"
+						action="#{documentosUtilizadosBean.adicionaLinhaAbaixo(i.index)}" title="#{msgs.msg_btn_plus}" />
+
+					<h:commandButton value="#{msgs.lbl_menos}" styleClass="btn" style="display:none;"
+						onclick="if(confirm('#{msgs.msg_exclusao_linha}')){return true;} else{return false;}"
+						action="#{documentosUtilizadosBean.removeLinhaSelecionada(i.index)}" title="#{msgs.msg_btn_menos}" />
+				</f:ajax>
+
+				<br />
+			</div>
+		</ui:repeat>
+	</h:panelGroup>
+</ui:composition>

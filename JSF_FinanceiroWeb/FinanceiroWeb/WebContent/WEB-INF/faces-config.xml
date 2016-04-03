@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+	version="2.1">
+
+	<!-- Configurações de Internacionalização -->
+	<application>
+		<!-- Esta tag serve para configurar os idiomas que podem ser utilizados -->
+		<locale-config>
+			<!-- Aqui é definido o idioma padrão da aplicação, ou seja, o properties 
+				padrão que será utilizado -->
+			<default-locale>pt_BR</default-locale>
+			<!-- Aqui é listado todos os idiomas que a aplicação suportará -->
+			<supported-locale>en_US</supported-locale>
+			<supported-locale>es_ES</supported-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<!-- Aqui é definido o local onde deve ser carregado o arquivo de internacionalização, 
+				porém apenas o nome básico é informado, pois o restante será definido em 
+				tempo de execução, ficando da seguinte forma, financeiro.idioma.mensagens_pt_BR -->
+			<base-name>financeiro.idioma.mensagens</base-name>
+			<!-- Este é o nome da variável que estará disponível para recuperar as 
+				mensagens de tradução do properties -->
+			<var>msg</var>
+		</resource-bundle>
+	</application>
+</faces-config>

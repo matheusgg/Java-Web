@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>PrimeFaces CSV</title>
+	<h:outputScript name="validators.js" library="js" />
+</h:head>
+<h:body>
+	<h1>PrimeFaces CSV</h1>
+	<h:form>
+		<p:messages />
+		<h3>
+			<h:outputText value="#{csvMB.texto}" />
+		</h3>
+		<p:inputText value="#{csvMB.texto}" maxlength="11" />
+		<p:commandButton value="OK" validateClient="true" update="@form" />
+	</h:form>
+</h:body>
+</html>

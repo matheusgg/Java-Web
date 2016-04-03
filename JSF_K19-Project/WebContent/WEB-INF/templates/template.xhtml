@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Loja Virtual</title>
+	<style>
+.ui-widget {
+	font-family: Arial, sans-serif;
+	font-size: 0.8em;
+}
+</style>
+</h:head>
+<h:body>
+	<div id="header">
+		<h:link outcome="index#{produtoBean.configuracao}">
+			<h:graphicImage name="logo.png" library="img" />
+		</h:link>
+		<h:panelGrid columns="7">
+			<h:link value="Pagina 1" outcome="page1" />
+			<h:link value="Pagina 2" outcome="page2" />
+			<h:link value="Pagina 3" outcome="page3" />
+			<h:link value="Carros" outcome="carros" />
+			<h:link value="Funcionarios" outcome="funcionarios" />
+			<h:link value="Cotacao" outcome="cotacao" />
+			<h:link value="Configuracoes" outcome="preferencias" />
+		</h:panelGrid>
+	</div>
+
+	<ui:insert name="corpo">Corpo da pagina</ui:insert>
+	<h:form>
+		<h:commandButton action="#{produtoBean.sorteiaNavegacao}"
+			value="Tentar a sorte!" />
+	</h:form>
+
+	<div id="footer">&copy; Todos os direitos reservados.</div>
+</h:body>
+</html>

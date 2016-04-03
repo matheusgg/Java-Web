@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>DataTable</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h1>DataModelListener</h1>
+		<h:dataTable value="#{dataTableMB.roles}" var="role">
+			<h:column>
+				#{role.id}
+			</h:column>
+			<h:column>
+				#{role.nome}
+			</h:column>
+		</h:dataTable>
+
+		<h:commandButton action="#{dataTableMB.addDataModelListener()}" value="Add Data Model Listener" />
+		<h:commandButton action="#{dataTableMB.removeDataModelListener()}" value="Remove Data Model Listener" />
+	</h:form>
+</h:body>
+</html>

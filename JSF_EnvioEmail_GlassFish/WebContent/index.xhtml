@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Email</title>
+	<h:outputScript name="funcoes.js" library="js" />
+</h:head>
+<h:body>
+	<p:ajaxStatus onstart="loading.show()" oncomplete="loading.hide()" />
+	<p:confirmDialog message="Enviando..." id="load" closable="false"
+		widgetVar="loading">
+		<h:panelGrid style="margin: 0 auto;">
+			<h:graphicImage library="img" name="loading.gif" />
+		</h:panelGrid>
+	</p:confirmDialog>
+	<p:panel style="margin:0 auto; width: 60%;">
+		<h:form id="form">
+			<p:growl />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="De: " />
+				<p:inputText value="#{email.de}" />
+
+				<h:outputLabel value="Para: " />
+				<p:inputText value="#{email.para}" />
+
+				<h:outputLabel value="Assunto: " />
+				<p:inputText value="#{email.assunto}" />
+
+				<h:outputLabel value="Mensagem: " />
+				<p:editor value="#{email.mensagem}" />
+
+			</h:panelGrid>
+
+			<p:fileUpload value="#{email.arquivoAnexo}"
+				fileUploadListener="#{email.uploadFile}" mode="single"
+				update=":form:painel" />
+
+			<h:panelGrid columns="2" id="painel">
+				<h:commandButton value="Remover" id="btnRemover"
+					rendered="#{email.nomeAnexo ne ''}">
+					<f:ajax event="click" listener="#{email.removeAnexo}"
+						execute="@this" render=":form:painel" />
+				</h:commandButton>
+				<p:selectBooleanCheckbox itemLabel="#{email.nomeAnexo}"
+					rendered="#{email.nomeAnexo ne ''}" id="select" />
+
+				<p:commandButton value="Limpar" type="reset" />
+				<p:commandButton value="Enviar" action="#{email.enviaEmail()}"
+					update=":form" />
+			</h:panelGrid>
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

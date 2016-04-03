@@ -1,0 +1,75 @@
+##### idiomas #####
+idioma_pt_BR=Portuguese
+idioma_en_US=English
+idioma_es_ES=Español
+lbl_idioma=Language
+
+##### LABEL #####
+lbl_remember_me=Relembrar Login
+lbl_dados_gerais=Dados Gerais
+lbl_premissas=Premissas
+lbl_documentos_util=Documentos Utilizados
+lbl_metrica=Métrica
+lbl_resumo=Resumo
+lbl_descricao=Descrição
+lbl_plus_linhas=+ Linhas
+lbl_mais=+
+lbl_menos=-
+lbl_titulo_modal=Título Modal
+lbl_msg_modal=Mensagem Modal
+lbl_ok=OK
+lbl_metriken=Metriken
+lbl_data=Data
+lbl_analista=Analista
+lbl_projeto=Projeto
+lbl_nome_projeto=Nome do Projeto
+lbl_contagem=Contagem
+lbl_tipo_contagem=Tipo de Contagem
+lbl_inicio_em=Início em
+lbl_finalizada_em=Finalizada em 
+lbl_responsaveis=Responsáveis
+lbl_nome=Nome
+lbl_CFPS=CFPS
+lbl_empresa=Empresa
+lbl_email=Email
+lbl_telefone=Telefone
+lbl_consideracoes=Considerações
+lbl_escopo=Escopo
+lbl_fronteira=Fronteira
+lbl_id=ID
+lbl_funcionalidade=Funcionalidade
+lbl_complexidade=Complexidade
+lbl_p_f=PF
+lbl_comentarios=Comentários
+lbl_tipo=Tipo
+
+lbl_usuario=Usuário
+lbl_senha=Senha
+lbl_lembrar=Lembre-me
+lbl_acesso=Problema de Acesso?
+lbl_contato=Contate-nos
+
+lbl_erro=Erro
+lbl_ops=Ops...
+
+
+##### BOTOES ######
+btn_login=Login
+
+
+#### MENSAGEM #####
+msg_btn_plus=Adiciona uma linha abaixo.
+msg_btn_menos=Remove a linha selecionada.
+msg_exclusao_linha=Deseja realmente excluir a linha selecionada?
+msg_error_page=Ocorreu um erro inesperado, por favor contate o administrador do sistema e tente novamente.
+msg_error_404=A pagina solicitada não foi encontrada, por favor verifique o endereço informado e tente novamente.
+msg_adicao_linhas=Adiciona mais linhas no final da tabela.
+
+###### TECNICAS ######
+lbl_apf=APF
+lbl_nesma=Nesma
+lbl_cosmic=Cosmic
+lbl_uksma=Uksma
+lbl_fisma=Fisma
+lbl_ucp=UCP
+

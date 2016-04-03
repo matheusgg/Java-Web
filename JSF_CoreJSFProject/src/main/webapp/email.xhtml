@@ -1,0 +1,29 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="titulo">Servicos Externos - Email</ui:define>
+	<ui:define name="conteudo">
+
+		<h1>Servicos Externos - Email</h1>
+
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="De" />
+				<h:inputText value="#{emailBean.de}" />
+
+				<h:outputLabel value="Para" />
+				<h:inputText value="#{emailBean.para}" />
+
+				<h:outputLabel value="Assunto" />
+				<h:inputText value="#{emailBean.assunto}" />
+
+				<h:outputLabel value="Mensagem" />
+				<h:inputTextarea value="#{emailBean.mensagem}" />
+			</h:panelGrid>
+			<h:commandButton value="Enviar" action="#{emailBean.sendMail}" />
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

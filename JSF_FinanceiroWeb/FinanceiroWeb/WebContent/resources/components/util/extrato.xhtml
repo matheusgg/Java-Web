@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<!-- Para criar uma tag personalizada é preciso importar a biblioteca composite acima -->
+
+<!-- Interface da tag personalizada que conterá os atributos acessíveis -->
+<composite:interface>
+	<composite:attribute name="scrollable" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="width" />
+	<composite:attribute name="height" required="true" />
+	<composite:attribute name="lista" type="java.util.List" required="true"
+		shortDescription="Lista de valores que serão exibidos na tabela" />
+	<composite:attribute name="saldos" type="java.util.List" />
+	<composite:attribute name="larguraDescricao" type="int" default="313" />
+	<composite:attribute name="larguraEntidade" type="int" default="150" />
+	<composite:attribute name="botaoExclusao" type="java.lang.Boolean"
+		default="true" />
+	<composite:attribute name="botaoEdicao" type="java.lang.Boolean"
+		default="true" />
+	<composite:attribute name="colunaSaldo" type="java.lang.Boolean"
+		default="true" />
+	<composite:attribute name="colunaEntidade" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="linhas" type="java.lang.Integer" default="3" />
+</composite:interface>
+
+<!-- Implementação da tag que utilizará os valores informados nos atributos da interface -->
+<composite:implementation>
+	<!-- Por padrão no JSF, os compenentes aninhados dentro de outros e que contêm um id, herdam o id do seu componente pai.
+		 Neste caso, se este form tivesse um id, a dataTable herdaria este id, ficando 'idDoForm:idDaDataTable'. O
+		 atributo prependId='false' força o JSF a gerar id's isolados para cada componente, desta forma, o se a DataTable
+		 tivesse um id, ficaria apenas apenas 'listagem' e não 'idDoForm:listagem'. Por padrão esta propriedade é marcada 
+		 como true -->
+	<!-- Na DataTable do prime faces é possível criar uma variável que receberá o índice de cada linha: rowIndexVar='index' -->
+	<p:dataTable scrollable="#{cc.attrs.scrollable}"
+		value="#{lancamentoBean.lista}" var="lancamento" rowIndexVar="index"
+		style="height: #{cc.attrs.height};" paginatorAlwaysVisible="false"
+		paginator="true" rows="#{cc.attrs.linhas}" paginatorPosition="bottom">
+
+		<p:column width="15" rendered="#{cc.attrs.botaoEdicao}">
+			<!-- 'cc.attrs' permite o acesso aos atributos declarados na interface-->
+			<p:commandLink action="#{lancamentoBean.editar}" update=":edicao">
+				<h:graphicImage library="imagens" name="editar16.png" />
+				<f:setPropertyActionListener target="#{lancamentoBean.editado}"
+					value="#{lancamento}" />
+			</p:commandLink>
+		</p:column>
+
+		<p:column width="15" rendered="#{cc.attrs.botaoExclusao}">
+			<p:commandLink action="#{lancamentoBean.excluir}" update=":listagem"
+				onclick="if(!confirm('Confirma a exclusão do lançamento #{lancamento.descricao}?')) return false;">
+				<h:graphicImage library="imagens" name="excluir16.png" />
+				<f:setPropertyActionListener target="#{lancamentoBean.editado}"
+					value="#{lancamento}" />
+			</p:commandLink>
+		</p:column>
+
+		<p:column width="100" headerText="Data">
+			<h:outputText value="#{lancamento.data}">
+				<f:convertDateTime dateStyle="medium" />
+			</h:outputText>
+		</p:column>
+
+		<p:column width="#{cc.attrs.larguraDescricao}" headerText="Descrição">
+			<h:outputText value="#{lancamento.descricao}" />
+		</p:column>
+
+		<p:column width="#{cc.attrs.larguraEntidade}" headerText="Entidade"
+			rendered="#{cc.attrs.colunaEntidade}">
+			<h:outputText value="#{lancamento.entidade.nome}" />
+		</p:column>
+
+		<p:column width="100" headerText="Valor">
+			<h:outputText
+				style="color:#{lancamento.categoria.fator gt 0 ? 'green' : 'red'}; 
+					text-align:right; display:block;"
+				value="R$ #{lancamento.valor}">
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
+		</p:column>
+
+		<!-- A propriedade CSS display:block força a linha a respeitar o alinhamento do texto definido (neste caso right),
+				 por padrão, as tabelas não respeitam o text-align, por este motivo, é utilizado a propriedade display -->
+		<p:column width="100" headerText="Saldo"
+			rendered="#{cc.attrs.colunaSaldo}">
+			<h:outputText
+				style="color:#{cc.attrs.saldos.get(index) gt 0 ? 'green' : 'red'};
+					text-align:right; display:block;"
+				value="R$ #{cc.attrs.saldos.get(index)}">
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+</composite:implementation>
+</html>

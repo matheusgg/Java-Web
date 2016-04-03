@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd" version="2.2">
+
+	<namespace>http://master.com.br/components</namespace>
+
+	<tag>
+		<tag-name>dataTable</tag-name>
+
+		<component>
+			<component-type>master.UIMasterDatatable</component-type>
+			<renderer-type>master.UIMasterDatatable</renderer-type>
+			<handler-class>br.com.master.handlers.MasterDataTableHandler</handler-class>
+		</component>
+
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+		</attribute>
+
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+		</attribute>
+
+		<attribute>
+			<name>id</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute>
+			<name>rowsPerPage</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+
+		<attribute>
+			<name>paginatorMethod</name>
+		</attribute>
+
+		<attribute>
+			<name>selection</name>
+		</attribute>
+	</tag>
+
+	<tag>
+		<tag-name>column</tag-name>
+
+		<component>
+			<component-type>master.UIMasterColumn</component-type>
+			<renderer-type>master.UIMasterColumn</renderer-type>
+		</component>
+
+		<attribute>
+			<name>headerText</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+
+	<tag>
+		<tag-name>switch</tag-name>
+
+		<component>
+			<component-type>master.switch</component-type>
+			<renderer-type>master.switch</renderer-type>
+		</component>
+
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+</facelet-taglib>
+	

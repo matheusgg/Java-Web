@@ -1,0 +1,33 @@
+<ui:composition template="/errorTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+	<ui:define name="title">404</ui:define>
+	
+	<ui:define name="specificCSS">
+		<!--[if IE 9]>
+			<style type="text/css">
+				.error-text {
+					color: #333 !important;
+				}
+				.particle {
+					display:none !important;
+				}
+			</style>
+		<![endif]-->
+	</ui:define>
+	
+	<ui:define name="content">
+		<h1 class="error-text-2 bounceInDown animated">
+			#{msgs['label.error.404']} <span class="particle particle--c" /><span class="particle particle--a" /><span class="particle particle--b" />
+		</h1>
+		<div class="center-text">
+			<h2 class="font-xl">
+				<strong><i class="fa fa-fw fa-warning fa-lg text-warning"></i> #{msgs['msg.pagina.nao.encontrada']}</strong>
+			</h2>
+			<p class="lead">
+				<br />#{msgs['msg.pagina.nao.encontrada.detalhada']}
+			</p>
+		</div>
+	</ui:define>
+	
+</ui:composition>

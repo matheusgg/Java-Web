@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<div class="conteudo">
+			<f:view>
+				<h:form id="homeForm">
+					<h:panelGrid columns="2" styleClass="container">
+						<p:media value="http://www.youtube.com/v/dx_s0YGEd1M" 
+						                 styleClass="videoInstitucional" player="flash" />
+
+						<h:panelGrid style="height: 100%;">
+							<h:panelGrid style="width: 100%; text-align: center;">
+								<h:panelGroup>
+									<p:commandLink action="pretty:ambiente">
+										<p:graphicImage id="batuta" url="/resources/images/Additionals_On.png" style="width: 80px; height: 80px; margin-right: 15px;" />
+										<p:overlayPanel style="background-color: #333333;color:white; text-align:left" showEvent="mouseover" hideEvent="mouseout" for="batuta"
+											showEffect="fade" hideEffect="fade">
+											<h:panelGrid columns="2">
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Controle de luminosidade." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Cortinas." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Persianas." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Controle de Ar-Condicionado" />
+											</h:panelGrid>
+										</p:overlayPanel>
+									</p:commandLink>
+
+									<p:commandLink action="pretty:audio">
+										<p:graphicImage id="audio" url="/resources/images/audio.png" style="width: 80px; height: 80px; margin-right: 15px;" />
+										<p:overlayPanel style="background-color: #333333;color:white; text-align:left" showEvent="mouseover" hideEvent="mouseout" for="audio"
+											showEffect="fade" hideEffect="fade">
+											<h:panelGrid columns="2">
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Controle de áudio centralizado." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Controle seu Home Theater." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Crie a trilha sonora de sua casa." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Multi ambientes." />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Facilidade e Praticidade" />
+											</h:panelGrid>
+										</p:overlayPanel>
+									</p:commandLink>
+
+									<p:commandLink action="pretty:luzCenas">
+										<p:graphicImage id="maestro" url="/resources/images/luz.png" style="width: 80px; height: 80px; margin-right: 15px;" />
+										<p:overlayPanel style="background-color: #333333;color:white; text-align:left" showEvent="mouseover" hideEvent="mouseout" for="maestro"
+											showEffect="fade" hideEffect="fade">
+											<h:panelGrid columns="2">
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Cenários Inteligentes" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Luzes Individuais" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Economia" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Comodidade" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Controle Total de Iluminação" />
+											</h:panelGrid>
+										</p:overlayPanel>
+									</p:commandLink>
+
+									<p:commandLink action="pretty:videoCinema">
+										<p:graphicImage id="orquestra" url="/resources/images/video.png" style="width: 80px; height: 80px;" />
+										<p:overlayPanel style="background-color: #333333;color:white; text-align:left" showEvent="mouseover" hideEvent="mouseout" for="orquestra"
+											showEffect="fade" hideEffect="fade">
+											<h:panelGrid columns="2">
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Home Cinema" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Projetores" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Televisores" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="DVD" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Blu-ray" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Home Theater" />
+												<p:graphicImage styleClass="bullet" />
+												<h:outputText value="Telões Projetores" />
+											</h:panelGrid>
+										</p:overlayPanel>
+									</p:commandLink>
+								</h:panelGroup>
+							</h:panelGrid>
+
+							<p:galleria effect="slide" filmstripPosition="bottom" filmstripStyle="color: white" showCaptions="true" showOverlays="true" effectSpeed="2000"
+								panelHeight="240" panelWidth="500" showFilmstrip="true">
+								<h:panelGroup>
+									<p:graphicImage value="/resources/images/image001.jpg" />
+
+									<p:galleriaOverlay title="Estilo, conforto e segurança">
+										<h:outputText value="É a Maestro tornando seu sonhos, realidade!" />
+									</p:galleriaOverlay>
+								</h:panelGroup>
+
+								<h:panelGroup>
+									<p:graphicImage value="/resources/images/image002.jpg" />
+
+									<p:galleriaOverlay title="Da iluminação ao áudio">
+										<h:outputText value="Ambientes totalmente automatizados!" />
+									</p:galleriaOverlay>
+								</h:panelGroup>
+
+								<h:panelGroup>
+									<p:graphicImage value="/resources/images/image003.jpg" />
+
+									<p:galleriaOverlay title="Inovação e Tecnologia">
+										<h:outputText value="Ambientes automatizados personalizados para sua comodidade e conforto." />
+									</p:galleriaOverlay>
+								</h:panelGroup>
+
+								<h:panelGroup>
+									<p:graphicImage value="/resources/images/image004.jpg" />
+
+									<p:galleriaOverlay title="Diversos ambientes e diferentes cenários.">
+										<h:outputText value="Feito para melhor atender suas necessidades!" />
+									</p:galleriaOverlay>
+								</h:panelGroup>
+							</p:galleria>
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
+			</f:view>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

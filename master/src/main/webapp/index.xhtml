@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:m="http://master.com.br/components">
+<h:head>
+	<title>Master Faces</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<m:dataTable value="#{masterBean.clientes}" var="cliente" paginatorMethod="#{masterBean.paginate}" rowsPerPage="5" selection="#{masterBean.cliente}"
+			id="table">
+			<m:column headerText="Rendering engine">
+				<h:outputText value="#{cliente.nome}" />
+			</m:column>
+
+			<m:column headerText="Browser">
+				<h:outputText value="#{cliente.nome}" />
+			</m:column>
+
+			<m:column headerText="Platform(s)">
+				<h:outputText value="#{cliente.nome}" />
+			</m:column>
+
+			<m:column headerText="Engine version">
+				<h:outputText value="#{cliente.nome}" />
+			</m:column>
+
+			<m:column headerText="CSS grade">
+				<h:outputText value="#{cliente.nome}" />
+			</m:column>
+		</m:dataTable>
+
+	</h:form>
+
+	<h:form>
+		<m:switch value="true" />
+		<m:switch value="true" />
+		<h:commandButton value="OK" />
+	</h:form>
+
+	<!-- 	<div> -->
+	<!-- 		<ul class="pagination pagination"> -->
+	<!-- 			<li><a href="#" class="icon-search"></a></li> -->
+	<!-- 			<li><a href="#">2</a></li> -->
+	<!-- 			<li><a href="#">3</a></li> -->
+	<!-- 			<li><a href="#">4</a></li> -->
+	<!-- 			<li><a href="#">5</a></li> -->
+	<!-- 		</ul> -->
+	<!-- 	</div> -->
+
+</h:body>
+</html>

@@ -1,0 +1,48 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:util="http://xmlns.jcp.org/jsf/composite/components">
+
+	<ui:define name="titulo">Composite Components</ui:define>
+	<ui:define name="conteudo">
+
+		<h5>Componente que exibe o valor do cabecalho HTTP</h5>
+		<util:showHeader showDetails="true" showCaption="false" />
+
+		<h5>Componente de cadastro</h5>
+		<h:form>
+			<util:cadastro usuario="#{compositeBean.usuario}" senha="#{compositeBean.senha}" id="cadastro"
+				dataNascimento="#{compositeBean.nascimento}" acaoCadastrar="#{compositeBean.showMensagem}">
+
+				<!-- Os componentes referenciados em 'for' foram expostos no componente composto -->
+				<f:validateRequired for="usuario" />
+				<f:validateRequired for="senha" />
+				<f:validateRequired for="dataNascimento" />
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy" for="dataNascimento" />
+
+				<!-- Facets suportados pelo componente -->
+				<f:facet name="header">
+					<h:outputText value="Dados Cadastrais" />
+				</f:facet>
+				<f:facet name="footer">
+					<p>#{compositeBean.mensagem}</p>
+				</f:facet>
+
+				<h:link outcome="/index" value="Index" />
+			</util:cadastro>
+		</h:form>
+
+		<h5>Componente de data</h5>
+		<h:form>
+			<util:date value="#{compositeBean.data}" />
+			<p>
+				Data:
+				<h:outputText value="#{compositeBean.data}">
+					<f:convertDateTime type="date" dateStyle="medium" />
+				</h:outputText>
+			</p>
+			<h:commandButton value="OK" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>

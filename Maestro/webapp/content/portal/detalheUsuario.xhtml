@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head />
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<div class="conteudo">
+			<f:view>
+				<h:form id="cadastroUsuarioForm">
+					<h:panelGrid styleClass="container">
+						<h:outputText value="#{msgs.label_cadastro}" styleClass="titulo" />
+						<p:spacer styleClass="spacerTitulo" />
+						<p:fieldset>
+							<h:panelGrid columns="2" cellspacing="5" cellpadding="2">
+								<h:outputLabel value="#{msgs.label_nome_completo}" />
+								<p:inputText size="60" maxlength="60" value="#{usuarioBean.viewHelper.usuario.nome}" required="true"
+									requiredMessage="Nome necessário." />
+
+								<h:outputLabel value="#{msgs.label_cpf}" />
+								<p:inputMask size="15" mask="999.999.999-99" value="#{usuarioBean.viewHelper.usuario.cpf}" required="true"
+									requiredMessage="CPF necessário." />
+
+								<h:outputLabel value="#{msgs.label_sexo}" />
+								<p:selectOneMenu value="#{usuarioBean.viewHelper.usuario.sexo}">
+									<f:selectItem itemLabel="#{msgs.label_masculino}" itemValue="M" />
+									<f:selectItem itemLabel="#{msgs.label_feminino}" itemValue="F" />
+								</p:selectOneMenu>
+
+								<h:outputLabel value="#{msgs.label_data_nascimento}" />
+								<p:calendar pattern="dd/MM/yyyy" value="#{usuarioBean.viewHelper.usuario.dataNascimento}" autocomplete="true"
+									navigator="true" yearRange="c-50" onkeypress="return mascaraData(this,event)" />
+
+								<h:outputLabel value="#{msgs.label_telefone_residencial}" />
+								<p:inputMask size="15" mask="(99)9999-9999" value="#{usuarioBean.viewHelper.usuario.telefone}" />
+
+								<h:outputLabel value="#{msgs.label_telefone_celular}" />
+								<p:inputMask size="15" mask="(99)99999-9999" value="#{usuarioBean.viewHelper.usuario.celular}" />
+
+								<h:outputLabel value="#{msgs.label_email} (#{msgs.label_login})" />
+								<p:inputText size="60" value="#{usuarioBean.viewHelper.usuario.email}" required="true"
+									requiredMessage="Email necessário.">
+									<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</p:inputText>
+
+								<h:outputLabel value="Senha" />
+								<p:password id="senhaOriginal" match="senhaConfirmada" maxlength="12" feedback="true" required="true"
+									requiredMessage="Por favor insira uma senha." strongLabel="#{msgs.label_senha_forte}"
+									weakLabel="#{msgs.label_senha_fraca}" goodLabel="#{msgs.label_senha_bom}"
+									promptLabel="#{msgs.msg_prompt_senha}" validatorMessage="As senhas não conferem!"
+									value="#{usuarioBean.viewHelper.usuario.senha}" redisplay="true" />
+
+								<h:outputLabel value="#{msgs.label_confirma_senha}" />
+								<p:password id="senhaConfirmada" maxlength="12" redisplay="true" value="#{usuarioBean.viewHelper.usuario.senha}" />
+
+							</h:panelGrid>
+							<p:messages id="messages" showDetail="false" autoUpdate="true" />
+							<p:commandButton value="#{msgs.label_confirmar_alteracoes}" action="#{usuarioBean.alterarCadastro}"
+								update=":cadastroUsuarioForm" />
+						</p:fieldset>
+					</h:panelGrid>
+					<h:inputHidden value="#{usuarioBean.viewHelper.usuario.idUsuario}" />
+				</h:form>
+			</f:view>
+		</div>
+	</ui:define>
+</ui:composition>
+
+<f:verbatim>
+	<script></script>
+</f:verbatim>
+
+</html>

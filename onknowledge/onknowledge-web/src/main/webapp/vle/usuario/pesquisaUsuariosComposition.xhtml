@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<div class="row">
+		<section class="col col-3">
+			<label class="label">#{msgs['label.nome']}</label> <label class="input"><i class="icon-append fa fa-user"></i> <h:inputText
+					value="#{usuarioMB.usuario.nome}" pt:placeholder="#{msgs['msg.informe.nome.usuario']}" maxlength="100" onblur="alpha(this, true)" /> </label>
+		</section>
+
+		<section class="col col-3">
+			<label class="label">#{msgs['label.sobrenome']}</label> <label class="input"><i class="icon-append fa fa-user"></i> <h:inputText
+					value="#{usuarioMB.usuario.sobrenome}" pt:placeholder="#{msgs['msg.informe.sobrenome.usuario']}" maxlength="300"
+					onblur="alpha(this, true)" /> </label>
+		</section>
+
+		<section class="col col-3">
+			<label class="label">#{msgs['label.login']}</label> <label class="input"><i class="icon-append fa fa-user"></i> <h:inputText
+					value="#{usuarioMB.usuario.login}" pt:placeholder="#{msgs['msg.informe.login.usuario']}" maxlength="100" /> </label>
+		</section>
+
+		<section class="col col-3">
+			<label class="label">#{msgs['label.email']}</label> <label class="input #{!component.findComponent('email').valid ? 'state-error' : ''}"><i
+				class="icon-append fa fa-envelope-o"></i> <h:inputText value="#{usuarioMB.usuario.email}"
+					pt:placeholder="#{msgs['msg.informe.email.usuario']}" maxlength="100" id="email" /></label><em class="invalid"> <h:message for="email" /></em>
+		</section>
+	</div>
+
+	<div class="row">
+		<section class="col col-2">
+			<label class="label">#{msgs['label.cadastrado.desde']}</label> <label
+				class="input #{!component.findComponent('dataInicial').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-calendar"></i>
+				<h:inputText value="#{usuarioMB.usuario.dataCadastro}" pt:placeholder="#{msgs['label.de']}" styleClass="datepicker"
+					pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" id="dataInicial"
+					converterMessage="#{msgs['msg.validacao.data.invalida']}">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+				</h:inputText>
+			</label><em class="invalid"> <h:message for="dataInicial" /></em>
+		</section>
+
+		<section class="col col-2">
+			<label class="label">#{msgs['label.ate']}</label> <label
+				class="input #{!component.findComponent('dataFinal').valid ? 'state-error' : ''}"> <i class="icon-append fa fa-calendar"></i> <h:inputText
+					value="#{usuarioMB.usuario.dataCadastroFinal}" pt:placeholder="#{msgs['label.ate']}" styleClass="datepicker" pt:data-mask="99/99/9999"
+					pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" id="dataFinal">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+				</h:inputText>
+			</label><em class="invalid"> <h:message for="dataFinal" /></em>
+		</section>
+
+		<section class="col col-2" jsf:rendered="#{usuarioMB.usuario.class.simpleName eq 'Aluno'}">
+			<label class="label">#{msgs['label.turma']}</label> <label class="input"><i class="icon-append fa fa-group"></i> <h:inputText
+					value="#{usuarioMB.usuario.turma.codigo}" pt:placeholder="#{msgs['msg.informe.codigo.turma']}" maxlength="10" id="turma"
+					pt:data-autocomplete-source="#{request.contextPath}/ws/turma/listaCodigosTurmas?q=" /> </label>
+		</section>
+
+		<section class="col col-3" jsf:rendered="#{usuarioMB.usuario.class.simpleName eq 'Aluno'}">
+			<label class="label">#{msgs['label.curso']}</label> <label class="input"><i class="icon-append fa fa-graduation-cap"></i> <h:inputText
+					value="#{usuarioMB.usuario.turma.curso.nome}" pt:placeholder="#{msgs['msg.informe.curso']}" maxlength="100" id="curso"
+					pt:data-autocomplete-source="#{request.contextPath}/ws/curso/listaNomesCursos?q=" /> </label>
+		</section>
+
+		<section class="col col-3" jsf:rendered="#{usuarioMB.usuario.class.simpleName ne 'Usuario'}">
+			<label class="label">#{msgs['label.disciplina']}</label> <label class="input"><i class="icon-append fa fa-header"></i> <h:inputText
+					value="#{usuarioMB.usuario.disciplinas[0].nome}" pt:placeholder="#{msgs['msg.informe.disciplina']}" maxlength="113" id="disciplina"
+					pt:data-autocomplete-source="#{request.contextPath}/ws/disciplina/listaNomesDisciplinas?q=" /> </label>
+		</section>
+
+		<section class="col col-3" jsf:rendered="#{usuarioMB.usuario.class.simpleName eq 'Professor'}">
+			<o:importConstants type="br.com.ok.model.enums.PerfilUsuario" />
+			<label class="label">#{msgs['label.perfil']}</label> <label class="select"> <h:selectOneMenu
+					value="#{usuarioMB.usuario.perfil.descricao}" converter="omnifaces.SelectItemsConverter">
+					<f:selectItem itemLabel="#{PerfilUsuario.PROFESSOR}" itemValue="#{PerfilUsuario.PROFESSOR}" />
+					<f:selectItem itemLabel="#{PerfilUsuario.COORDENADOR}" itemValue="#{PerfilUsuario.COORDENADOR}" />
+					<f:selectItem itemLabel="#{msgs['label.ambos']}" itemValue="#{null}" />
+				</h:selectOneMenu><i />
+			</label>
+		</section>
+	</div>
+</ui:composition>

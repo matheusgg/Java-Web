@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="financeiroDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:/comp/env/jdbc/FinanceiroDB</value>
+		</property>
+	</bean>
+	
+	<!-- No GlasshFish, o datasource é configurado diretamente no servidor sem a necessidade
+		do context.xml
+	<bean id="financeiroDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>jdbc/FinanceiroDB</value>
+		</property>
+	</bean> -->
+	
+	<!-- Configurações da conexão com o banco sem a utilização da Datasource
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <property name="url" value="jdbc:mysql://localhost:3306/financeiro" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </b:bean>  -->
+</beans>

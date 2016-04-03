@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Concurrency</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h1>Concurrency</h1>
+		<h:form>
+			<h:commandButton action="#{concurrencyMB.runTask()}" value="Run Task" />
+			<h:commandButton action="#{concurrencyMB.schedule()}" value="Schedule" />
+		</h:form>
+
+		<h3>ManagedExecutorService</h3>
+		#{concurrencyMB.mes}
+		
+		<h3>UserTransaction</h3>
+		#{concurrencyMB.transaction}
+		
+		<h3>ManagedScheduledExecutorService</h3>
+		#{concurrencyMB.mses}
+		
+		<h3>ManagedThreadFactory</h3>
+		#{concurrencyMB.mtf}
+	</h:form>
+</h:body>
+</html>

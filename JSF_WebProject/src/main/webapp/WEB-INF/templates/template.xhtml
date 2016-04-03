@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="titulo">App</ui:insert></title>
+	<h:outputStylesheet name="estilo.css" />
+</h:head>
+<h:body>
+	<div class="principal">
+		<div class="cabecalho">
+			<ui:include src="cabecalho.xhtml">
+				<!-- É possível passar parâmetros para outras páginas através do componente ui:param, desta forma,
+				esta lista estará disponível para acesso na página cabecalho.xhtml -->
+				<ui:param name="lista" value="#{appBean.lista}" />
+			</ui:include>
+		</div>
+		<div class="corpo">
+			<ui:insert name="corpo" />
+		</div>
+		<div class="rodape">
+			<ui:include src="rodape.xhtml" />
+		</div>
+	</div>
+	<h:form id="dialogForm">
+		<p:dialog modal="true" closable="false" draggable="false"
+			resizable="false" widgetVar="modal" header="RequestContext">
+			<h:panelGrid style="margin: 0 auto;">
+				<h:outputText value="Modal executado a partir de AppBean" />
+			</h:panelGrid>
+			<h:panelGrid style="margin: 0 auto;">
+				<p:commandButton value="OK" onclick="modal.hide()" />
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

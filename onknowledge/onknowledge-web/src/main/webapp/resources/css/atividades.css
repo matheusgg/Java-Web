@@ -1,0 +1,49 @@
+.bootstrap-tagsinput .tag {
+	color: #FFF !important;
+	position: relative;
+	margin: 3px 0 3px 2px;
+	display: inline-block !important;
+}
+
+.bootstrap-tagsinput input {
+	display: inline !important;
+	border: none !important;
+}
+
+.tag.label.label-info span {
+	padding: 5px 0 0 5px !important;
+}
+
+.input-file .button {
+	margin-top: 2px !important;
+}
+
+.tag-link {
+	color: #fff !important;
+}
+
+.tag-link:hover {
+	color: #fff !important;
+}
+
+.atividade-fieldset {
+	width: 96% !important;
+	margin-top: 25px !important;
+	border: none !important;
+}
+
+.ui-fieldset-legend .ui-fieldset-toggler {
+	margin-top: 3px !important;
+}
+
+.anexos-section {
+	margin-bottom: 50px !important;
+}
+
+.tabela-questoes {
+	margin-bottom: 10px !important;
+}
+
+.checks-alternativa-correta {
+	margin-top: 22px !important;
+}

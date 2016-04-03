@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Configuracao para que o Spring detecte classes anotadas com @Component -->
+	<context:annotation-config />
+
+	<!-- Informa par o Spring quais pacotes ele deve escanear a procura de classes anotadas -->
+	<context:component-scan base-package="br.com.spring.login" />
+	<context:component-scan base-package="br.com.spring.model.dao" />
+
+	<!-- Importa o arquivo de configuracao do SpringSecurity -->
+	<import resource="applicationContext-security.xml" />
+
+	<!-- Definicao dos beans necessários para trabalhar com injeção de EntityManager -->
+	<beans>
+		<!-- Este bean é responsável por criar um EntityManagerFactory compartilhado a partir do persistence unit informado -->
+		<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+			<property name="persistenceUnitName" value="SpringSecProject" />
+		</bean>
+
+		<!-- Bean responsavel por habilitar a utilizacao das anotacoes @PersistenceContext e @PersistenceUnit nos beans do Spring -->
+		<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+		<!-- Customiza as mensagens do Spring Security -->
+		<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> -->
+		<!-- <property name="basenames" value="br.com.spring.messages.customMessages" /> -->
+		<!-- </bean> -->
+	</beans>
+</beans>

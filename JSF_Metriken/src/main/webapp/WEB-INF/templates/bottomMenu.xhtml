@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<h:panelGrid columns="2" style="width: 100%;" styleClass="colorWhite">
+			<h:panelGrid styleClass="divBottom1">
+				<h:panelGroup>
+					<table style="text-align: center;">
+						<tr>
+							<td><h:link styleClass="tile-btn" outcome="pretty:apf"
+									style="background: none !important; width: 50px; height:15px;margin-bottom: 20px;">
+									<i class="icon-list-alt" style="color: #FFF"></i>
+								</h:link></td>
+							<td><h:link styleClass="tile-btn" outcome="pretty:apf"
+									style="background: none !important; width: 50px; height:15px;margin-bottom: 20px;">
+									<i class="icon-bar-chart" style="color: #FFF"></i>
+								</h:link></td>
+							<td><h:link styleClass="tile-btn" outcome="pretty:apf"
+									style="background: none !important; width: 50px; height:15px;margin-bottom: 20px;">
+									<i class="icon-folder-close" style="color: #FFF"></i>
+								</h:link></td>
+							<td><h:link styleClass="tile-btn" outcome="pretty:apf"
+									style="background: none !important; width: 50px; height:15px;margin-bottom: 20px;">
+									<i class="icon-tasks" style="color: #FFF"></i>
+								</h:link></td>
+							<td><h:link styleClass="tile-btn" outcome="pretty:apf"
+									style="background: none !important; width: 50px; height:15px;margin-bottom: 20px;">
+									<i class="icon-edit" style="color: #FFF"></i>
+								</h:link></td>
+							<td><h:link styleClass="tile-btn" outcome="pretty:apf"
+									style="background: none !important; width: 50px; height:15px;margin-bottom: 20px;">
+									<i class="icon-th-list" style="color: #FFF"></i>
+								</h:link></td>
+						</tr>
+						<tr>
+							<td>#{msgs.lbl_apf}</td>
+							<td>#{msgs.lbl_nesma}</td>
+							<td>#{msgs.lbl_cosmic}</td>
+							<td>#{msgs.lbl_uksma}</td>
+							<td>#{msgs.lbl_fisma}</td>
+							<td>#{msgs.lbl_ucp}</td>
+						</tr>
+					</table>
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<h:panelGrid columns="4" cellpadding="30" width="100%;">
+				<h:panelGroup>
+					<div>
+						<ul>
+							<li>Link</li>
+							<li>Link</li>
+							<li>Link</li>
+						</ul>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<div>
+						<ul>
+							<li>Link</li>
+							<li>Link</li>
+							<li>Link</li>
+						</ul>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<div>
+						<ul>
+							<li>Link</li>
+							<li>Link</li>
+							<li>Link</li>
+						</ul>
+					</div>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h1>
+						<h:link outcome="pretty:login" value="#{msgs.lbl_metriken}" styleClass="colorWhite" />
+					</h1>
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:panelGrid>
+	</h:form>
+</ui:composition>

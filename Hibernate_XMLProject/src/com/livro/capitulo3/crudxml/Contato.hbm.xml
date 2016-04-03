@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//HIBERNATE/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Tag principal que especifica o pacote onde a classe está localizada 
+	(Opcional) -->
+<hibernate-mapping package="com.livro.capitulo3.crudxml">
+	<class name="Contato" table="contato"> <!-- Tag que especifica a classe que será mapeada, incluindo o nome da tabela 
+			correspondente no banco (opcional se o nome da tabela foi igual ao da classe) -->
+		<id name="codigo" column="codigo"> <!-- Identifica a chave primária da tabela -->
+			<generator class="increment" /> <!-- Identifica como a chave será gerada -->
+		</id>
+		<!-- Atributos da classe -->
+		<property name="nome" />
+		<property name="telefone" />
+		<property name="email" />
+		<property name="dataCadastro" type="date" column="dt_cad" /> <!-- Caso o nome da coluna foi diferente ao da classe, utiliza-se o atributo 
+			column -->
+		<property name="observacao" type="string" column="obs" /> <!-- O atributo type especifica o tipo do atributo (opcional) -->
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<h:form id="languageForm">
+		<ul class="languages-dropdown #{!prettyContext.currentViewId.contains('/vle') or empty prettyContext.currentMapping.id ? '' : 'dropup'}">
+			<li><a href="#" class="dropdown-toggle languages-dropdown-color" data-toggle="dropdown"> <img
+					src="#{request.contextPath}-resources/img/blank.gif" class="flag flag-#{okSessionMB.currentLocale.country.toLowerCase()}"
+					alt="#{okSessionMB.currentLocale.getDisplayLanguage(okSessionMB.currentLocale).toLowerCase()}" /> <span>
+						#{okSessionMB.currentLocale.getDisplayLanguage(okSessionMB.currentLocale).toLowerCase()} </span> <i class="fa fa-angle-down" />
+			</a>
+				<ul class="dropdown-menu pull-right">
+					<li class="#{okSessionMB.currentLocale eq 'pt_BR' ? 'active' : ''}"><h:commandLink
+							action="#{okSessionMB.alteraIdioma('pt', 'BR')}" immediate="true">
+							<img src="#{request.contextPath}-resources/img/blank.gif" class="flag flag-br" alt="#{msgs['label.portugues']}" /> #{msgs['label.portugues']}</h:commandLink></li>
+					<li class="#{okSessionMB.currentLocale eq 'es_ES' ? 'active' : ''}"><h:commandLink
+							action="#{okSessionMB.alteraIdioma('es', 'ES')}" immediate="true">
+							<img src="#{request.contextPath}-resources/img/blank.gif" class="flag flag-es" alt="#{msgs['label.espanhol']}" /> #{msgs['label.espanhol']}</h:commandLink></li>
+					<li class="#{okSessionMB.currentLocale eq 'en_US' ? 'active' : ''}"><h:commandLink
+							action="#{okSessionMB.alteraIdioma('en', 'US')}" immediate="true">
+							<img src="#{request.contextPath}-resources/img/blank.gif" class="flag flag-us" alt="#{msgs['label.ingles']}" /> #{msgs['label.ingles']}</h:commandLink></li>
+				</ul></li>
+		</ul>
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	<display-name>JSPWebProject</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Com isso, o mapeamento configurado na servlet sera utilizado. Caso um mapeamento de servlet estivesse sido declarado aqui, ele 
+		sobrescreveria o mapeamento da anotacao -->
+	<!-- <servlet> -->
+	<!-- <servlet-name>mapeamento.servlets.AppServlet</servlet-name> -->
+	<!-- <servlet-class>mapeamento.servlets.AppServlet</servlet-class> -->
+	<!-- </servlet> -->
+
+	<!-- Como isso tanto o mapeamento configurado na anotacao do filtro e este mapeamento serao utilizados -->
+	<filter-mapping>
+		<filter-name>mapeamento.filters.AppFilter</filter-name>
+		<url-pattern>/AppServlet</url-pattern>
+	</filter-mapping>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>/*</url-pattern>
+
+			<!-- Com essa configuracao, expressoes EL serao ignoradas nas paginas desse grupo e nao serao avaliadas -->
+			<el-ignored>true</el-ignored>
+
+			<!-- Define um page-encode padrao para todas as paginas desse grupo, caso alguma pagina possua um page-encoding diferente deste, 
+				o tradutor lancara uma excecao -->
+			<page-encoding>UTF-8</page-encoding>
+
+			<!-- Habilita ou desabilita a utilizacao de scripts nas paginas desse grupo -->
+			<scripting-invalid>false</scripting-invalid>
+
+			<!-- Inclui o conteudo de page.jsp antes do conteudo de qualquer pagina desse grupo -->
+			<include-prelude>/page.jsp</include-prelude>
+
+			<!-- Inclui o conteudo de page.jsp depois do conteudo de qualquer pagina desse grupo -->
+			<include-coda>/page.jsp</include-coda>
+
+			<!-- Define se os caracteres "#{" reservados para expressoes EL deverao ser ignorados, caso positivo (true), a expressao EL nao 
+				sera avaliada -->
+			<deferred-syntax-allowed-as-literal>true</deferred-syntax-allowed-as-literal>
+
+			<!-- Com esta configuracao, caso uma tag seja utilizada em uma pagina desse grupo e nao possua um namespace declarado, o tradutor 
+				lancara uma excecao -->
+			<error-on-undeclared-namespace>true</error-on-undeclared-namespace>
+		</jsp-property-group>
+	</jsp-config>
+</web-app>

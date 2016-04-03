@@ -1,0 +1,108 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.turmas']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.turmas']} > #{msgs['label.pesquisa']}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{cursoMB.pesquisaCursos()}" />
+			<f:viewAction action="#{turmaMB.preparaPesquisaTurmas()}" />
+		</f:metadata>
+
+		<o:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+				<fieldset>
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">#{msgs['label.codigo']}</label> <label class="input"><i class="icon-append fa fa-barcode"></i> <h:inputText
+									id="codigo" value="#{turmaMB.turma.codigo}" pt:placeholder="#{msgs['msg.informe.codigo.turma']}" maxlength="10"
+									onblur="alphaNumeric(this, false)" /> </label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.inicio']}</label> <label
+								class="input #{!component.findComponent('dataInicio').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataInicio" value="#{turmaMB.turma.dataInicio}" pt:placeholder="#{msgs['msg.informe.data.inicio']}"
+									pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" styleClass="datepicker">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataInicio" /></em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.data.termino']}</label> <label
+								class="input #{!component.findComponent('dataTermino').valid ? 'state-error' : ''}"><i class="icon-append fa fa-calendar"></i>
+								<h:inputText id="dataTermino" value="#{turmaMB.turma.dataEncerramento}" pt:placeholder="#{msgs['msg.informe.data.termino']}"
+									pt:data-mask="99/99/9999" pt:data-dateformat="dd/mm/yy" pt:data-mask-placeholder="-" styleClass="datepicker">
+									<f:convertDateTime pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:inputText> </label><em class="invalid"> <h:message for="dataTermino" /></em>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.curso']}</label> <label class="select"> <h:selectOneMenu id="curso"
+									value="#{turmaMB.turma.curso}" converter="omnifaces.SelectItemsConverter">
+									<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+									<f:selectItems value="#{cursoMB.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" />
+								</h:selectOneMenu> <i />
+							</label>
+						</section>
+					</div>
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.selecionar']}" styleClass="btn btn-primary" action="#{turmaMB.selecionaTurmas()}"
+						rendered="#{!empty turmaMB.callerPage}">
+						<o:ignoreValidationFailed />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.nova.turma']}" styleClass="btn btn-primary" action="pretty:classRegister" immediate="true"
+						rendered="#{okSecurityContext.isUserInRole('ADMIN') and empty turmaMB.callerPage}" />
+					<h:commandButton value="#{msgs['label.limpar']}" styleClass="btn btn-primary" action="#{turmaMB.init()}" immediate="true">
+						<f:setPropertyActionListener value="#{null}" target="#{turmaMB.turmasDataModel.wrappedData}" />
+						<f:setPropertyActionListener value="0" target="#{turmaMB.turmasDataModel.rowCount}" />
+						<f:ajax render="@form" onevent="initPage" execute="@this" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.pesquisar']}" styleClass="btn btn-primary">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+
+				<fieldset>
+					<section>
+						<p:dataTable value="#{turmaMB.turmasDataModel}" var="turma" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+							lazy="true" rows="10" emptyMessage="#{msgs['msg.nenhum.registro.encontrado']}"
+							currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowKey="#{turma}"
+							selection="#{turmaMB.turmasSelecionadas}">
+							<p:column selectionMode="#{!empty turmaMB.selectionMode ? turmaMB.selectionMode : 'multiple'}"
+								rendered="#{!empty turmaMB.callerPage}" width="20" />
+							<p:column headerText="#{msgs['label.codigo']}">
+								#{turma.codigo}
+							</p:column>
+							<p:column headerText="#{msgs['label.data.inicio']}">
+								<h:outputText value="#{turma.dataInicio}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" timeZone="#{okSessionMB.currentTimeZone}" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="#{msgs['label.data.termino']}">
+								<h:outputText value="#{turma.dataEncerramento}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="#{okSessionMB.currentLocale}" timeZone="#{okSessionMB.currentTimeZone}" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="#{msgs['label.curso']}">
+								#{turma.curso.nome}
+							</p:column>
+							<p:column styleClass="ok-align-center" width="20" rendered="#{okSecurityContext.isUserInRole('ADMIN')}">
+								<h:commandLink title="#{msgs['label.editar']}" action="#{turmaMB.preparaEdicaoTurma(turma.id)}">
+									<i class="fa fa-edit" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</section>
+				</fieldset>
+			</div>
+		</o:form>
+	</ui:define>
+</ui:composition>

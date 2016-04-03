@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<h:form prependId="false">
+			<p:growl />
+			<br />
+
+			<!-- E possivel definir atributos para componentes visuais atraves do componente f:attribute -->
+
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Numero" />
+				<h:inputText value="#{appBean.numero}" validator="numberValidator">
+					<f:attribute name="campoNumero" value="100" />
+				</h:inputText>
+
+				<h:outputLabel value="Endereco" />
+				<h:inputText value="#{appBean.endereco}" />
+
+				<h:outputLabel value="Idade" />
+				<h:inputText value="#{appBean.idade}" />
+			</h:panelGrid>
+			<p:separator />
+			<h:commandButton value="Pagina 1"
+				action="/admin/page2?faces-redirect=true" />
+		</h:form>
+	</ui:define>
+</ui:composition>

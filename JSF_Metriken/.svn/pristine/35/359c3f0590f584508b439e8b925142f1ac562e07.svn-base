@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<!-- Modal -->
+	<div id="messagesModal" class="modal hide fade" data-show="false">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<h3 class="#{sessionScope.tipoModal eq 'erro' ? 'colorH1ErrorModalClass' : ''}">
+				<h:outputText value="#{msgs.lbl_titulo_modal}" id="tituloModal" />
+			</h3>
+		</div>
+		<div class="modal-body" align="center">
+			<p class="#{sessionScope.tipoModal eq 'erro' ? 'colorH1ErrorModalClass' : ''}">
+				<h:outputText value="#{msgs.lbl_msg_modal}" id="textModal" />
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button class="#{sessionScope.tipoModal eq 'info' ? 'btn btn-primary' : 'btn btn-danger'}" data-dismiss="modal"
+				aria-hidden="true">#{msgs.lbl_ok}</button>
+		</div>
+	</div>
+</ui:composition>

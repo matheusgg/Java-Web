@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<p:panelGrid>
+		<f:facet name="header">
+			<p:row>
+				<p:column colspan="3">Produtos</p:column>
+			</p:row>
+			<p:row>
+				<p:column>Imagem</p:column>
+				<p:column>Preco</p:column>
+				<p:column>Detalhar</p:column>
+			</p:row>
+		</f:facet>
+		<p:row>
+			<p:column>
+				<h:graphicImage name="#{produto.nome}.jpg" library="img" height="50"
+					width="50" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{produto.nome}" />
+				<br />
+				<h:outputText value="#{produto.preco}">
+					<f:convertNumber type="currency" />
+				</h:outputText>
+			</p:column>
+			<p:column style="text-align:center;">
+				<p:selectBooleanCheckbox value="#{produto.detalhar}" />
+			</p:column>
+		</p:row>
+		<f:facet name="footer">
+			<p:row>
+				<p:column colspan="3">
+				Descricao do produto.
+				</p:column>
+			</p:row>
+		</f:facet>
+	</p:panelGrid>
+
+	<br />
+</ui:composition>

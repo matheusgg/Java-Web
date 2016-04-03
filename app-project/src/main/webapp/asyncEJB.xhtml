@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Async EJB</title>
+</h:head>
+<h:body>
+	<h1>Async EJB</h1>
+	<h:form>
+		<p:messages />
+		<p:commandButton value="Test" ajax="false" action="#{asyncMB.test()}" />
+	</h:form>
+</h:body>
+</html>

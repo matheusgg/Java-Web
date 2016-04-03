@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf133374113536214" configfile="/Pessoas/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="buscar" id="pf133374116178615" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" outlinks="pf133374116178616 pf133374116178617 pf133374287206027" inlinks="pf133374287206027" path="/buscar.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="sucesso_busca" id="pf133374116178618" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf133374116178616" path="/sucesso_busca.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="falha_busca" id="pf133374116178619" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf133374116178617" path="/falha_busca.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="inserir" id="pf133374116178620" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" outlinks="pf133374116178621 pf133374116178622 pf133374258051125" inlinks="pf133374258051125" path="/inserir.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="sucesso_insercao" id="pf133374116178623" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf133374116178621" path="/sucesso_insercao.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="falha_insercao" id="pf133374116178624" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" inlinks="pf133374116178622" path="/falha_insercao.jsp"/>
+  <links id="pf133374116178616" target="pf133374116178618" source="pf133374116178615" outcome="success"/>
+  <links id="pf133374116178617" target="pf133374116178619" source="pf133374116178615" outcome="failure"/>
+  <links id="pf133374116178621" target="pf133374116178623" source="pf133374116178620" outcome="success"/>
+  <links id="pf133374116178622" target="pf133374116178624" source="pf133374116178620" outcome="failure"/>
+  <links id="pf133374258051125" target="pf133374116178620" source="pf133374116178620" outcome="clean"/>
+  <links id="pf133374287206027" target="pf133374116178615" source="pf133374116178615" outcome="clean"/>
+</pageflow:Pageflow>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Enviando email com CommonsMail</title>
+</h:head>
+<h:body>
+	<h:form id="formulario">
+		<p:growl />
+		<h:panelGrid columns="2">
+			<f:facet name="header">Enviando e-mail com CommonsMail</f:facet>
+			<h:outputLabel value="De:" />
+			<h:inputText value="#{commonsMailBean.de}" required="true" />
+
+			<h:outputLabel value="Para:" />
+			<h:inputText value="#{commonsMailBean.para}" required="true" />
+
+			<h:outputLabel value="Cc:" />
+			<h:inputText value="#{commonsMailBean.destinatariosNormais}" />
+
+			<h:outputLabel value="Bcc:" />
+			<h:inputText value="#{commonsMailBean.destinatariosOcultos}" />
+
+			<h:outputLabel value="Assunto:" />
+			<h:inputText value="#{commonsMailBean.assunto}" required="true" />
+
+			<h:outputLabel value="Mensagem" />
+			<p:editor value="#{commonsMailBean.mensagem}" />
+
+			<h:outputLabel value="Anexo:" />
+			<h:inputText value="#{commonsMailBean.anexo}" />
+		</h:panelGrid>
+		<h:commandButton value="Enviar e-mail autenticado com anexo"
+			action="#{commonsMailBean.enviarAutenticado()}" />
+		<h:commandButton value="Enviar e-mail simples"
+			action="#{commonsMailBean.enviarSimples()}" />
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Informações referentes a conexão com o banco -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+			<property name="connection.url">jdbc:mysql://localhost:3306/financeiro</property> 
+			<property name="connection.username">root</property> <property name="connection.password">root</property> -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Parâmetro de controle da estrutura DDL do banco, update faz com que 
+			a estrutura seja atualizada conforme as classes mapeadas no sistema toda 
+			vez que a SessionFactory é criada. As opções são validate | update 
+			| create | create-drop -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<!-- Informações referentes ao DataSource de conexão -->
+		<property name="connection.datasource">java:/comp/env/jdbc/FinanceiroDB</property>
+		<!-- Configuração específica para o servidor GlassFish -->
+		<!-- <property name="connection.datasource">jdbc/FinanceiroDB</property> -->
+
+		<!-- Usando as configurações do C3PO para pool de conexões -->
+		<!-- <property name="c3po.min_size">5</property> <property name="c3po.max_size">20</property> 
+			<property name="c3po.timeout">300</property> <property name="c3po.max_statements">50</property> 
+			<property name="c3po.idle_test_period">3000</property> -->
+
+		<!-- Linhas referentes a saída dos comandos SQL no Console -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+
+		<!-- Classes Mapeadas -->
+		<mapping class="financeiro.usuario.Usuario" />
+		<mapping class="financeiro.conta.Conta" />
+		<mapping class="financeiro.categoria.Categoria" />
+		<mapping class="financeiro.lancamento.Lancamento" />
+		<mapping class="financeiro.entidade.Entidade" />
+		<mapping class="financeiro.cheque.Cheque" />
+		<mapping class="financeiro.bolsa.acao.Acao" />
+	</session-factory>
+</hibernate-configuration>

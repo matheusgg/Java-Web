@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Email Project</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl />
+		<h:panelGrid columns="2">
+			<h:outputText value="De" />
+			<p:inputText value="#{emailBean.de}" />
+
+			<h:outputText value="Para" />
+			<p:inputText value="#{emailBean.para}" />
+
+			<h:outputText value="Assunto" />
+			<p:inputText value="#{emailBean.assunto}" />
+
+			<h:outputText value="Anexo" />
+			<p:inputText value="#{emailBean.caminhoAnexo}" />
+
+			<h:outputText value="Mensagem" />
+			<p:editor value="#{emailBean.mensagem}" />
+
+			<p:commandButton action="#{emailBean.sendMail}" value="Enviar"
+				update=":form" />
+			<p:commandButton type="reset" value="Limpar" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,9 @@
+<div style="background-color: #F0F0F0; padding: 1% !important">
+		<link type="text/css" rel="stylesheet" href="$serverURL/onknowledge/javax.faces.resource/onknowledge-fonts.css.xhtml?ln=css" media="screen" />
+		<div
+			style="font-family: arial, helvetica, sans-serif; font-size: 14px; line-height: 20px; background-color: #ffffff; color: #444; margin: 0 auto; width: 80%; border: 1px solid gray; padding: 3% !important;">
+			<a href="$serverURL/onknowledge/start" id="j_idt11"> <img src="$serverURL/onknowledge-resources/img/logo-gray.png" alt="OnKnowledge" />
+			</a>
+			#parse($template)
+		</div>
+</div>

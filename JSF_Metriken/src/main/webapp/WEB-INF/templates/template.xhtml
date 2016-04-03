@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<!-- Title: -->
+	<title><ui:insert name="title">
+	#{msgs.lbl_metriken}
+		</ui:insert></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Metricas e BI" />
+	<meta name="author" content="Ulisses, Matheus, Gustavo e Rodrigo" />
+
+	<!-- Le styles -->
+	<h:outputStylesheet name="css/application.css" />
+	<h:outputStylesheet name="css/bootstrap-datepicker.css" />
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="fonts/font-awesome/css/font-awesome.min.css" />
+	<h:outputStylesheet name="fonts/icomoon-pack-madmin-1.5/style.css" />
+	<h:outputStylesheet name="styles/style.css" />
+
+	<!-- Google Code Prettyfy - source-code highlighter -->
+	<h:outputStylesheet name="js/libs/google-code-prettify/prettify.css" />
+	<!-- jQuery Page Slide Plugin -->
+	<h:outputStylesheet name="js/libs/jquery.pageslide/jquery.pageslide.css" />
+	<!-- jQuery Table Sorter Plugin -->
+	<h:outputStylesheet name="js/libs/jquery.tablesorter/themes/blue/style.css" />
+	<h:outputStylesheet name="js/libs/jquery.tablesorter/addons/pager/jquery.tablesorter.pager.css" />
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('input[onselect="datePicker"]').datepicker({
+				language : '#{facesContext.application.defaultLocale.language}'
+			});
+		});
+	</script>
+</h:head>
+
+<h:body styleClass="sidebar-max">
+	<f:view locale="#{facesContext.application.defaultLocale}">
+
+		<!--============================= Page Body =================================-->
+
+		<ui:include src="/WEB-INF/templates/topMenu.xhtml" />
+
+
+		<div class="container-fluid" id="container">
+
+			<ui:insert name="leftMenu">
+				<ui:include src="/WEB-INF/templates/leftMenu.xhtml" />
+			</ui:insert>
+
+			<div id="content">
+				<div class="page" id="page-dashboard">
+					<ui:include src="/WEB-INF/templates/shortcuts.xhtml" />
+
+					<div class="row-fluid" style="width: 100%; overflow: auto;">
+						<ui:insert name="form" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--============================= Modais =================================-->
+		<h:form id="modaisForm">
+			<ui:include src="/WEB-INF/templates/messageModal.xhtml" />
+		</h:form>
+
+		<!--============================= Ajax Loading =================================-->
+		<div id="loadingDiv" align="center">
+			<p:graphicImage name="loading.gif" library="img" styleClass="loading" />
+		</div>
+
+		<!--============================= Scripts ================================-->
+
+		<!-- jQuery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+
+		<!-- Bootstrap Components -->
+		<h:outputScript name="js/bootstrap.min.js" />
+		<h:outputScript name="js/bootstrap-datepicker.js" />
+		<h:outputScript name="js/bootstrap-datepicker.pt-BR.js" />
+		<h:outputScript name="js/bootstrap-datepicker.es.js" />
+		<h:outputScript name="js/jquery-mask.js" />
+
+		<!-- Theme Scripts -->
+		<h:outputScript name="js/madmin.js" />
+		<h:outputScript name="js/application.js" />
+
+		<!-- Flot Plotting -->
+		<h:outputScript name="js/libs/flot/excanvas.min.js" />
+		<h:outputScript name="js/libs/flot/jquery.flot.js" />
+		<h:outputScript name="js/libs/flot/jquery.flot.resize.min.js" />
+		<h:outputScript name="js/libs/flot/jquery.flot.pie.min.js" />
+
+		<!-- Google Code Prettyfy - source-code highlighter -->
+		<h:outputScript name="js/libs/google-code-prettify/prettify.js" />
+
+		<!-- jQuery Table Sorter Plugin -->
+		<h:outputScript name="js/libs/jquery.tablesorter/jquery.tablesorter.min.js" />
+
+		<!-- jQuery Page Slide Plugin -->
+		<h:outputScript name="js/libs/jquery.pageslide/jquery.pageslide.min.js" />
+		<h:outputScript name="jquery.easing.1.3.js" library="js" />
+
+		<!-- Demo Charts -->
+		<h:outputScript name="js/demo-area-chart.js" />
+		<h:outputScript name="js/demo-dynamic-chart.js" />
+		<h:outputScript name="js/demo-pie-chart.js" />
+	</f:view>
+</h:body>
+</html>

@@ -1,0 +1,50 @@
+<ui:composition template="/externalTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">#{msgs['label.entrar']}</ui:define>
+
+	<ui:define name="content">
+		<div class="content-div">
+			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 minimum-space">
+				<div class="well no-padding">
+					<!-- CONTENT -->
+					<form id="login-form" class="smart-form client-form" action="#{request.contextPath}/ok_security_login" method="post">
+						<header>#{msgs['label.entrar']}</header>
+						<fieldset>
+							<section>
+								<em class="auth-error-message"> #{SPRING_SECURITY_LAST_EXCEPTION.message} </em> <em class="login-messages"><h:messages /> </em>
+							</section>
+							<section>
+								<label class="label">#{msgs['label.usuario']}</label> <label class="input"> <i class="icon-append fa fa-user" /> <input
+									type="text" name="j_username" placeholder="#{msgs['msg.informe.usuario']}" id="usernameLogin"
+									data-required-message="#{msgs['msg.validacao.campo.obrigatorio']}"
+									data-minlength-message="#{msgs['msg.validacao.limite.minimo.usuario']}" />
+								</label>
+							</section>
+							<section>
+								<label class="label">#{msgs['label.senha']}</label> <label class="input"> <i class="icon-append fa fa-lock"></i> <input
+									type="password" name="j_password" placeholder="#{msgs['msg.informe.senha']}"
+									data-required-message="#{msgs['msg.validacao.campo.obrigatorio']}"
+									data-minlength-message="#{msgs['msg.validacao.limite.minimo.senha']}" id="passwordLogin" />
+								</label>
+							</section>
+							<div class="note">
+								<h:link outcome="pretty:password" value="#{msgs['msg.esqueceu.senha']}" />
+							</div>
+						</fieldset>
+						<footer>
+							<button type="submit" class="btn btn-primary">#{msgs['label.entrar']}</button>
+							<button type="button" onclick="document.location.href='#{request.contextPath}/signup'" class="btn btn-primary">#{msgs['label.registrar']}</button>
+						</footer>
+					</form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="specificJS">
+		<h:outputScript name="login.js" library="js" />
+	</ui:define>
+
+</ui:composition>

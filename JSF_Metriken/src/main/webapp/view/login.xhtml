@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/loginTemplate.xhtml">
+	<ui:define name="content">
+		<h:form class="form login-form">
+			<legend>
+				<span class="blue">Sign in to</span>
+				<h:link outcome="pretty:login">
+					<h:graphicImage name="logo.png" library="img" style="margin-top: -10px;" />
+				</h:link>
+			</legend>
+
+			<div class="body">
+				<p:outputLabel value="#{msgs.lbl_usuario}" />
+				<p:inputText />
+
+				<h:outputLabel value="#{msgs.lbl_senha}" />
+				<p:inputText type="password" />
+			</div>
+
+			<div class="footer">
+				<p:selectBooleanCheckbox label="#{msgs.lbl_lembrar}" itemLabel="#{msgs.lbl_lembrar}" style="float:left;" />
+				<p:commandButton id="logar" value="Logar" styleClass="btn btn-success" action="#{login.login}" immediate="true"
+					style="float:right;margin-top: -10px;" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

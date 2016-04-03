@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="leftMenu">
+		<ui:include src="/WEB-INF/templates/apf/leftMenuAPF.xhtml" />
+	</ui:define>
+
+	<ui:define name="form">
+
+		Ola Mundo
+
+		<h:form>
+			<p:commandButton value="Launch Modal" onclick="$('#messagesModal').modal('show');" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>

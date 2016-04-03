@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<h:form>
+		<p:fieldset toggleable="false" legend="Parâmetros do Relatório">
+			<h:panelGrid columns="5">
+				<h:outputLabel value="Data Inicial:" />
+				<p:calendar value="#{lancamentoBean.dataInicialRelatorio}"
+					effect="explode" readonlyInput="true" required="true"
+					requiredMessage="Por favor, informe a data inicial do relatório" />
+
+				<h:outputLabel value="Data Final:" />
+				<p:calendar value="#{lancamentoBean.dataFinalRelatorio}"
+					effect="explode" readonlyInput="true"
+					requiredMessage="Por favor, informe a data final do relatório" />
+
+				<p:commandButton value="Imprimir" ajax="false">
+					<p:fileDownload value="#{lancamentoBean.arquivoRelatorio}" />
+				</p:commandButton>
+			</h:panelGrid>
+		</p:fieldset>
+	</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,116 @@
+<ui:composition template="/mainTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pr="http://ocpsoft.com/prettyfaces">
+
+	<ui:define name="title">#{msgs['label.atividades']}</ui:define>
+
+	<ui:define name="breadcrumb">#{msgs['label.universidade']} > #{msgs['label.atividades']} > #{msgs['label.pesquisa']}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{atividadeMB.alteraTipoAtividade(false)}" />
+			<f:viewAction action="#{atividadeMB.preparaPesquisaAtividades()}" />
+			<f:viewAction action="#{disciplinaMB.pesquisaDisciplinasPorProfessor(okSecurityContext.loggedUser.id)}" />
+		</f:metadata>
+
+		<h:form prependId="false" id="mainForm">
+			<div class="smart-form client-form">
+				<fieldset>
+					<div class="row">
+						<section class="col col-3">
+							<label class="label">#{msgs['label.descricao']}</label> <label class="input"><i class="icon-append fa fa-file-text-o"></i> <h:inputText
+									id="descricao" value="#{atividadeMB.atividade.descricao}" pt:placeholder="#{msgs['msg.informe.descricao.atividade']}"
+									maxlength="200" /> </label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.disciplina']}</label> <label class="select"> <h:selectOneMenu id="disciplina"
+									value="#{atividadeMB.atividade.disciplina}" converter="omnifaces.SelectItemsConverter">
+									<f:ajax execute="@this" render=":modulosSection" />
+									<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+									<f:selectItems value="#{disciplinaMB.disciplinasSelecionadas}" var="disciplina" itemLabel="#{disciplina.nome}"
+										itemValue="#{disciplina}" />
+								</h:selectOneMenu> <i />
+							</label>
+						</section>
+
+						<section class="col col-3" jsf:id="modulosSection">
+							<label class="label">#{msgs['label.modulo']}</label> <label class="select"><h:selectOneMenu id="modulo"
+									value="#{atividadeMB.atividade.modulo}" converter="omnifaces.SelectItemsConverter">
+									<f:selectItem itemLabel="#{msgs['label.selecione']}" itemValue="#{null}" />
+									<f:selectItems value="#{atividadeMB.atividade.disciplina.modulos}" var="modulo" itemLabel="#{modulo.nome}" itemValue="#{modulo}" />
+								</h:selectOneMenu> <i /> </label>
+						</section>
+
+						<section class="col col-3">
+							<label class="label">#{msgs['label.professor']}</label> <label class="input"><i class="icon-append fa fa-user"></i> <h:inputText
+									value="#{atividadeMB.atividade.professor.nome}" id="professor" pt:placeholder="#{msgs['msg.informe.nome.professor']}"
+									maxlength="100" onblur="alphaNumeric(this, true)"
+									pt:data-autocomplete-source="#{request.contextPath}/ws/usuario/listaNomesProfessores?q=" /> </label>
+						</section>
+					</div>
+					<section>
+						<div class="input">
+							<label class="label">#{msgs['label.tipo.atividade']}</label>
+							<p:selectOneRadio value="#{atividadeMB.atividade.tipoAtividade}" id="tipoAtividade">
+								<f:selectItem itemLabel="#{msgs['label.simples']}" itemValue="SIMPLES" />
+								<f:selectItem itemLabel="#{msgs['label.questionario']}" itemValue="QUESTIONARIO" />
+							</p:selectOneRadio>
+						</div>
+					</section>
+				</fieldset>
+
+				<footer class="custom-form-client-footer">
+					<h:commandButton value="#{msgs['label.nova.atividade']}" styleClass="btn btn-primary"
+						action="#{atividadeMB.preparaCadastroAtividade()}" immediate="true"
+						rendered="#{okSecurityContext.isUserInRole('COORDENADOR') or okSecurityContext.isUserInRole('PROFESSOR')}" />
+					<h:commandButton value="#{msgs['label.limpar']}" styleClass="btn btn-primary" action="#{atividadeMB.alteraTipoAtividade(false)}"
+						immediate="true">
+						<f:setPropertyActionListener value="#{null}" target="#{atividadeMB.atividade}" />
+						<f:setPropertyActionListener value="#{null}" target="#{atividadeMB.atividadesDataModel.wrappedData}" />
+						<f:setPropertyActionListener value="0" target="#{atividadeMB.atividadesDataModel.rowCount}" />
+						<f:ajax render="@form" onevent="initPage" execute="@this" />
+					</h:commandButton>
+					<h:commandButton value="#{msgs['label.pesquisar']}" styleClass="btn btn-primary">
+						<f:ajax render="@form" onevent="initPage" execute="@form" />
+					</h:commandButton>
+				</footer>
+
+				<fieldset>
+					<section>
+						<p:dataTable value="#{atividadeMB.atividadesDataModel}" var="atividade" paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" lazy="true" rows="10" emptyMessage="#{msgs['msg.nenhum.registro.encontrado']}"
+							currentPageReportTemplate="{currentPage} #{msgs['label.lower.de']} {totalPages}"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+							<p:column headerText="#{msgs['label.descricao']}">
+								#{atividade.descricao.length() > 20 ? atividade.descricao.subSequence(0, 17).concat('...') : atividade.descricao}
+							</p:column>
+							<p:column headerText="#{msgs['label.modulo']}">
+								#{atividade.modulo.nome}
+							</p:column>
+							<p:column headerText="#{msgs['label.qtd.questoes']}" rendered="#{atividadeMB.atividade.tipoAtividade eq 'QUESTIONARIO'}">
+								#{atividade.quantidadeQuestoes}
+							</p:column>
+							<p:column headerText="#{msgs['label.prazo.final']}" rendered="#{atividadeMB.atividade.tipoAtividade eq 'QUESTIONARIO'}">
+								<h:outputText value="#{atividade.dataPrazoFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyyy" locale="#{okSessionMB.currentLocale}" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="#{msgs['label.professor']}">
+								#{atividade.professor.nome}
+							</p:column>
+							<p:column styleClass="ok-align-center" width="20">
+								<h:commandLink
+									title="#{okSecurityContext.loggedUser.id ne atividade.professor.id ? msgs['label.visualizar'] : msgs['label.editar']}"
+									action="#{atividadeMB.preparaEdicaoAtividade(atividade.id)}">
+									<i class="fa #{okSecurityContext.loggedUser.id ne atividade.professor.id ? 'fa-file-text-o' : 'fa-edit'}" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</section>
+				</fieldset>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

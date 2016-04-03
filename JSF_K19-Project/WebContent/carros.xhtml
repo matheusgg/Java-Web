@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<h:form>
+			<p:growl />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Marca:" for="marca" />
+				<p:inputText value="#{carroBean.carroSelecionado.marca}" id="marca"
+					required="true" requiredMessage="Preencha o campo Marca" />
+
+				<h:outputLabel value="Modelo:" for="modelo" />
+				<p:inputText value="#{carroBean.carroSelecionado.modelo}"
+					id="modelo" required="true"
+					requiredMessage="Preencha o campo Modelo" />
+
+				<p:commandButton value="Add" action="#{carroBean.adicionaCarro}"
+					update="@form" />
+			</h:panelGrid>
+
+			<h:panelGroup layout="block" rendered="#{not empty carroBean.carros}">
+				<h1>Carros Selecionados</h1>
+				<ul>
+					<ui:repeat var="carro" value="#{carroBean.carros}">
+						<li><h:outputText value="#{carro.marca} - #{carro.modelo}" /></li>
+					</ui:repeat>
+				</ul>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

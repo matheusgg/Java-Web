@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cheques</title>
+	<style type="text/css">
+.ui-widget {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 0.8em;
+}
+</style>
+</h:head>
+<h:body>
+	<div style="margin: 0 auto; width: 50%;">
+		<h:form id="formDatas">
+			<h:panelGrid columns="5" style="margin: 0 auto;">
+				<h:outputLabel value="Data inicial" />
+				<p:calendar value="#{chequeBean.dataInicial}" required="true"
+					readonlyInput="true" />
+
+				<h:outputLabel value="Data final" />
+				<p:calendar value="#{chequeBean.dataFinal}" required="true"
+					readonlyInput="true" />
+
+				<p:commandButton value="OK" update=":formDatas :formTabela"
+					action="#{chequeBean.pesquisaChequesPorData}" />
+			</h:panelGrid>
+		</h:form>
+
+		<p:separator />
+		<h:form id="formTabela">
+			<h:panelGroup>
+				<p:dataTable value="#{chequeBean.cheques}" var="cheque" lazy="true"
+					paginator="true" paginatorAlwaysVisible="false" rows="5"
+					paginatorPosition="bottom" selection="#{chequeBean.cheque}"
+					selectionMode="single" rowKey="#{cheque}">
+
+					<p:ajax event="rowSelect" update=":formDetalhes" />
+
+					<p:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="Banco" />
+							<br />
+							<h:inputText value="#{chequeBean.banco}" />
+						</f:facet>
+						<h:outputText value="#{cheque.banco}" />
+					</p:column>
+
+					<p:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="Cliente" />
+							<br />
+							<h:inputText value="#{chequeBean.cliente}" />
+						</f:facet>
+						<h:outputText value="#{cheque.cliente}" />
+					</p:column>
+
+					<p:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="Valor" />
+							<br />
+							<h:inputText value="#{chequeBean.valor}" />
+							<p:commandButton value="OK" update=":formTabela"
+								action="#{chequeBean.filtraCheques}" />
+						</f:facet>
+						<h:outputText value="#{cheque.valor}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+
+		<p:separator />
+		<h:form id="formDetalhes">
+			<h:panelGroup rendered="#{not empty chequeBean.cheque}">
+				<h3>Detalhes do cheque selecionado:</h3>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Banco:" />
+					<h:outputText value="#{chequeBean.cheque.banco}" />
+
+					<h:outputLabel value="Cliente:" />
+					<h:outputText value="#{chequeBean.cheque.cliente}" />
+
+					<h:outputLabel value="Valor:" />
+					<h:outputText value="#{chequeBean.cheque.valor}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</h:panelGrid>
+			</h:panelGroup>
+		</h:form>
+	</div>
+</h:body>
+</html>

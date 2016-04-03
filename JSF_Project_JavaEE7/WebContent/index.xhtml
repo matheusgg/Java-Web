@@ -1,0 +1,41 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsf/component" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/WEB-INF/templates/template-#{appBean.template}.xhtml">
+
+
+	<ui:define name="title">App</ui:define>
+	<ui:define name="content">
+		<h:outputText value="Instancia: #{appBean}" />
+		<br />
+		<h:inputText>
+			<f:passThroughAttribute name="placeholder" value="Insira o texto" />
+		</h:inputText>
+
+		<h:form enctype="multipart/form-data">
+			<h:messages />
+			<h:outputText
+				value="#{!empty appBean.file ? 'O arquivo '.concat(appBean.file.submittedFileName).concat(' foi carregado com sucesso!') : ''}" />
+			<br />
+
+			<!-- Now it's the AJAX file upload component -->
+			<h:inputFile id="fileUpload" value="#{appBean.file}" validator="#{uploadValidator.validate}">
+				<f:ajax render="@form" />
+			</h:inputFile>
+
+			<h:commandButton value="Upload" />
+		</h:form>
+
+		<br />
+		<br />
+		<h:form id="form">
+			<h3>Escolha o tema:</h3>
+			<h:commandButton value="Black" action="#{appBean.changeTheme('black')}" />
+			<h:commandButton value="Blue" action="#{appBean.changeTheme('blue')}" />
+			<h:commandButton value="Change Button Color with pass" actionListener="#{appBean.actionMethod}" />
+			<h:button value="Go to page 2" outcome="page2" />
+		</h:form>
+
+		<!-- Componente customizado criado com JSF 2.2 -->
+		<c:custom value="Testeee" />
+	</ui:define>
+</ui:composition>

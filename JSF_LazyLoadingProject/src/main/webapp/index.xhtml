@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>App</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid style="margin: 0 auto; width: 60%">
+			<p:dataTable value="#{clienteBean.dataModel}" var="cliente"
+				lazy="true" rows="10" paginator="true" paginatorPosition="bottom">
+				<p:column>
+					<f:facet name="header">Nome<br />
+						<p:inputText value="#{clienteBean.nomeCliente}" />
+						<p:commandButton icon="ui-icon-search" update="@form" />
+					</f:facet>
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Descrição<br />
+						<p:inputText value="#{clienteBean.descricaoCliente}" />
+						<p:commandButton icon="ui-icon-search" update="@form" />
+					</f:facet>
+					<h:outputText value="#{cliente.descricao}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Nascimento<br />
+					</f:facet>
+					<h:outputText value="#{cliente.nascimento}">
+						<f:convertDateTime dateStyle="medium" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

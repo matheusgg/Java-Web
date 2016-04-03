@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://jboss.org/schema/cdi/beans_1_0.xsd">
+	<!-- Aqui é feito o registro do interceptor que irá capturar as solicitações 
+		de invocação aos métodos anotador com '@Secured' -->
+	<interceptors>
+		<class>br.com.security.Interceptador</class>
+	</interceptors>
+</beans>

@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:security="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd    
+                        http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Configuracao de autorizacao e gerenciamento de autenticacao para servicos REST -->
+	<security:http authentication-manager-ref="okLoginManager" create-session="never" auto-config="true" use-expressions="true" pattern="/ws/**">
+
+		<!-- URL de interceptacao -->
+		<security:intercept-url pattern="/ws/**" access="isAuthenticated()" />
+
+		<!-- Filtro para verificar o estado da autenticacao do usuario -->
+		<security:custom-filter ref="okRestAuthenticationFilter" before="PRE_AUTH_FILTER" />
+
+		<!-- Configuracoes de seguranca de cabecalhos -->
+		<security:headers>
+			<security:xss-protection />
+			<security:frame-options />
+		</security:headers>
+	</security:http>
+
+	<!-- Configuracao de autorizacao e gerenciamento de autenticacao -->
+	<security:http access-denied-page="/dashboard" auto-config="true" use-expressions="true" authentication-manager-ref="okLoginManager">
+
+		<!-- URL's que serao interceptadas pelo SpringSecurity e as permissoes necessarias para acessa-las -->
+		<security:intercept-url pattern="/signup/user" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/disciplines/register" access="hasRole('ADMIN') or hasRole('COORDENADOR') or hasRole('PROFESSOR')" />
+		<security:intercept-url pattern="/classes/register" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/course/**" access="hasRole('ADMIN') or hasRole('COORDENADOR') or hasRole('PROFESSOR')" />
+		<security:intercept-url pattern="/dashboard" access="isAuthenticated()" />
+		<security:intercept-url pattern="/signup/user" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/social/admins" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/activity/**" access="hasRole('COORDENADOR') or hasRole('PROFESSOR')" />
+		<security:intercept-url pattern="/start" access="hasRole('COORDENADOR') or hasRole('PROFESSOR') or hasRole('ALUNO')" />
+		<security:intercept-url pattern="/events" access="hasRole('COORDENADOR') or hasRole('PROFESSOR') or hasRole('ADMIN')" />
+		<security:intercept-url pattern="/errorPages/**" access="denyAll" />
+		<security:intercept-url pattern="/contracts/**" access="denyAll" />
+		<security:intercept-url pattern="/vle/**" access="denyAll" />
+
+		<!-- Configuracao do formulario de login, assim como a pagina de login, pagina de sucesso apos o login e a pagina de falha apos o login -->
+		<security:form-login login-page="/login" authentication-failure-url="/login" always-use-default-target="true" default-target-url="/start"
+			login-processing-url="/ok_security_login" />
+
+		<!-- Configuracao de logout. Por padrao, qualquer requisicao para /j_spring_security_logout é capturada pelo SpringSecurity e o logout feito automaticamente -->
+		<security:logout logout-success-url="/login" delete-cookies="JSESSIONID" logout-url="/ok_security_logout" />
+
+		<!-- Configuracoes de seguranca de cabecalhos -->
+		<security:headers>
+			<security:xss-protection />
+		</security:headers>
+
+		<!-- Configuracao de sessao. Pagina para qual o usuario sera direcionado quando a sessao nao for mais valida e a pagina que ele sera direcionado caso haja alguma 
+			excecao na autenticacao da sessao -->
+		<security:session-management invalid-session-url="/login" session-authentication-error-url="/login">
+			<!-- Informa para o SpringSecurity que cada usuario podera ter apenas 1 sessao ativa, caso ele tente se logar em outra maquina ou outro browser, a primeira sessao 
+				sera invalidada e uma nova sera criada, mantendo assim apenas uma sessao ativa -->
+			<security:concurrency-control expired-url="/login" max-sessions="1" />
+		</security:session-management>
+	</security:http>
+</beans>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Imagens</title>
+</h:head>
+<h:body>
+	<!-- Por convensão, o jsf consegue armazenar imagens, css, e outros arquivos necessários
+	 para a aplicação em um diretório padrão chamado resources, possibilitando assim
+	 várias formas de acessos a esses arquivos -->
+
+	<!-- <h:graphicImage value="#{resource['img:excel.png']}" /> -->
+	<br />
+	<h:graphicImage library="img" name="excel.png" />
+
+	<!-- Exemplo de Forma dinâmica
+	<h:graphicImage library="img" name="bandeira_#{nomeDoBean.pais}.png"/>-->
+</h:body>
+</html>

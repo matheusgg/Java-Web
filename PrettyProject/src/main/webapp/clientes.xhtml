@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Pesquisa de Clientes</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:dataTable value="#{clienteBean.listaClientes}" var="cliente"
+			rowKey="#{cliente}" selectionMode="single"
+			selection="#{clienteBean.clienteSelecionado}">
+			<f:facet name="header">Lista de Clientes</f:facet>
+			<p:ajax event="rowSelect" update=":form:detalhes" />
+			<p:column headerText="Nome" filterBy="#{cliente.nome}"
+				filterMatchMode="startsWith">
+				<h:outputText value="#{cliente.nome}" />
+			</p:column>
+			<p:column headerText="Endereço" filterBy="#{cliente.endereco}"
+				filterMatchMode="exact" filterOptions="#{clienteBean.listaFiltros}">
+				<h:outputText value="#{cliente.endereco}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:panel header="Detalhes" id="detalhes">
+			<p:panelGrid columns="2">
+				<h:outputLabel value="Nome" />
+				<h:outputText value="#{clienteBean.clienteSelecionado.nome}" />
+				<h:outputLabel value="Endereço" />
+				<h:outputText value="#{clienteBean.clienteSelecionado.endereco}" />
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

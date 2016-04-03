@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:page1.xhtml" PATH="page1.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:page1.xhtml:0" NAME="item" PATH="page1.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="proximo::page2.xhtml" NAME="output"
+    PATH="page2.xhtml" TARGET="rules:page2.xhtml" TITLE="proximo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="anterior::page1.xhtml" NAME="output1"
+    PATH="page1.xhtml" TARGET="rules:page1.xhtml" TITLE="anterior" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:page2.xhtml" PATH="page2.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:page2.xhtml:0" NAME="item" PATH="page2.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="proximo::page3.xhtml" NAME="output"
+    PATH="page3.xhtml" TARGET="rules:page3.xhtml" TITLE="proximo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="anterior::page1.xhtml" NAME="output1"
+    PATH="page1.xhtml" TARGET="rules:page1.xhtml" TITLE="anterior" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:page3.xhtml" PATH="page3.xhtml"
+  SHAPE="48,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:page3.xhtml:0" NAME="item" PATH="page3.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="proximo::page3.xhtml" NAME="output"
+    PATH="page3.xhtml" TARGET="rules:page3.xhtml" TITLE="proximo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="anterior::page2.xhtml" NAME="output1"
+    PATH="page2.xhtml" TARGET="rules:page2.xhtml" TITLE="anterior" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

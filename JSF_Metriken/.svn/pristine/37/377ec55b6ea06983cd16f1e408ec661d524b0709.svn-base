@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="title">
+	#{msgs.lbl_metriken}
+		</ui:insert></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Metricas e BI" />
+	<meta name="author" content="Ulisses, Matheus, Gustavo e Rodrigo" />
+
+	<!-- Styles -->
+	<h:outputStylesheet name="bootstrap.min.css" library="css" />
+	<h:outputStylesheet name="bootstrap-responsive.min.css" library="css" />
+	<h:outputStylesheet name="typica-login.css" library="css" />
+
+</h:head>
+<h:body>
+	<div class="container">
+		<div id="login-wraper">
+			<ui:insert name="content" />
+		</div>
+	</div>
+
+	<!-- Javascript
+    ================================================== -->
+	<h:outputScript name="bootstrap.js" library="js" />
+	<h:outputScript name="typica-login.js" library="js" />
+	<h:outputScript name="jquery.backstretch.min.js" library="js" />
+
+	<!-- jQuery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+</h:body>
+</html>

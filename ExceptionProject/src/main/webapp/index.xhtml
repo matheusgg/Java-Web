@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>App</title>
+	<style type="text/css">
+.ui-widget {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+}
+</style>
+</h:head>
+<h:body>
+	<div align="center" style="margin: 0 auto; width: 70%;">
+		<h:form id="form">
+			<p:growl />
+			<h:panelGrid columns="2">
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText value="#{clienteBean.clienteSelecionado.nome}" required="true"
+					requiredMessage="Por favor, preencha o campo 'Nome'" id="nome" />
+
+				<p:outputLabel for="end" value="Endereço:" />
+				<p:inputText value="#{clienteBean.clienteSelecionado.endereco}" required="true"
+					requiredMessage="Por favor, preencha o campo 'Endereço'" id="end" />
+			</h:panelGrid>
+			<h:panelGrid columns="4" style="margin: 0 auto;">
+				<p:commandButton value="Adicionar" action="#{clienteBean.adiciona}" update="@form, :formTabela"
+					rendered="#{!clienteBean.selecionado}" />
+				<p:commandButton value="Limpar" action="#{clienteBean.novoCliente}" update="@form, :formTabela" process="@this" />
+				<p:commandButton value="Remover" oncomplete="modal.show();" update=":formModal"
+					rendered="#{clienteBean.selecionado}" />
+				<p:commandButton value="Alterar" action="#{clienteBean.novoCliente}" update="@form, :formTabela"
+					rendered="#{clienteBean.selecionado}" />
+			</h:panelGrid>
+		</h:form>
+		<h:form id="formTabela">
+			<p:dataTable value="#{clienteBean.clientes}" var="cliente" selectionMode="single" rowKey="#{cliente}"
+				selection="#{clienteBean.clienteSelecionado}" rendered="#{not empty clienteBean.clientes}"
+				emptyMessage="Nenhum cliente encontrado">
+				<p:ajax event="rowSelect" update=":form :formTabela" listener="#{clienteBean.selecionaCliente}" />
+				<p:column headerText="ID">
+					<h:outputText value="#{cliente.codigo}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column headerText="Endereço">
+					<h:outputText value="#{cliente.endereco}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<h:form id="formModal">
+			<p:dialog modal="true" maximizable="false" resizable="false" widgetVar="modal" header="Remover">
+				<h:panelGrid>
+					<h:outputText value="Deseja realmente remover o cliente #{clienteBean.clienteSelecionado.nome}?" />
+					<h:panelGroup>
+						<div align="center">
+							<p:commandButton value="Sim" oncomplete="modal.hide();" update=":formTabela :form" action="#{clienteBean.remove}" />
+							<p:commandButton value="Não" onclick="modal.hide();" />
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+
+
+		<h:form id="sessionModal">
+			<p:dialog modal="true" maximizable="false" resizable="false" widgetVar="modalSessao" header="Sessão expirada">
+				<h:panelGrid>
+					<h:outputText value="A sessão foi expirada!" />
+					<h:panelGroup>
+						<div align="center">
+							<p:commandButton value="OK" onclick="window.location.reload();" />
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</div>
+</h:body>
+</html>

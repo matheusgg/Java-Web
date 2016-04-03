@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:o="http://omnifaces.org/ui">
+
+	<!-- Novo Email -->
+	<div jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL' or emailMB.modoVisualizacaoEmail eq 'LEITURA'}" jsf:id="painelNovoEmail"
+		class="well ok-mobile-novo-email">
+
+		<!-- Destinatarios -->
+		<div jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL'}">
+			<h6>#{msgs['label.para']}:</h6>
+			<select multiple="multiple" id="destinatarios" style="width: 100%" class="espacamento-inferior-elementos-novo-email"
+				data-placeholder="#{msgs['msg.informe.destinatarios.mensagem']}">
+				<ui:repeat var="destinatario" value="#{emailMB.destinatarios}">
+					<option value="#{destinatario}" selected="#{emailMB.destinatariosSelecionados.contains(destinatario) ? 'selected' : ''}">#{destinatario}</option>
+				</ui:repeat>
+			</select>
+			<h:inputHidden value="#{emailMB.destinatariosSelecionados}" id="destinatariosSelecionados" />
+		</div>
+		<div jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'LEITURA'}" class="espacamento-inferior-elementos-novo-email">
+			<h6>#{emailMB.emailUsuario.class.simpleName eq 'EmailRecebido' ? msgs['label.de'] : msgs['label.para']}:</h6>
+			<h:outputText
+				value="#{emailMB.emailUsuario.class.simpleName eq 'EmailRecebido' ? 
+						emailMB.emailUsuario.email.usuarioRemetente.login : emailMB.emailUsuario.destinatarios.toString().replaceAll('[\\[|\\]]', '')}" />
+		</div>
+
+		<!-- Data -->
+		<div jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'LEITURA'}" class="espacamento-inferior-elementos-novo-email">
+			<h6>#{emailMB.emailUsuario.class.simpleName eq 'EmailRecebido' ? msgs['label.recebido.em'] : msgs['label.enviado.em']}:</h6>
+			<h:outputText value="#{emailMB.emailUsuario.email.dataEnvio}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="#{okSessionMB.currentLocale}" />
+			</h:outputText>
+		</div>
+
+		<!-- Anexos -->
+		<div class="smart-form client-form txt-color-darken"
+			jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL' or (emailMB.modoVisualizacaoEmail eq 'LEITURA' and !empty emailMB.email.anexos)}">
+			<h6>#{msgs['label.anexos']}:</h6>
+			<div jsf:id="anexosSection" class="anexos-section espacamento-inferior-elementos-novo-email">
+				<div class="input state-error">
+					<div class="bootstrap-tagsinput anexos-email custom-scroll">
+						<ui:repeat var="anexo" value="#{emailMB.email.anexos}" varStatus="i">
+							<span class="tag label label-info"> <h:commandLink action="#{atividadeMB.downloadAnexo(anexo)}" styleClass="tag-link"
+									value="#{anexo.nomeArquivo}.#{anexo.extensaoArquivo}" immediate="true" /> <h:commandLink
+									action="#{emailMB.removeAnexo(emailMB.email.anexos, i.index)}" styleClass="tag-link"
+									rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL'}">
+									<f:ajax execute="anexosSection" render="anexosSection" />
+									<span data-role="remove" />
+								</h:commandLink>
+							</span>
+						</ui:repeat>
+					</div>
+				</div>
+				<em class="invalid" id="anexosMsg" jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL'}"><h:message for="anexos" /></em>
+				<div class="input input-file" jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL'}">
+					<span class="button btn-primary"><input jsf:id="anexos" type="file" name="anexos"
+						onchange="uploadSelectedFiles(this, uploadFiles, '#anexosMsg')"
+						data-exceeded-max-file-size="#{msgs['msg.validacao.limite.maximo.arquivo']}" multiple="multiple" />#{msgs['label.selecionar']}</span>
+				</div>
+				<o:commandScript name="uploadFiles" render="anexosSection" execute="anexosSection"
+					rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL'}" action="#{emailMB.uploadFilesToAnexosList(emailMB.email.anexos, 'anexos')}" />
+			</div>
+		</div>
+
+		<!-- Assunto -->
+		<h6>#{msgs['label.email.assunto']}:</h6>
+		<div class="smart-form client-form">
+			<label class="input espacamento-inferior-elementos-novo-email"> <h:inputText
+					readonly="#{emailMB.modoVisualizacaoEmail eq 'LEITURA'}" pt:placeholder="#{msgs['msg.informe.assunto.mensagem']}"
+					value="#{emailMB.email.assunto}" />
+			</label>
+		</div>
+
+		<!-- Editor de mensagem -->
+		<h6>#{msgs['label.mensagem']}:</h6>
+		<div class="form-group">
+			<h:inputTextarea value="#{emailMB.email.mensagem}" styleClass="ok-editor" id="mensagem"
+				pt:data-editor-language="#{okSessionMB.currentLocale.language}-#{okSessionMB.currentLocale.country}" pt:data-editor-height="200px"
+				pt:data-editor-readonly="#{emailMB.modoVisualizacaoEmail eq 'LEITURA'}" pt:data-editor-resizable="false" />
+		</div>
+
+		<!-- Botao enviar -->
+		<div class="smart-form client-form" jsf:rendered="#{emailMB.modoVisualizacaoEmail eq 'NOVO_EMAIL'}">
+			<footer class="custom-form-client-footer">
+				<h:commandLink value="#{msgs['label.enviar.mensagem']}" styleClass="btn btn-primary btn-group-right"
+					action="#{emailMB.enviaMensagemEmail()}" onclick="preparaDestinatariosSelecionados()" id="btnEnviaMensagem">
+					<f:ajax execute=":painelNovoEmail" render="@form" onevent="initNewMailPage" />
+				</h:commandLink>
+			</footer>
+		</div>
+	</div>
+</ui:composition>

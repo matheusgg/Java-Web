@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<h1>Cotacao</h1>
+		<h:form prependId="false">
+			<h:panelGrid columns="3">
+				<h:outputLabel value="Valor a converter em R$" for="valor" />
+				<p:inputText required="true" value="#{contacaoBean.valorAConverter}"
+					id="valor">
+					<f:convertNumber locale="pt_BR" />
+				</p:inputText>
+				<p:message for="valor" showSummary="true" showDetail="false" />
+
+				<h:outputLabel value="Valor do Dolar" for="dolar" />
+				<p:inputText required="true" value="#{contacaoBean.valoDolar}"
+					id="dolar" />
+				<p:message for="dolar" showSummary="true" showDetail="false" />
+
+				<h:outputLabel value="Hora Atual" for="hora" />
+				<p:calendar required="true" pattern="dd/MM/yyyy HH:mm"
+					value="#{funcionarioBean.funcionarioSelecionado.nascimento}"
+					id="hora" />
+				<p:message for="hora" showSummary="true" showDetail="false" />
+
+				<p:commandButton value="Converter"
+					action="#{contacaoBean.converteValor}" update="@form" />
+			</h:panelGrid>
+
+			<h:panelGroup rendered="#{not empty contacaoBean.valorConvertido}">
+				<h:outputText
+					value="Atualmente, R$ #{contacaoBean.valorAConverter} esta valendo " />
+				<h:outputText value="$ #{contacaoBean.valorConvertido} dolares">
+					<f:convertNumber type="currency" maxFractionDigits="2"
+						minIntegerDigits="1" locale="en_US" />
+				</h:outputText>
+			</h:panelGroup>
+		</h:form>
+	</ui:define>
+</ui:composition>

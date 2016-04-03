@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>RESTEasy Project</title>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
+
+	<!-- Importacao do js que sera gerado pela servlet. Objs: Memos nome do mapeamento da servlet da api js do RESTEasy -->
+	<script src="restEasyJSApi.js" />
+
+	<script type="text/javascript">
+		function testJSAPI(){
+			// Para cada recurso um obj com o nome da classe é criado. Basta apenas invocar o metodo desejado.
+			var produto = ProdutoResource.recuperaProdutoPorId({id: 1});
+			alert(produto.nome + ": R$ " + produto.preco);
+		}
+	</script>
+</h:head>
+<h:body>
+	<h1>RESTEasy Project</h1>
+
+	<h:commandButton value="Test RESTEasy JS API" type="button" onclick="testJSAPI()" />
+
+</h:body>
+</html>

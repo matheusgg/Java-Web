@@ -1,0 +1,6 @@
+<h3>$titulo</h3>
+<p>
+	$msg
+	<br/><b>$usuario</b>
+	<br/><b>$senha</b>
+</p>

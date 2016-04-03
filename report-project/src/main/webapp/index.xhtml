@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Report Project</title>
+</h:head>
+<h:body>
+	<h1>Report Project</h1>
+
+	<h:form>
+		<h:panelGrid columns="4" cellspacing="10">
+			<h:commandLink action="#{reportMB.exportToDocx()}" value="Gerar Relatório Docx" target="_blank" />
+			<h:commandLink action="#{reportMB.exportToPdf()}" value="Gerar Relatório PDF" target="_blank" />
+			<h:commandLink action="#{reportMB.exportToXlsx()}" value="Gerar Relatório XLSX" target="_blank" />
+			<h:commandLink action="#{reportMB.exportToHTML()}" value="Gerar Relatório HTML" target="_blank" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<display-name>WebAppProject</display-name>
+
+	<context-param>
+		<param-name>param1</param-name>
+		<param-value>value</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>param1</param-name>
+		<param-value>value2</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>AppServlet</servlet-name>
+		<servlet-class>servlets.AppServlet</servlet-class>
+
+		<init-param>
+			<param-name>param1</param-name>
+			<param-value>valor1</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>param1</param-name>
+			<param-value>valor2</param-value>
+		</init-param>
+	</servlet>
+
+	<!-- <absolute-ordering> -->
+	<!-- <name>WebFragment1</name> -->
+	<!-- </absolute-ordering> -->
+
+	<session-config>
+		<tracking-mode>URL</tracking-mode>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
+	<error-page>
+		<error-code>410</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>java.lang.IllegalAccessException</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>/jspPages/jspConfig.jsp</url-pattern>
+			<url-pattern>/jspPages/jspConfig2.jsp</url-pattern>
+			<el-ignored>true</el-ignored>
+			<page-encoding>UTF-8</page-encoding>
+			<deferred-syntax-allowed-as-literal>true</deferred-syntax-allowed-as-literal>
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>
+			<default-content-type>text/html</default-content-type>
+		</jsp-property-group>
+	</jsp-config>
+
+	<servlet>
+		<servlet-name>JspConfig2</servlet-name>
+		<jsp-file>/jspPages/jspConfig2.jsp</jsp-file>
+		<multipart-config />
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>JspConfig2</servlet-name>
+		<url-pattern>/jspPages/JspConfig2</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ################################## Security ################################## -->
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>guess</role-name>
+	</security-role>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>Informe o usuario e a senha</realm-name>
+	</login-config>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>auth</web-resource-name>
+			<url-pattern>/sec1/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>admin</web-resource-name>
+			<url-pattern>/sec1/sec2/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+</web-app>

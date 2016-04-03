@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<h:head>
+	<title>Home</title>
+</h:head>
+<h:body>
+	<h1>Home</h1>
+	<h:form>
+		<h:panelGrid columns="4">
+			<p:button outcome="pretty:administrador" value="Admin" />
+			<p:button outcome="pretty:usuario" value="User" />
+			<p:commandButton value="Permissoes" action="#{loginBean.exibePermissoes}" ajax="false" />
+			<p:commandButton value="Logout" action="#{loginBean.logout}" />
+		</h:panelGrid>
+	</h:form>
+
+	<h:panelGroup rendered="#{not empty sessionScope.permissoes}">
+		<h4>Permissões</h4>
+		<ul><ui:repeat var="permissao" value="#{sessionScope.permissoes}">
+				<li>#{permissao.authority}</li>
+			</ui:repeat></ul>
+	</h:panelGroup>
+</h:body>
+</html>

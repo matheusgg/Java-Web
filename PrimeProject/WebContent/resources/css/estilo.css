@@ -1,0 +1,40 @@
+body {
+	font-family: "Verdana";
+}
+
+#container {
+	width: 770px;
+	margin: 0 auto;
+}
+
+#titulo {
+	float: left;
+	text-align: left;
+	font-size: 30px;
+}
+
+#topo {
+	font-size: 30px;
+	float: right;
+}
+
+#barra_menu{
+	padding-top: 10px;
+	height: 30px;
+	clear: both;
+	color: white;
+	background: url(#{resource['img:fundo_barra_menu.png']}) repeat-x;	
+}
+
+#corpo {
+	margin-top: -10px;
+}
+
+#rodape {
+	padding-top: 10px;
+	margin-top: 10px;
+	height: 50px;
+	background: url(#{resource['img:fundo_barra_rodape.png']});
+	text-align: center;
+	font-size: 12px;
+}

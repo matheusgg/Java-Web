@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{bookmarkableMB.id}" />
+</f:metadata>
+
+<h:head>
+	<title>Bookmarkability</title>
+</h:head>
+<h:body>
+	<h:messages />
+	<h1>Bookmarkability</h1>
+	<h:link outcome="index?includeViewParams=false&amp;teste=teste" value="Index" includeViewParams="true">
+		<f:param name="param1" value="val1" />
+	</h:link>
+</h:body>
+</html>

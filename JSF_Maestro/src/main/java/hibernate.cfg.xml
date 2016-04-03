@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Informações referentes a conexão com o banco -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://mysql.maestroautomacoes.com.br:3306/maestroautomac02</property>
+		<property name="connection.username">maestroautomac02</property>
+		<property name="connection.password">cvomaue22</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+
+		<!-- Pool de Conexões -->
+		<property name="c3po.min_size">5</property>
+		<property name="c3po.max_size">20</property>
+		<property name="c3po.timeout">300</property>
+		<property name="c3po.max_statements">50</property>
+		<property name="c3po.idle_test_period">3000</property>
+
+		<!-- Linhas referentes a saída dos comandos SQL no Console -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">false</property>
+
+		<!-- Classes Mapeadas -->
+		<mapping class="br.com.maestroautomacoes.portal.model.usuario.Usuario" />
+		<mapping class="br.com.maestroautomacoes.portal.model.orcamento.Orcamento" />
+		<mapping class="br.com.maestroautomacoes.portal.model.orcamento.TipoItem" />
+		<mapping
+			class="br.com.maestroautomacoes.portal.model.orcamento.ItensDoOrcamento" />
+		<mapping
+			class="br.com.maestroautomacoes.portal.model.orcamento.ItemOrcamento" />
+		<mapping
+			class="br.com.maestroautomacoes.portal.model.faq.PerguntasFrequentes" />
+		<mapping class="br.com.maestroautomacoes.portal.model.mensagem.Mensagem" />
+	</session-factory>
+</hibernate-configuration>

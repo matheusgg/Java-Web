@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w4.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+	<div align="center" style="color: white;">
+		<h:panelGrid columns="2">
+			<h:graphicImage name="seta.png" library="images" />
+			<h:panelGroup>
+				<h:panelGrid>
+					<ui:insert name="headerError" />
+					<p:separator styleClass="rsSeparator" style="background: #FFF;" />
+					<ui:insert name="messageError" />
+				</h:panelGrid>
+			</h:panelGroup>
+		</h:panelGrid>
+	</div>
+</ui:composition>

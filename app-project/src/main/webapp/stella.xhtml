@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Stella</title>
+</h:head>
+<h:body>
+	<h1>Stella</h1>
+	<h:form>
+		<p:messages />
+		<h:commandButton action="#{stellaMB.geraBoletoBB(true)}" value="Gera Boleto BB" />
+		<h:commandButton action="#{stellaMB.geraBoletoBB(false)}" value="Gera Código de Barras" />
+	</h:form>
+</h:body>
+</html>

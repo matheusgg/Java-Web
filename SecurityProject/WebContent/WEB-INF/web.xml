@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	<display-name>SecurityProject</display-name>
+
+	<welcome-file-list>
+		<welcome-file>/login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>servlets.AppServlet2</servlet-name>
+		<servlet-class>servlets.AppServlet2</servlet-class>
+
+		<!-- Com security-role-ref e possivel mapear uma role especifica de uma servlet para uma role da aplicacao. -->
+		<security-role-ref>
+			<role-name>bigUser</role-name>
+			<role-link>admin</role-link>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>simpleUser</role-name>
+
+			<!-- Para cada role-link deve haver um security-role associado. Neste caso, simple nao possui um security-role, pois foi especificada 
+				na anoraca DeclareRoles em AppServlet, logo, na inicializacao do container, essa role e lida e mapeada para a aplicacao. -->
+			<role-link>simple</role-link>
+		</security-role-ref>
+
+		<!-- O elemento run-as e utilizado para especificar uma role que sera utilizada por esta servlet para invocacao de servicos Java 
+			EE, como EJBs por exemplo. -->
+		<!-- <run-as> -->
+		<!-- <role-name>admin</role-name> -->
+		<!-- </run-as> -->
+	</servlet>
+
+	<!-- Existem 4 formas de autenticacao na plataforma Java EE 6: BASIC, DIGEST, CLIENT-CERT (SSL) e FORM. Cada uma com suas particularidades 
+		e seguranca. Para configurar a forma de autenticacao e utilizado o elemento login-config, que pode aparecer apenas uma vez no web.xml -->
+
+	<!-- A forma BASIC nao criptografa as informacoes de usuario e senha do cliente, e exibe uma janela pop up para solicitar esses dados 
+		para o usuario. Essas informacoes sao enviadas para o servidor atraves de campos de cabecalhos da requisicao. -->
+	<!-- <login-config> -->
+	<!-- Forma de autenticacao -->
+	<!-- <auth-method>BASIC</auth-method> -->
+	<!-- Mensagem que aparecera no pop up -->
+	<!-- <realm-name>Informe o usuario e a senha</realm-name> -->
+	<!-- </login-config> -->
+
+
+
+	<!-- A forma DIGEST e uma das mais seguras, pois utiliza algoritimos de criptografia hashing para criptografar o usuario e a senha 
+		do usuario antes de anviar para o servidor. Utilizar a mesma forma de pop up para solicitar o usuario e a senha para o cliente, porem 
+		esses dados sao criptografados antes de serem enviados, apos isso nao ha como decriptografar os dados, desta forma, apenas uma chave 
+		hash e enviada para o servidor, que por sua vez, conhece o algoritmo de criptografia, gerando assim uma chave hash tambem. Caso as 
+		duas chaves forem identicas, o usuario e autenticado, caso contrario, significa que o usuario ou a senha estao incorretos. -->
+	<!-- <login-config> -->
+	<!-- A configuracao da forma de autenticacao DIGEST e parecida com a BASIC -->
+	<!-- <auth-method>DIGEST</auth-method> -->
+	<!-- <realm-name>Digite o usuario e a senha</realm-name> -->
+	<!-- </login-config> -->
+
+
+
+	<!-- A forma CLIENT-CERT, utiliza certificados SSL para autenticacao do usuario, desta forma, a requisicao e enviada para o servidor 
+		criptografada atraves de uma chave de autenticacao. -->
+	<!-- <login-config> -->
+	<!-- Na forma de autenticacao CLIENT-CERT nao e necessario informar um digest name, uma vez que nao faz sentido exibir uma mensagem 
+		para o usuario quando certificados SSL estao sendo utilizados. -->
+	<!-- <auth-method>CLIENT-CERT</auth-method> -->
+	<!-- </login-config> -->
+
+
+
+	<!-- A ultima forma, FORM, utilizar um formulario HTML para solicitar os dados do usuario, esses dados sao enviados no corpo de uma 
+		requisicao POST, porem nao sao criptografados. Esta forma de autenticacao e muito utilizada em conjunto com SSL, deste modo, os dados 
+		enviados para o servidor sao criptografados utilizando certificados. -->
+	<login-config>
+		<!-- A forma de autenticacao FORM possui uma configuracao mais complexa -->
+		<auth-method>FORM</auth-method>
+
+		<!-- E preciso informar as paginas de login e erro. Nao e permitido informar um real-name e o caminho das paginas devem comecar com 
+			"/" -->
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/login.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/erro/403.jsp</location>
+	</error-page>
+
+
+	<!-- Roles sao "grupos" que possuem determinadas permissoes dentro da aplicacao. Para o container saber quais roles a aplicacao possui, 
+		e necessario declara-las no web.xml, desta forma o container permitira apenas usuarios que possuem essas roles. As roles tambem podem 
+		ser declaradas atraves de anotacoes. -->
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<role-name>user</role-name>
+	</security-role>
+
+
+	<!-- Com security-constraint e possivel definir configuracoes e restricoes de acesso para determinados recursos da aplicacaco. Este 
+		elemento pode aparecer mais de uma vez no web.xml -->
+	<security-constraint>
+		<display-name>Configuracoes de acesso</display-name>
+
+		<!-- web-resource-collection define uma conjunto de paginas onde essa restricao sera aplicada. Podem exestir mais de um elemento 
+			desse dentro do mesmo security-constraint. Alem disso, um mesmo recurso pode pertencer a varios web-resource-collection em diferentes 
+			security-constraints, neste caso, o container aplicara as restricoes de TODAS as security-constraints declaradas no web.xml para esse 
+			mesmo recurso -->
+		<web-resource-collection>
+			<web-resource-name>restrito</web-resource-name>
+
+			<!-- Podem existir mais de um url-pattern -->
+			<url-pattern>/restrito/index.jsp</url-pattern>
+			<url-pattern>/restrito/page.jsp</url-pattern>
+
+			<!-- http-method indica para qual metodo essa restricao de seguranca sera aplicada, ou seja, essa restricao de seguranca somente 
+				sera aplicada caso o metodo HTTP utilizado seja algum dos definidos aqui, caso contrario, o usuario conseguira acessar esse recurso 
+				sem problemas -->
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+
+		<!-- auth-constraint indica quais grupos de usuario possuem permissao para acessar os recursos desse security-constraint. Caso um 
+			recurso faca parte de mais de um secutiry-constraint, e os outros secutiry-constraints tambem possuam auth-constraint, o container 
+			verificara se o usuario faz parte de algum dos grupos de todos os secutiry-constraints de onde o recurso esta. -->
+		<!-- Caso nenhum auth-constraint seja especificado, qualquer usuario, autenticado ou nao, tera acesso a esses recursos. -->
+		<auth-constraint>
+			<role-name>admin</role-name>
+			<!-- E possivel utilizar o caractere "*" como coringa para role-name, neste caso, qualquer usuario autenticado tera acesso a esses 
+				recursos. -->
+			<!-- <role-name>*</role-name> -->
+		</auth-constraint>
+
+		<!-- user-data-constraint define o tipo de seguranca que o servidor deve aplicar para o canal de comunicacao entre o cliente. NONE 
+			e o padrao, ja INTEGRAL e CONFIDENTIAL sao mais utilizados para conexoes HTTPS -->
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+</web-app>
